@@ -1,0 +1,13 @@
+package tiger.absyn;
+
+import tiger.symbol.Symbol;
+
+public class SimpleVar extends Var {
+
+    public Symbol name;
+
+    public SimpleVar(int p, Symbol n) {
+        pos = p;
+        name = n;
+    }
+}
