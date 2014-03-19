@@ -1,13 +1,27 @@
 grammar Tiger;
 
-
 @header {
 package tiger.parser;
 
+import tiger.absyn.Exp;
+import tiger.absyn.IntExp;
+import tiger.absyn.NilExp;
+import tiger.absyn.StringExp;
+import tiger.absyn.Print;
+import tiger.absyn.AssignExp;
+import tiger.absyn.SimpleVar;
+import tiger.absyn.VarExp;
+import tiger.symbol.Symbol;
+import tiger.absyn.Absyn;
+import tiger.absyn.CallExp;
+import tiger.absyn.ExpList;
+import tiger.absyn.FieldExpList;
+import tiger.absyn.RecordExp;
 }
 
-prog: exp
-    | decs
+
+prog: exp  {Print p = new Print(System.out); p.prExp($exp.e, 2);}
+    | decs 
     ;
     
 dec: TYPE ID EQ ty
@@ -22,7 +36,8 @@ ty: typeid
   ;
 
 	
-typeid	:	ID;
+typeid	
+:	ID;
 
 tyfields:	ID COLON typeid (COMMA ID COLON typeid)* 
 	|	/*epsilon */
@@ -30,27 +45,62 @@ tyfields:	ID COLON typeid (COMMA ID COLON typeid)*
 
 decs	:	dec+;
     
-exp: andexp (OR andexp)*;
+exp
+returns 
+[Exp e;]
+: andexp {$e = $andexp.e;} (OR andexp)* 
+   ;
    
  	
-andexp	:	compexp (AND compexp)*;
-compexp	:	sumexp ((GE|LE|EQ|NEQ|LT|GT) sumexp)*;
-sumexp	:	mulexp ((PLUS|MINUS) mulexp)*;
-mulexp	:	atom ((TIMES|DIVIDE) atom)*;
+andexp	
+returns 
+[ Exp e;]
+:	compexp {$e = $compexp.e;} (AND compexp)*;
+compexp	
+returns 
+[Exp e;]
+:	sumexp {$e = $sumexp.e;}((GE|LE|EQ|NEQ|LT|GT) sumexp)*;
+sumexp	
+returns
+[Exp e;]
+:	mulexp {$e = $mulexp.e;} ((PLUS|MINUS) mulexp)*;
 
-atom	:      
+mulexp 
+returns
+[Exp e;]
+ :  atom {$e = $atom.e;} ((TIMES|DIVIDE) atom)*;
+
+
+atom	
+
+returns [
+Exp e;
+]   
+
+locals [
+ExpList expList = null;
+]
+
+:      
     /* literals */
-    NIL
-   |INT
-   |STRING
-   |ID (ASSIGN exp)?
-     /* function call */
-   | ID LPAREN (exp (COMMA exp)*)? RPAREN 
+
+    NIL {$e = new NilExp($NIL.pos);}
+   |INT {$e = new IntExp($INT.pos, Integer.parseInt($INT.text)); }
+   |STRING {$e = new StringExp($STRING.pos, $STRING.text); }
+   |ID          {$e = new VarExp($ID.pos, new SimpleVar($ID.pos, Symbol.symbol($ID.text)));}  
+    (ASSIGN exp {$e = new AssignExp($ID.pos, new SimpleVar($ID.pos, Symbol.symbol($ID.text)), $exp.e); })?
    
-   /* array and record creations */
-   |typeid LBRACE (ID EQ exp (COMMA ID EQ exp)*)? RBRACE 
-  
-   /* variable, field, elements of an array, array creation *//
+
+   /* function call */
+   | ID LPAREN (exp {$expList = new ExpList($exp.e, null);} (COMMA exp {$expList.tail = new ExpList($exp.e, null);})*)?  RPAREN {$e = new CallExp($ID.pos, Symbol.symbol($ID.text),$expList);}
+
+   /* record creations */
+   |typeid  LBRACE {FieldExpList list = null, first=null;} (id1=ID EQ exp1=exp {first=list = new FieldExpList($id1.pos, Symbol.symbol($id1.text), $exp1.e, null);} (COMMA id2=ID EQ exp2=exp {list.tail = new FieldExpList($id2.pos, Symbol.symbol($id2.text), $exp2.e, null);list=list.tail;})*)? RBRACE  {$e = new RecordExp($start.getCharPositionInLine(), Symbol.symbol($typeid.text), first);}
+
+
+   /* variable, field, elements of an array, array creation */
+
+
    | ID DOT ID lvaluep (ASSIGN exp)?
    | ID LBRACK exp RBRACK oforlvaluep 
    
