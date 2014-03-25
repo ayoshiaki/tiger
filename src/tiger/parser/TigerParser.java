@@ -177,13 +177,13 @@ public class TigerParser extends Parser {
 					{
 					setState(41); ((DecContext)_localctx).COLON = match(COLON);
 					setState(42); ((DecContext)_localctx).typeid = typeid();
-					((DecContext)_localctx).nt =  new NameTy((((DecContext)_localctx).COLON!=null?((DecContext)_localctx).COLON.getCharPositionInLine():0), Symbol.symbol((((DecContext)_localctx).typeid!=null?_input.getText(((DecContext)_localctx).typeid.start,((DecContext)_localctx).typeid.stop):null)));
+					((DecContext)_localctx).nt =  new NameTy(new Position((((DecContext)_localctx).COLON!=null?((DecContext)_localctx).COLON.getLine():0), (((DecContext)_localctx).COLON!=null?((DecContext)_localctx).COLON.getCharPositionInLine():0)), Symbol.symbol((((DecContext)_localctx).typeid!=null?_input.getText(((DecContext)_localctx).typeid.start,((DecContext)_localctx).typeid.stop):null)));
 					}
 				}
 
 				setState(47); match(ASSIGN);
 				setState(48); ((DecContext)_localctx).exp = exp();
-				((DecContext)_localctx).d =  new VarDec((((DecContext)_localctx).VAR!=null?((DecContext)_localctx).VAR.getCharPositionInLine():0),Symbol.symbol((((DecContext)_localctx).ID!=null?((DecContext)_localctx).ID.getText():null)), _localctx.nt, ((DecContext)_localctx).exp.e);
+				((DecContext)_localctx).d =  new VarDec(new Position((((DecContext)_localctx).VAR!=null?((DecContext)_localctx).VAR.getLine():0), (((DecContext)_localctx).VAR!=null?((DecContext)_localctx).VAR.getCharPositionInLine():0)),Symbol.symbol((((DecContext)_localctx).ID!=null?((DecContext)_localctx).ID.getText():null)), _localctx.nt, ((DecContext)_localctx).exp.e);
 				}
 				break;
 			default:
@@ -249,7 +249,7 @@ public class TigerParser extends Parser {
 			setState(54); ((TypedecContext)_localctx).ID = match(ID);
 			setState(55); match(EQ);
 			setState(56); ((TypedecContext)_localctx).ty = ty();
-			((TypedecContext)_localctx).d =  _localctx.l = new TypeDec((((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getCharPositionInLine():0), Symbol.symbol((((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getText():null)), ((TypedecContext)_localctx).ty.t, null);
+			((TypedecContext)_localctx).d =  _localctx.l = new TypeDec(new Position((((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getLine():0), (((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getText():null)), ((TypedecContext)_localctx).ty.t, null);
 			setState(66);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
@@ -261,7 +261,7 @@ public class TigerParser extends Parser {
 					setState(59); ((TypedecContext)_localctx).ID = match(ID);
 					setState(60); match(EQ);
 					setState(61); ((TypedecContext)_localctx).ty = ty();
-					_localctx.l.next= new TypeDec((((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getCharPositionInLine():0), Symbol.symbol((((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getText():null)), ((TypedecContext)_localctx).ty.t, null);((TypedecContext)_localctx).l =  _localctx.l.next;
+					_localctx.l.next= new TypeDec(new Position((((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getLine():0), (((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((TypedecContext)_localctx).ID!=null?((TypedecContext)_localctx).ID.getText():null)), ((TypedecContext)_localctx).ty.t, null);((TypedecContext)_localctx).l =  _localctx.l.next;
 					}
 					} 
 				}
@@ -368,13 +368,13 @@ public class TigerParser extends Parser {
 				{
 				setState(75); ((FunctiondecContext)_localctx).COLON = match(COLON);
 				setState(76); ((FunctiondecContext)_localctx).typeid = typeid();
-				 nt = new NameTy((((FunctiondecContext)_localctx).COLON!=null?((FunctiondecContext)_localctx).COLON.getCharPositionInLine():0), Symbol.symbol((((FunctiondecContext)_localctx).typeid!=null?_input.getText(((FunctiondecContext)_localctx).typeid.start,((FunctiondecContext)_localctx).typeid.stop):null)));
+				 nt = new NameTy(new Position((((FunctiondecContext)_localctx).COLON!=null?((FunctiondecContext)_localctx).COLON.getLine():0), (((FunctiondecContext)_localctx).COLON!=null?((FunctiondecContext)_localctx).COLON.getCharPositionInLine():0)), Symbol.symbol((((FunctiondecContext)_localctx).typeid!=null?_input.getText(((FunctiondecContext)_localctx).typeid.start,((FunctiondecContext)_localctx).typeid.stop):null)));
 				}
 			}
 
 			setState(81); match(EQ);
 			setState(82); ((FunctiondecContext)_localctx).exp = exp();
-			((FunctiondecContext)_localctx).d = _localctx.l= new FunctionDec((((FunctiondecContext)_localctx).FUNCTION!=null?((FunctiondecContext)_localctx).FUNCTION.getCharPositionInLine():0), Symbol.symbol((((FunctiondecContext)_localctx).ID!=null?((FunctiondecContext)_localctx).ID.getText():null)), ((FunctiondecContext)_localctx).tyfields.first, nt, ((FunctiondecContext)_localctx).exp.e, null);
+			((FunctiondecContext)_localctx).d = _localctx.l= new FunctionDec(new Position((((FunctiondecContext)_localctx).FUNCTION!=null?((FunctiondecContext)_localctx).FUNCTION.getLine():0), (((FunctiondecContext)_localctx).FUNCTION!=null?((FunctiondecContext)_localctx).FUNCTION.getCharPositionInLine():0)), Symbol.symbol((((FunctiondecContext)_localctx).ID!=null?((FunctiondecContext)_localctx).ID.getText():null)), ((FunctiondecContext)_localctx).tyfields.first, nt, ((FunctiondecContext)_localctx).exp.e, null);
 			}
 			setState(102);
 			_errHandler.sync(this);
@@ -394,13 +394,13 @@ public class TigerParser extends Parser {
 						{
 						setState(90); ((FunctiondecContext)_localctx).COLON = match(COLON);
 						setState(91); ((FunctiondecContext)_localctx).typeid = typeid();
-						 nt = new NameTy((((FunctiondecContext)_localctx).COLON!=null?((FunctiondecContext)_localctx).COLON.getCharPositionInLine():0), Symbol.symbol((((FunctiondecContext)_localctx).typeid!=null?_input.getText(((FunctiondecContext)_localctx).typeid.start,((FunctiondecContext)_localctx).typeid.stop):null)));
+						 nt = new NameTy(new Position((((FunctiondecContext)_localctx).COLON!=null?((FunctiondecContext)_localctx).COLON.getLine():0), (((FunctiondecContext)_localctx).COLON!=null?((FunctiondecContext)_localctx).COLON.getCharPositionInLine():0)), Symbol.symbol((((FunctiondecContext)_localctx).typeid!=null?_input.getText(((FunctiondecContext)_localctx).typeid.start,((FunctiondecContext)_localctx).typeid.stop):null)));
 						}
 					}
 
 					setState(96); match(EQ);
 					setState(97); ((FunctiondecContext)_localctx).exp = exp();
-					_localctx.l.next = new FunctionDec((((FunctiondecContext)_localctx).FUNCTION!=null?((FunctiondecContext)_localctx).FUNCTION.getCharPositionInLine():0), Symbol.symbol((((FunctiondecContext)_localctx).ID!=null?((FunctiondecContext)_localctx).ID.getText():null)), ((FunctiondecContext)_localctx).tyfields.first, nt, ((FunctiondecContext)_localctx).exp.e, null); ((FunctiondecContext)_localctx).l =  _localctx.l.next;
+					_localctx.l.next = new FunctionDec(new Position((((FunctiondecContext)_localctx).FUNCTION!=null?((FunctiondecContext)_localctx).FUNCTION.getLine():0), (((FunctiondecContext)_localctx).FUNCTION!=null?((FunctiondecContext)_localctx).FUNCTION.getCharPositionInLine():0)), Symbol.symbol((((FunctiondecContext)_localctx).ID!=null?((FunctiondecContext)_localctx).ID.getText():null)), ((FunctiondecContext)_localctx).tyfields.first, nt, ((FunctiondecContext)_localctx).exp.e, null); ((FunctiondecContext)_localctx).l =  _localctx.l.next;
 					}
 					} 
 				}
@@ -460,7 +460,7 @@ public class TigerParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(105); ((TyContext)_localctx).typeid = typeid();
-				((TyContext)_localctx).t =  new NameTy(_localctx.start.getCharPositionInLine(),Symbol.symbol((((TyContext)_localctx).typeid!=null?_input.getText(((TyContext)_localctx).typeid.start,((TyContext)_localctx).typeid.stop):null)));
+				((TyContext)_localctx).t =  new NameTy(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()),Symbol.symbol((((TyContext)_localctx).typeid!=null?_input.getText(((TyContext)_localctx).typeid.start,((TyContext)_localctx).typeid.stop):null)));
 				}
 				break;
 			case LBRACE:
@@ -469,7 +469,7 @@ public class TigerParser extends Parser {
 				setState(108); match(LBRACE);
 				setState(109); ((TyContext)_localctx).tyfields = tyfields();
 				setState(110); match(RBRACE);
-				((TyContext)_localctx).t =  new RecordTy(_localctx.start.getCharPositionInLine(), ((TyContext)_localctx).tyfields.first);
+				((TyContext)_localctx).t =  new RecordTy(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()), ((TyContext)_localctx).tyfields.first);
 				}
 				break;
 			case ARRAY:
@@ -478,7 +478,7 @@ public class TigerParser extends Parser {
 				setState(113); ((TyContext)_localctx).ARRAY = match(ARRAY);
 				setState(114); match(OF);
 				setState(115); ((TyContext)_localctx).typeid = typeid();
-				((TyContext)_localctx).t =  new ArrayTy((((TyContext)_localctx).ARRAY!=null?((TyContext)_localctx).ARRAY.getCharPositionInLine():0), Symbol.symbol((((TyContext)_localctx).typeid!=null?_input.getText(((TyContext)_localctx).typeid.start,((TyContext)_localctx).typeid.stop):null)));
+				((TyContext)_localctx).t =  new ArrayTy(new Position((((TyContext)_localctx).ARRAY!=null?((TyContext)_localctx).ARRAY.getLine():0), (((TyContext)_localctx).ARRAY!=null?((TyContext)_localctx).ARRAY.getCharPositionInLine():0)), Symbol.symbol((((TyContext)_localctx).typeid!=null?_input.getText(((TyContext)_localctx).typeid.start,((TyContext)_localctx).typeid.stop):null)));
 				}
 				break;
 			default:
@@ -581,7 +581,7 @@ public class TigerParser extends Parser {
 				setState(122); ((TyfieldsContext)_localctx).ID = match(ID);
 				setState(123); match(COLON);
 				setState(124); ((TyfieldsContext)_localctx).typeid = typeid();
-				FieldList fields =((TyfieldsContext)_localctx).first =  new FieldList((((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getCharPositionInLine():0),Symbol.symbol((((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getText():null)),Symbol.symbol((((TyfieldsContext)_localctx).typeid!=null?_input.getText(((TyfieldsContext)_localctx).typeid.start,((TyfieldsContext)_localctx).typeid.stop):null)),null);
+				FieldList fields =((TyfieldsContext)_localctx).first =  new FieldList(new Position((((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getLine():0), (((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getText():null)),Symbol.symbol((((TyfieldsContext)_localctx).typeid!=null?_input.getText(((TyfieldsContext)_localctx).typeid.start,((TyfieldsContext)_localctx).typeid.stop):null)),null);
 				setState(134);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -592,7 +592,7 @@ public class TigerParser extends Parser {
 					setState(127); ((TyfieldsContext)_localctx).ID = match(ID);
 					setState(128); match(COLON);
 					setState(129); ((TyfieldsContext)_localctx).typeid = typeid();
-					fields.tail = new FieldList((((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getCharPositionInLine():0),Symbol.symbol((((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getText():null)),Symbol.symbol((((TyfieldsContext)_localctx).typeid!=null?_input.getText(((TyfieldsContext)_localctx).typeid.start,((TyfieldsContext)_localctx).typeid.stop):null)),null); fields = fields.tail;
+					fields.tail = new FieldList(new Position((((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getLine():0), (((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getCharPositionInLine():0)),Symbol.symbol((((TyfieldsContext)_localctx).ID!=null?((TyfieldsContext)_localctx).ID.getText():null)),Symbol.symbol((((TyfieldsContext)_localctx).typeid!=null?_input.getText(((TyfieldsContext)_localctx).typeid.start,((TyfieldsContext)_localctx).typeid.stop):null)),null); fields = fields.tail;
 					}
 					}
 					setState(136);
@@ -728,7 +728,7 @@ public class TigerParser extends Parser {
 					{
 					setState(153); match(OR);
 					setState(154); ((ExpContext)_localctx).ar = ((ExpContext)_localctx).andexp = andexp();
-					((ExpContext)_localctx).e =  new IfExp(_localctx.start.getCharPositionInLine(),_localctx.e,new IntExp(_localctx.start.getCharPositionInLine(),1), ((ExpContext)_localctx).ar.e);
+					((ExpContext)_localctx).e =  new IfExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()),_localctx.e,new IntExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()),1), ((ExpContext)_localctx).ar.e);
 					}
 					} 
 				}
@@ -796,7 +796,7 @@ public class TigerParser extends Parser {
 					{
 					setState(164); match(AND);
 					setState(165); ((AndexpContext)_localctx).cr = ((AndexpContext)_localctx).compexp = compexp();
-					((AndexpContext)_localctx).e =  new IfExp(_localctx.start.getCharPositionInLine(),_localctx.e,((AndexpContext)_localctx).cr.e,new IntExp(_localctx.start.getCharPositionInLine(),0));
+					((AndexpContext)_localctx).e =  new IfExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()),_localctx.e,((AndexpContext)_localctx).cr.e,new IntExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()),0));
 					}
 					} 
 				}
@@ -924,7 +924,7 @@ public class TigerParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					setState(189); ((CompexpContext)_localctx).r = ((CompexpContext)_localctx).sumexp = sumexp();
-					((CompexpContext)_localctx).e =  new OpExp(_localctx.start.getCharPositionInLine(), _localctx.e, _localctx.op, ((CompexpContext)_localctx).r.e);
+					((CompexpContext)_localctx).e =  new OpExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()), _localctx.e, _localctx.op, ((CompexpContext)_localctx).r.e);
 					}
 					} 
 				}
@@ -1012,7 +1012,7 @@ public class TigerParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					setState(205); ((SumexpContext)_localctx).r = ((SumexpContext)_localctx).mulexp = mulexp();
-					((SumexpContext)_localctx).e =  new OpExp(_localctx.start.getCharPositionInLine(), _localctx.e, _localctx.op, ((SumexpContext)_localctx).r.e);
+					((SumexpContext)_localctx).e =  new OpExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()), _localctx.e, _localctx.op, ((SumexpContext)_localctx).r.e);
 					}
 					} 
 				}
@@ -1100,7 +1100,7 @@ public class TigerParser extends Parser {
 						throw new NoViableAltException(this);
 					}
 					setState(221); ((MulexpContext)_localctx).r = ((MulexpContext)_localctx).atom = atom();
-					((MulexpContext)_localctx).e =  new OpExp(_localctx.start.getCharPositionInLine(), _localctx.e, _localctx.op, ((MulexpContext)_localctx).r.e);
+					((MulexpContext)_localctx).e =  new OpExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()), _localctx.e, _localctx.op, ((MulexpContext)_localctx).r.e);
 					}
 					} 
 				}
@@ -1231,7 +1231,7 @@ public class TigerParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(229); ((AtomContext)_localctx).NIL = match(NIL);
-				((AtomContext)_localctx).e =  new NilExp((((AtomContext)_localctx).NIL!=null?((AtomContext)_localctx).NIL.getCharPositionInLine():0));
+				((AtomContext)_localctx).e =  new NilExp(new Position((((AtomContext)_localctx).NIL!=null?((AtomContext)_localctx).NIL.getLine():0), (((AtomContext)_localctx).NIL!=null?((AtomContext)_localctx).NIL.getCharPositionInLine():0)));
 				}
 				break;
 
@@ -1239,7 +1239,7 @@ public class TigerParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(231); ((AtomContext)_localctx).INT = match(INT);
-				((AtomContext)_localctx).e =  new IntExp((((AtomContext)_localctx).INT!=null?((AtomContext)_localctx).INT.getCharPositionInLine():0), Integer.parseInt((((AtomContext)_localctx).INT!=null?((AtomContext)_localctx).INT.getText():null))); 
+				((AtomContext)_localctx).e =  new IntExp(new Position((((AtomContext)_localctx).INT!=null?((AtomContext)_localctx).INT.getLine():0), (((AtomContext)_localctx).INT!=null?((AtomContext)_localctx).INT.getCharPositionInLine():0)), Integer.parseInt((((AtomContext)_localctx).INT!=null?((AtomContext)_localctx).INT.getText():null))); 
 				}
 				break;
 
@@ -1247,7 +1247,7 @@ public class TigerParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(233); ((AtomContext)_localctx).STRING = match(STRING);
-				((AtomContext)_localctx).e =  new StringExp((((AtomContext)_localctx).STRING!=null?((AtomContext)_localctx).STRING.getCharPositionInLine():0), (((AtomContext)_localctx).STRING!=null?((AtomContext)_localctx).STRING.getText():null)); 
+				((AtomContext)_localctx).e =  new StringExp(new Position((((AtomContext)_localctx).STRING!=null?((AtomContext)_localctx).STRING.getLine():0), (((AtomContext)_localctx).STRING!=null?((AtomContext)_localctx).STRING.getCharPositionInLine():0)), (((AtomContext)_localctx).STRING!=null?((AtomContext)_localctx).STRING.getText():null)); 
 				}
 				break;
 
@@ -1255,14 +1255,14 @@ public class TigerParser extends Parser {
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(235); ((AtomContext)_localctx).ID = match(ID);
-				((AtomContext)_localctx).e =  new VarExp((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), new SimpleVar((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null))));
+				((AtomContext)_localctx).e =  new VarExp(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), new SimpleVar(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null))));
 				setState(241);
 				_la = _input.LA(1);
 				if (_la==ASSIGN) {
 					{
 					setState(237); match(ASSIGN);
 					setState(238); ((AtomContext)_localctx).exp = exp();
-					((AtomContext)_localctx).e =  new AssignExp((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), new SimpleVar((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null))), ((AtomContext)_localctx).exp.e); 
+					((AtomContext)_localctx).e =  new AssignExp(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), new SimpleVar(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null))), ((AtomContext)_localctx).exp.e); 
 					}
 				}
 
@@ -1299,7 +1299,7 @@ public class TigerParser extends Parser {
 				}
 
 				setState(258); match(RPAREN);
-				((AtomContext)_localctx).e =  new CallExp((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null)),_localctx.expList);
+				((AtomContext)_localctx).e =  new CallExp(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null)),_localctx.expList);
 				}
 				break;
 
@@ -1316,7 +1316,7 @@ public class TigerParser extends Parser {
 					setState(263); ((AtomContext)_localctx).id1 = match(ID);
 					setState(264); match(EQ);
 					setState(265); ((AtomContext)_localctx).exp1 = exp();
-					first=list = new FieldExpList((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getText():null)), ((AtomContext)_localctx).exp1.e, null);
+					first=list = new FieldExpList(new Position((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getLine():0), (((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getText():null)), ((AtomContext)_localctx).exp1.e, null);
 					setState(275);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
@@ -1327,7 +1327,7 @@ public class TigerParser extends Parser {
 						setState(268); ((AtomContext)_localctx).id2 = match(ID);
 						setState(269); match(EQ);
 						setState(270); ((AtomContext)_localctx).exp2 = exp();
-						list.tail = new FieldExpList((((AtomContext)_localctx).id2!=null?((AtomContext)_localctx).id2.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).id2!=null?((AtomContext)_localctx).id2.getText():null)), ((AtomContext)_localctx).exp2.e, null);list=list.tail;
+						list.tail = new FieldExpList(new Position((((AtomContext)_localctx).id2!=null?((AtomContext)_localctx).id2.getLine():0), (((AtomContext)_localctx).id2!=null?((AtomContext)_localctx).id2.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).id2!=null?((AtomContext)_localctx).id2.getText():null)), ((AtomContext)_localctx).exp2.e, null);list=list.tail;
 						}
 						}
 						setState(277);
@@ -1338,7 +1338,7 @@ public class TigerParser extends Parser {
 				}
 
 				setState(280); match(RBRACE);
-				((AtomContext)_localctx).e =  new RecordExp(_localctx.start.getCharPositionInLine(), Symbol.symbol((((AtomContext)_localctx).typeid!=null?_input.getText(((AtomContext)_localctx).typeid.start,((AtomContext)_localctx).typeid.stop):null)), first);
+				((AtomContext)_localctx).e =  new RecordExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()), Symbol.symbol((((AtomContext)_localctx).typeid!=null?_input.getText(((AtomContext)_localctx).typeid.start,((AtomContext)_localctx).typeid.stop):null)), first);
 				}
 				break;
 
@@ -1348,7 +1348,7 @@ public class TigerParser extends Parser {
 				setState(283); ((AtomContext)_localctx).id1 = match(ID);
 				setState(284); match(DOT);
 				setState(285); ((AtomContext)_localctx).id2 = match(ID);
-				Var x = null; ((AtomContext)_localctx).e =  new VarExp((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0), x=new FieldVar((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0), new SimpleVar((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getText():null))),Symbol.symbol((((AtomContext)_localctx).id2!=null?((AtomContext)_localctx).id2.getText():null))));
+				Var x = null; ((AtomContext)_localctx).e =  new VarExp(new Position((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getLine():0), (((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0)), x=new FieldVar(new Position((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getLine():0), (((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0)), new SimpleVar(new Position((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getLine():0), (((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getText():null))),Symbol.symbol((((AtomContext)_localctx).id2!=null?((AtomContext)_localctx).id2.getText():null))));
 				setState(297);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -1360,7 +1360,7 @@ public class TigerParser extends Parser {
 						{
 						setState(287); match(DOT);
 						setState(288); ((AtomContext)_localctx).id3 = match(ID);
-						((AtomContext)_localctx).e =  new VarExp((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0),x= new FieldVar((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0), x,Symbol.symbol((((AtomContext)_localctx).id3!=null?((AtomContext)_localctx).id3.getText():null))));
+						((AtomContext)_localctx).e =  new VarExp(new Position((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getLine():0), (((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0)),x= new FieldVar(new Position((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getLine():0), (((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0)), x,Symbol.symbol((((AtomContext)_localctx).id3!=null?((AtomContext)_localctx).id3.getText():null))));
 						}
 						break;
 					case LBRACK:
@@ -1368,7 +1368,7 @@ public class TigerParser extends Parser {
 						setState(290); match(LBRACK);
 						setState(291); ((AtomContext)_localctx).exp = exp();
 						setState(292); match(RBRACK);
-						((AtomContext)_localctx).e =  new VarExp((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0), x=new SubscriptVar((((AtomContext)_localctx).id3!=null?((AtomContext)_localctx).id3.getCharPositionInLine():0), x, ((AtomContext)_localctx).exp.e));
+						((AtomContext)_localctx).e =  new VarExp(new Position((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getLine():0), (((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0)), x=new SubscriptVar(new Position((((AtomContext)_localctx).id3!=null?((AtomContext)_localctx).id3.getLine():0), (((AtomContext)_localctx).id3!=null?((AtomContext)_localctx).id3.getCharPositionInLine():0)), x, ((AtomContext)_localctx).exp.e));
 						}
 						break;
 					default:
@@ -1385,7 +1385,7 @@ public class TigerParser extends Parser {
 					{
 					setState(300); match(ASSIGN);
 					setState(301); ((AtomContext)_localctx).exp = exp();
-					((AtomContext)_localctx).e =  new AssignExp((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0),x,((AtomContext)_localctx).exp.e);
+					((AtomContext)_localctx).e =  new AssignExp(new Position((((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getLine():0), (((AtomContext)_localctx).id1!=null?((AtomContext)_localctx).id1.getCharPositionInLine():0)),x,((AtomContext)_localctx).exp.e);
 					}
 				}
 
@@ -1405,7 +1405,7 @@ public class TigerParser extends Parser {
 					{
 					setState(310); match(OF);
 					setState(311); ((AtomContext)_localctx).e2 = ((AtomContext)_localctx).exp = exp();
-					((AtomContext)_localctx).e =  new ArrayExp((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null)), ((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e);
+					((AtomContext)_localctx).e =  new ArrayExp(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null)), ((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e);
 					}
 					break;
 				case EOF:
@@ -1437,14 +1437,14 @@ public class TigerParser extends Parser {
 				case RBRACE:
 				case EQ:
 					{
-					Var x = null; ((AtomContext)_localctx).e =  new VarExp((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), x=new SubscriptVar((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), new SimpleVar((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null))), ((AtomContext)_localctx).exp.e));
+					Var x = null; ((AtomContext)_localctx).e =  new VarExp(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), x=new SubscriptVar(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), new SimpleVar(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0) , (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null))), ((AtomContext)_localctx).exp.e));
 					setState(319);
 					_la = _input.LA(1);
 					if (_la==ASSIGN) {
 						{
 						setState(315); match(ASSIGN);
 						setState(316); ((AtomContext)_localctx).e3 = ((AtomContext)_localctx).exp = exp();
-						((AtomContext)_localctx).e =  new AssignExp((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0),x,((AtomContext)_localctx).exp.e);
+						((AtomContext)_localctx).e =  new AssignExp(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)),x,((AtomContext)_localctx).exp.e);
 						}
 					}
 
@@ -1461,7 +1461,7 @@ public class TigerParser extends Parser {
 				{
 				setState(323); ((AtomContext)_localctx).MINUS = match(MINUS);
 				setState(324); ((AtomContext)_localctx).exp = exp();
-				((AtomContext)_localctx).e =  new OpExp((((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getCharPositionInLine():0), new IntExp((((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getCharPositionInLine():0), 0), OpExp.MINUS, ((AtomContext)_localctx).exp.e);
+				((AtomContext)_localctx).e =  new OpExp(new Position((((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getLine():0), (((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getCharPositionInLine():0)), new IntExp(new Position((((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getLine():0), (((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getCharPositionInLine():0)), 0), OpExp.MINUS, ((AtomContext)_localctx).exp.e);
 				}
 				break;
 
@@ -1482,14 +1482,14 @@ public class TigerParser extends Parser {
 				setState(333); ((AtomContext)_localctx).e1 = exp();
 				setState(334); match(THEN);
 				setState(335); ((AtomContext)_localctx).e2 = exp();
-				((AtomContext)_localctx).e =  new IfExp((((AtomContext)_localctx).IF!=null?((AtomContext)_localctx).IF.getCharPositionInLine():0),((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e);
+				((AtomContext)_localctx).e =  new IfExp(new Position((((AtomContext)_localctx).IF!=null?((AtomContext)_localctx).IF.getLine():0), (((AtomContext)_localctx).IF!=null?((AtomContext)_localctx).IF.getCharPositionInLine():0)),((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e);
 				setState(341);
 				switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
 				case 1:
 					{
 					setState(337); match(ELSE);
 					setState(338); ((AtomContext)_localctx).e3 = exp();
-					((AtomContext)_localctx).e =  new IfExp((((AtomContext)_localctx).IF!=null?((AtomContext)_localctx).IF.getCharPositionInLine():0),((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e, ((AtomContext)_localctx).e3.e );
+					((AtomContext)_localctx).e =  new IfExp(new Position((((AtomContext)_localctx).IF!=null?((AtomContext)_localctx).IF.getLine():0), (((AtomContext)_localctx).IF!=null?((AtomContext)_localctx).IF.getCharPositionInLine():0)),((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e, ((AtomContext)_localctx).e3.e );
 					}
 					break;
 				}
@@ -1503,7 +1503,7 @@ public class TigerParser extends Parser {
 				setState(344); ((AtomContext)_localctx).e1 = exp();
 				setState(345); match(DO);
 				setState(346); ((AtomContext)_localctx).e2 = exp();
-				((AtomContext)_localctx).e =  new WhileExp((((AtomContext)_localctx).WHILE!=null?((AtomContext)_localctx).WHILE.getCharPositionInLine():0), ((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e);
+				((AtomContext)_localctx).e =  new WhileExp(new Position((((AtomContext)_localctx).WHILE!=null?((AtomContext)_localctx).WHILE.getLine():0), (((AtomContext)_localctx).WHILE!=null?((AtomContext)_localctx).WHILE.getCharPositionInLine():0)), ((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e);
 				}
 				break;
 
@@ -1518,7 +1518,7 @@ public class TigerParser extends Parser {
 				setState(354); ((AtomContext)_localctx).e2 = exp();
 				setState(355); match(DO);
 				setState(356); ((AtomContext)_localctx).e3 = exp();
-				((AtomContext)_localctx).e =  new ForExp((((AtomContext)_localctx).FOR!=null?((AtomContext)_localctx).FOR.getCharPositionInLine():0), new VarDec((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null)), null, ((AtomContext)_localctx).e1.e), ((AtomContext)_localctx).e2.e, ((AtomContext)_localctx).e3.e);
+				((AtomContext)_localctx).e =  new ForExp(new Position((((AtomContext)_localctx).FOR!=null?((AtomContext)_localctx).FOR.getLine():0), (((AtomContext)_localctx).FOR!=null?((AtomContext)_localctx).FOR.getCharPositionInLine():0)), new VarDec(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null)), null, ((AtomContext)_localctx).e1.e), ((AtomContext)_localctx).e2.e, ((AtomContext)_localctx).e3.e);
 				}
 				break;
 
@@ -1526,7 +1526,7 @@ public class TigerParser extends Parser {
 				enterOuterAlt(_localctx, 14);
 				{
 				setState(359); ((AtomContext)_localctx).BREAK = match(BREAK);
-				((AtomContext)_localctx).e =  new BreakExp((((AtomContext)_localctx).BREAK!=null?((AtomContext)_localctx).BREAK.getCharPositionInLine():0));
+				((AtomContext)_localctx).e =  new BreakExp(new Position ((((AtomContext)_localctx).BREAK!=null?((AtomContext)_localctx).BREAK.getLine():0), (((AtomContext)_localctx).BREAK!=null?((AtomContext)_localctx).BREAK.getCharPositionInLine():0)));
 				}
 				break;
 
@@ -1538,7 +1538,7 @@ public class TigerParser extends Parser {
 				setState(363); match(IN);
 				setState(364); ((AtomContext)_localctx).exps = exps();
 				setState(365); match(END);
-				((AtomContext)_localctx).e =  new LetExp ((((AtomContext)_localctx).LET!=null?((AtomContext)_localctx).LET.getCharPositionInLine():0), ((AtomContext)_localctx).decs.d, ((AtomContext)_localctx).exps.e);
+				((AtomContext)_localctx).e =  new LetExp (new Position((((AtomContext)_localctx).LET!=null?((AtomContext)_localctx).LET.getLine():0), (((AtomContext)_localctx).LET!=null?((AtomContext)_localctx).LET.getCharPositionInLine():0)), ((AtomContext)_localctx).decs.d, ((AtomContext)_localctx).exps.e);
 				}
 				break;
 			}
@@ -1613,7 +1613,7 @@ public class TigerParser extends Parser {
 				}
 			}
 
-			((ExpsContext)_localctx).e =  new SeqExp(_localctx.start.getCharPositionInLine(), _localctx.f);
+			((ExpsContext)_localctx).e =  new SeqExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()), _localctx.f);
 			}
 		}
 		catch (RecognitionException re) {
