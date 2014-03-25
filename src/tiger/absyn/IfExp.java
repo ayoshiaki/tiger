@@ -1,5 +1,7 @@
 package tiger.absyn;
 
+import tiger.semant.ExpTy;
+
 public class IfExp extends Exp {
 
     public Exp test;
@@ -19,5 +21,10 @@ public class IfExp extends Exp {
         test = x;
         thenclause = y;
         elseclause = z;
+    }
+
+    @Override
+    public ExpTy transExp() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

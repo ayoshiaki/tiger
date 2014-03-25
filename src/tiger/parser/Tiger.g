@@ -6,8 +6,11 @@ import tiger.symbol.*;
 import tiger.absyn.*;
 }
 
+@members{
+Exp tree = null;
+}
 
-prog: exp  {Print p = new Print(System.out); p.prExp($exp.e, 2);}
+prog: exp  {tree = $exp.e;}
     ;
     
 dec

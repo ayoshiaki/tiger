@@ -1,4 +1,4 @@
-package Symbol;
+package tiger.symbol;
 
 class Binder {
   Object value;

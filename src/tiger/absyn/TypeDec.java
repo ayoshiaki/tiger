@@ -1,5 +1,6 @@
 package tiger.absyn;
 
+import tiger.semant.Env;
 import tiger.symbol.Symbol;
 
 public class TypeDec extends Dec {
@@ -13,5 +14,11 @@ public class TypeDec extends Dec {
         name = n;
         ty = t;
         next = x;
+    }
+
+    @Override
+    public Exp transDec() {
+        Env.getEnv().getTenv().put(name, ty.transTy());
+        return null;
     }
 }

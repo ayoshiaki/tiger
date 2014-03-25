@@ -306,7 +306,7 @@ public class Print {
         }
     }
 
-    void prDec(Dec d, int i) {
+    public void prDec(Dec d, int i) {
         indent(i);
         if (d instanceof FunctionDec) {
             prDec((FunctionDec) d, i);

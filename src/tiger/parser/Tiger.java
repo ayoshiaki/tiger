@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
+import tiger.absyn.Absyn;
+import tiger.absyn.Exp;
 
 /**
  *
@@ -28,24 +30,24 @@ public class Tiger {
             System.out.println(args[0]);
 
             TigerLexer lex = new TigerLexer(new ANTLRFileStream(args[0], "UTF8"));
-            
+
             CommonTokenStream tokens = new CommonTokenStream(lex);
+            /*
+             tokens.fill();
+             ArrayList<Token> tokenlist = (ArrayList<Token>) tokens.getTokens();
+             System.out.println("Tokens qtd: " + tokenlist.size());
 
-            tokens.fill();
-            ArrayList<Token> tokenlist = (ArrayList<Token>) tokens.getTokens();
-            System.out.println("Tokens qtd: " + tokenlist.size());
-
-            for (Token t : tokenlist) {
-                if (t.getType() != TigerLexer.EOF) {
-                    System.out.println("<" + TigerLexer.tokenNames[t.getType()] + "," + t.getText() + ">");
-                }
-            }
+             for (Token t : tokenlist) {
+             if (t.getType() != TigerLexer.EOF) {
+             System.out.println("<" + TigerLexer.tokenNames[t.getType()] + "," + t.getText() + ">");
+             }
+             }
             
-            tokens.reset();
+             */
             TigerParser parser = new TigerParser(tokens);
-            // Begin parsing at rule prog
             parser.prog();
-           
+            Exp tree = parser.tree;
+            tree.transExp();
         } catch (IOException ex) {
             Logger.getLogger(Tiger.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -1,7 +1,8 @@
 // Generated from Tiger.g by ANTLR 4.2
 
 package tiger.parser;
-
+import tiger.symbol.*;
+import tiger.absyn.*;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -46,19 +47,6 @@ public class TigerBaseListener implements TigerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOforlvaluep(@NotNull TigerParser.OforlvaluepContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOforlvaluep(@NotNull TigerParser.OforlvaluepContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExps(@NotNull TigerParser.ExpsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -85,13 +73,26 @@ public class TigerBaseListener implements TigerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVardec(@NotNull TigerParser.VardecContext ctx) { }
+	@Override public void enterFunctiondec(@NotNull TigerParser.FunctiondecContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVardec(@NotNull TigerParser.VardecContext ctx) { }
+	@Override public void exitFunctiondec(@NotNull TigerParser.FunctiondecContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTypedec(@NotNull TigerParser.TypedecContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypedec(@NotNull TigerParser.TypedecContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
@@ -131,19 +132,6 @@ public class TigerBaseListener implements TigerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTy(@NotNull TigerParser.TyContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLvaluep(@NotNull TigerParser.LvaluepContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLvaluep(@NotNull TigerParser.LvaluepContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

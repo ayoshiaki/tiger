@@ -1,7 +1,8 @@
 // Generated from Tiger.g by ANTLR 4.2
 
 package tiger.parser;
-
+import tiger.symbol.*;
+import tiger.absyn.*;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -34,17 +35,6 @@ public interface TigerListener extends ParseTreeListener {
 	void exitDecs(@NotNull TigerParser.DecsContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link TigerParser#oforlvaluep}.
-	 * @param ctx the parse tree
-	 */
-	void enterOforlvaluep(@NotNull TigerParser.OforlvaluepContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TigerParser#oforlvaluep}.
-	 * @param ctx the parse tree
-	 */
-	void exitOforlvaluep(@NotNull TigerParser.OforlvaluepContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link TigerParser#exps}.
 	 * @param ctx the parse tree
 	 */
@@ -67,15 +57,26 @@ public interface TigerListener extends ParseTreeListener {
 	void exitTyfields(@NotNull TigerParser.TyfieldsContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link TigerParser#vardec}.
+	 * Enter a parse tree produced by {@link TigerParser#functiondec}.
 	 * @param ctx the parse tree
 	 */
-	void enterVardec(@NotNull TigerParser.VardecContext ctx);
+	void enterFunctiondec(@NotNull TigerParser.FunctiondecContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TigerParser#vardec}.
+	 * Exit a parse tree produced by {@link TigerParser#functiondec}.
 	 * @param ctx the parse tree
 	 */
-	void exitVardec(@NotNull TigerParser.VardecContext ctx);
+	void exitFunctiondec(@NotNull TigerParser.FunctiondecContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link TigerParser#typedec}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypedec(@NotNull TigerParser.TypedecContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TigerParser#typedec}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypedec(@NotNull TigerParser.TypedecContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link TigerParser#compexp}.
@@ -109,17 +110,6 @@ public interface TigerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTy(@NotNull TigerParser.TyContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link TigerParser#lvaluep}.
-	 * @param ctx the parse tree
-	 */
-	void enterLvaluep(@NotNull TigerParser.LvaluepContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TigerParser#lvaluep}.
-	 * @param ctx the parse tree
-	 */
-	void exitLvaluep(@NotNull TigerParser.LvaluepContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link TigerParser#exp}.
