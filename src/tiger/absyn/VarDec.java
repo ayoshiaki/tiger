@@ -10,19 +10,15 @@ public class VarDec extends Dec {
     public boolean escape = true;
     public NameTy typ; /* optional */
 
+    public VarEntry entry;
     public Exp init;
 
-    public VarDec(int p, Symbol n, NameTy t, Exp i) {
-        pos = p;
+    public VarDec(Position p, Symbol n, NameTy t, Exp i) {
+        setPosition(p);
         name = n;
         typ = t;
         init = i;
     }
 
-    @Override
-    public Exp transDec() {
-        System.out.println("Declarado variável " + name);
-        Env.getEnv().getVenv().put(name, new VarEntry(init.transExp().getTy()));
-        return null;
-    }
+ 
 }

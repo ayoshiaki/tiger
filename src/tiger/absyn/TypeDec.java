@@ -1,24 +1,19 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
 import tiger.symbol.Symbol;
+import tiger.types.NAME;
 
 public class TypeDec extends Dec {
 
     public Symbol name;
     public Ty ty;
     public TypeDec next;
+    public NAME entry;
 
-    public TypeDec(int p, Symbol n, Ty t, TypeDec x) {
-        pos = p;
+    public TypeDec(Position p, Symbol n, Ty t, TypeDec x) {
+        setPosition(p);
         name = n;
         ty = t;
         next = x;
-    }
-
-    @Override
-    public Exp transDec() {
-        Env.getEnv().getTenv().put(name, ty.transTy());
-        return null;
     }
 }

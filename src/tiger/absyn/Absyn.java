@@ -2,5 +2,22 @@ package tiger.absyn;
 
 
 abstract public class Absyn {
-  public int pos;
+  public Position pos;
+
+    /**
+     * @return the pos
+     */
+    public Position getPosition() {
+        return pos;
+    }
+
+    /**
+     * @param pos the pos to set
+     */
+    public void setPosition(Position pos) {
+        this.pos = pos;
+    }
+    
+ 
+  
 }

@@ -1,18 +1,16 @@
 package tiger.absyn;
 
+import tiger.semant.Env;
 import tiger.types.Type;
 
 public class RecordTy extends Ty {
 
     public FieldList fields;
 
-    public RecordTy(int p, FieldList f) {
-        pos = p;
+    public RecordTy(Position p, FieldList f) {
+        setPosition(p);
         fields = f;
     }
 
-    @Override
-    public Type transTy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 }

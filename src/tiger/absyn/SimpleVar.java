@@ -11,20 +11,10 @@ public class SimpleVar extends Var {
 
     public Symbol name;
 
-    public SimpleVar(int p, Symbol n) {
-        pos = p;
+    public SimpleVar(Position p, Symbol n) {
+        setPosition(p);
         name = n;
     }
 
-    @Override
-    public ExpTy transVar() {   
-        Entry x = (Entry) Env.getEnv().getVenv().get(name);
-        if(x != null && x.getEntryType() == Entry.VARENTRY){
-            VarEntry ent = (VarEntry)x;
-            return new ExpTy(null, ent.getTy());
-        } else {
-            System.err.println("Erro posicao " + pos + " variavel " +name +" nao definida !");
-        }
-        return new ExpTy(null, new INT());
-    }
+
 }

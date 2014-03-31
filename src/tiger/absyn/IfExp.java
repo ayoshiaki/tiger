@@ -1,6 +1,8 @@
 package tiger.absyn;
 
+import tiger.semant.Env;
 import tiger.semant.ExpTy;
+import tiger.types.Type;
 
 public class IfExp extends Exp {
 
@@ -9,22 +11,19 @@ public class IfExp extends Exp {
     public Exp elseclause; /* optional */
 
 
-    public IfExp(int p, Exp x, Exp y) {
-        pos = p;
+    public IfExp(Position p, Exp x, Exp y) {
+        setPosition(p);
         test = x;
         thenclause = y;
         elseclause = null;
     }
 
-    public IfExp(int p, Exp x, Exp y, Exp z) {
-        pos = p;
+    public IfExp(Position p, Exp x, Exp y, Exp z) {
+        setPosition(p);
         test = x;
         thenclause = y;
         elseclause = z;
     }
 
-    @Override
-    public ExpTy transExp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 }

@@ -1,15 +1,22 @@
 package tiger.absyn;
 
+import tiger.semant.Env;
 import tiger.semant.ExpTy;
 import tiger.symbol.Symbol;
+import tiger.types.RECORD;
+import tiger.types.Type;
+import tiger.types.VOID;
 
 public class FieldVar extends Var {
-   public Var var;
-   public Symbol field;
-   public FieldVar(int p, Var v, Symbol f) {pos=p; var=v; field=f;}
 
-    @Override
-    public ExpTy transVar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Var var;
+    public Symbol field;
+
+    public FieldVar(Position p, Var v, Symbol f) {
+        setPosition(p);
+        var = v;
+        field = f;
     }
+
+
 }

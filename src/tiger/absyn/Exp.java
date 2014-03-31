@@ -1,7 +1,7 @@
 package tiger.absyn;
 
-import tiger.semant.ExpTy;
+import tiger.types.Type;
 
 abstract public class Exp extends Absyn {
-    abstract public ExpTy transExp();
+    public Type type;
 }

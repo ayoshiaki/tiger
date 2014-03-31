@@ -5,15 +5,12 @@
 package tiger.parser;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Token;
-import tiger.absyn.Absyn;
 import tiger.absyn.Exp;
+import tiger.semant.Semant;
 
 /**
  *
@@ -47,7 +44,8 @@ public class Tiger {
             TigerParser parser = new TigerParser(tokens);
             parser.prog();
             Exp tree = parser.tree;
-            tree.transExp();
+            Semant semantic = new Semant();
+            semantic.transProg(tree);
         } catch (IOException ex) {
             Logger.getLogger(Tiger.class.getName()).log(Level.SEVERE, null, ex);
         }

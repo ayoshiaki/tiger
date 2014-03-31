@@ -5,18 +5,10 @@ import tiger.types.INT;
 
 import tiger.types.NAME;
 public class Env {
-    private Table venv;
-    private Table tenv;
-    private static Env singleton;
-    
-    public static Env getEnv(){
-        if (singleton == null){
-            singleton  = new Env();
-        }
-        return singleton;
-    }
-    
-    private Env() {
+    public Table venv;
+    public Table tenv;
+   
+    public Env() {
         venv = new Table();
         tenv = new Table();
         NAME n = new NAME(Symbol.symbol("int"));
