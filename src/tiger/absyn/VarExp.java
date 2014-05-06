@@ -1,8 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
-
 public class VarExp extends Exp {
 
     public Var var;
@@ -11,5 +8,10 @@ public class VarExp extends Exp {
         setPosition(p);
         var = v;
     }
+        @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
 }
 

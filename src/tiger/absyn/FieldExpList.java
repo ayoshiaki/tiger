@@ -9,4 +9,9 @@ public class FieldExpList extends Absyn {
    public FieldExpList(Position p, Symbol n, Exp i, FieldExpList t) {setPosition(p);
 	name=n; init=i; tail=t;
    }
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
 }

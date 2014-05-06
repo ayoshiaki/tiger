@@ -16,4 +16,9 @@ public class TypeDec extends Dec {
         ty = t;
         next = x;
     }
+        @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
 }

@@ -1,9 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
-import tiger.types.Type;
-
 public class IfExp extends Exp {
 
     public Exp test;
@@ -25,5 +21,9 @@ public class IfExp extends Exp {
         elseclause = z;
     }
 
-  
+      @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
 }

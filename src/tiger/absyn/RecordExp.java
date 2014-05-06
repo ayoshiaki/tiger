@@ -1,7 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
 import tiger.symbol.Symbol;
 
 public  class RecordExp extends Exp {
@@ -13,6 +11,10 @@ public  class RecordExp extends Exp {
         setPosition(p);
         typ = t;
         fields = f;
+    }
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
  

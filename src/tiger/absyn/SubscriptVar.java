@@ -1,9 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
-import tiger.types.Type;
-
 public class SubscriptVar extends Var {
 
     public Var var;
@@ -13,6 +9,11 @@ public class SubscriptVar extends Var {
       setPosition(p);
         var = v;
         index = i;
+    }
+
+        @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
 }

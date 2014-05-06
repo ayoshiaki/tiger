@@ -79,17 +79,6 @@ public interface TigerListener extends ParseTreeListener {
 	void exitTypedec(@NotNull TigerParser.TypedecContext ctx);
 
 	/**
-	 * Enter a parse tree produced by {@link TigerParser#compexp}.
-	 * @param ctx the parse tree
-	 */
-	void enterCompexp(@NotNull TigerParser.CompexpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TigerParser#compexp}.
-	 * @param ctx the parse tree
-	 */
-	void exitCompexp(@NotNull TigerParser.CompexpContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link TigerParser#mulexp}.
 	 * @param ctx the parse tree
 	 */
@@ -99,6 +88,17 @@ public interface TigerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMulexp(@NotNull TigerParser.MulexpContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link TigerParser#compexp}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompexp(@NotNull TigerParser.CompexpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TigerParser#compexp}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompexp(@NotNull TigerParser.CompexpContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link TigerParser#ty}.

@@ -1,11 +1,6 @@
 package tiger.absyn;
 
-import tiger.semant.Entry;
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
-import tiger.semant.VarEntry;
 import tiger.symbol.Symbol;
-import tiger.types.INT;
 
 public class SimpleVar extends Var {
 
@@ -14,6 +9,10 @@ public class SimpleVar extends Var {
     public SimpleVar(Position p, Symbol n) {
         setPosition(p);
         name = n;
+    }
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
 

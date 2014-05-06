@@ -18,6 +18,6 @@ abstract public class Absyn {
         this.pos = pos;
     }
     
- 
+    public abstract void accept(Visitor v);
   
 }

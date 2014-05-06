@@ -1,12 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
-import tiger.types.INT;
-import tiger.types.INT;
-import tiger.types.STRING;
-import tiger.types.Type;
-
 public class OpExp extends Exp {
 
     public Exp left, right;
@@ -20,5 +13,10 @@ public class OpExp extends Exp {
     }
     public final static int PLUS = 0, MINUS = 1, MUL = 2, DIV = 3,
             EQ = 4, NE = 5, LT = 6, LE = 7, GT = 8, GE = 9;
+
+        @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 
 }

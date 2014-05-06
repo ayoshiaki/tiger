@@ -1,6 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
 import tiger.semant.VarEntry;
 import tiger.symbol.Symbol;
 
@@ -18,6 +17,10 @@ public class VarDec extends Dec {
         name = n;
         typ = t;
         init = i;
+    }
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
  

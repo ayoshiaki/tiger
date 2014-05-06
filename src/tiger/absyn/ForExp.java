@@ -1,12 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
-import tiger.types.Type;
-import tiger.types.VOID;
-import tiger.semant.LoopVarEntry;
-import tiger.types.INT;
-
 public class ForExp extends Exp {
 
     public VarDec var;
@@ -19,5 +12,9 @@ public class ForExp extends Exp {
         body = b;
     }
 
-  
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
 }

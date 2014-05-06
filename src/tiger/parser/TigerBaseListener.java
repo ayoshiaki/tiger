@@ -99,19 +99,6 @@ public class TigerBaseListener implements TigerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCompexp(@NotNull TigerParser.CompexpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCompexp(@NotNull TigerParser.CompexpContext ctx) { }
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterMulexp(@NotNull TigerParser.MulexpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -119,6 +106,19 @@ public class TigerBaseListener implements TigerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMulexp(@NotNull TigerParser.MulexpContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompexp(@NotNull TigerParser.CompexpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompexp(@NotNull TigerParser.CompexpContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

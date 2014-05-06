@@ -1,8 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
-
 public class LetExp extends Exp {
 
     public DecList decs;
@@ -13,5 +10,10 @@ public class LetExp extends Exp {
         decs = d;
         body = b;
     }
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
 
 }

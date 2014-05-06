@@ -1,13 +1,6 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
 import tiger.symbol.Symbol;
-import tiger.types.ARRAY;
-import tiger.types.INT;
-import tiger.types.NAME;
-import tiger.types.Type;
-import tiger.types.VOID;
 
 public class ArrayExp extends Exp {
 
@@ -21,5 +14,11 @@ public class ArrayExp extends Exp {
         init = i;
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
+    
   
 }

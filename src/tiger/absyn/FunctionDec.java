@@ -1,14 +1,7 @@
 package tiger.absyn;
 
-import java.util.Hashtable;
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
 import tiger.semant.FunEntry;
-import tiger.semant.VarEntry;
 import tiger.symbol.Symbol;
-import tiger.types.NAME;
-import tiger.types.RECORD;
-import tiger.types.Type;
 
 public class FunctionDec extends Dec {
 
@@ -29,6 +22,10 @@ public class FunctionDec extends Dec {
         next = x;
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 
 
 }

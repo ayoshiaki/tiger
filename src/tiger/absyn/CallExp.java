@@ -1,13 +1,6 @@
 package tiger.absyn;
 
-import tiger.semant.Entry;
-import tiger.semant.Env;
-import tiger.semant.ExpTy;
-import tiger.semant.FunEntry;
 import tiger.symbol.Symbol;
-import tiger.types.RECORD;
-import tiger.types.VOID;
-import tiger.types.VOID;
 
 public class CallExp extends Exp {
 
@@ -20,7 +13,11 @@ public class CallExp extends Exp {
         args = a;
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+        
+ 
 
-
-   
 }

@@ -1,10 +1,6 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
 import tiger.symbol.Symbol;
-import tiger.types.NAME;
-import tiger.types.Type;
-import tiger.types.VOID;
 
 public class NameTy extends Ty {
 
@@ -13,6 +9,11 @@ public class NameTy extends Ty {
     public NameTy(Position p, Symbol n) {
         setPosition(p);
         name = n;
+    }
+
+        @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
 }

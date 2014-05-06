@@ -1,8 +1,5 @@
 package tiger.absyn;
 
-import tiger.semant.Env;
-import tiger.types.Type;
-
 public class RecordTy extends Ty {
 
     public FieldList fields;
@@ -10,6 +7,10 @@ public class RecordTy extends Ty {
     public RecordTy(Position p, FieldList f) {
         setPosition(p);
         fields = f;
+    }
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
    
