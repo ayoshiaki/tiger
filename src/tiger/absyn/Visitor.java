@@ -9,10 +9,17 @@ package tiger.absyn;
  * @author yoshiaki
  */
 public interface Visitor {
+
+    public void visit(Absyn e);
+
+    public void visit(Exp e);
+    
+    public void visit(Dec d);
+
     public void visit(VarDec e);
-    
+
     public void visit(VarExp e);
-    
+
     public void visit(ArrayExp e);
 
     public void visit(ArrayTy e);
@@ -22,10 +29,6 @@ public interface Visitor {
     public void visit(BreakExp e);
 
     public void visit(CallExp e);
-
-    public void visit(FieldExpList e);
-
-    public void visit(FieldList e);
 
     public void visit(FieldVar e);
 
@@ -61,5 +64,6 @@ public interface Visitor {
 
     public void visit(WhileExp e);
 
+    public void visit(Ty t);
 
 }

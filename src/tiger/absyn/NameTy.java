@@ -11,7 +11,7 @@ public class NameTy extends Ty {
         name = n;
     }
 
-        @Override
+   @Override
     public void accept(Visitor v) {
         v.visit(this);
     }
