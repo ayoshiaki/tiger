@@ -31,10 +31,14 @@ public class Tiger {
             parser.prog();
             
             Exp tree = parser.tree;
+            
             Print p = new Print(System.out);
             p.prExp(tree, 0);
+            
             SemantVisitor semantic = new SemantVisitor();
             tree.accept(semantic);
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(Tiger.class.getName()).log(Level.SEVERE, null, ex);
         }

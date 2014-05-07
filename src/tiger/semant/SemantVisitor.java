@@ -104,7 +104,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(VarDec e) {
-        visit(e.init);
+        e.init.accept(this);
         ExpTy init = getExpTy();
         Type type;
         if (e.typ == null) {
@@ -113,7 +113,7 @@ public class SemantVisitor implements Visitor {
             }
             type = init.getTy();
         } else {
-            visit(e.typ);
+            e.typ.accept(this);
             type = ty;
             if (!init.getTy().coerceTo(type)) {
                 error(e.pos, "assignment type mismatch");
@@ -125,15 +125,16 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(VarExp e) {
-        visit(e.var);
+        e.var.accept(this);
     }
 
     @Override
     public void visit(ArrayExp e) {
         NAME name = (NAME) env.tenv.get(e.typ);
-        visit(e.size);
+        e.size.accept(this);
+     
         ExpTy size = getExpTy();
-        visit(e.init);
+        e.init.accept(this);
         ExpTy init = getExpTy();
         checkInt(size, e.size.pos);
         if (name != null) {
@@ -166,9 +167,9 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(AssignExp e) {
-        visit(e.var);
+        e.var.accept(this);
         ExpTy var = getExpTy();
-        visit(e.exp);
+        e.exp.accept(this);
         ExpTy exp = getExpTy();
         if (!exp.getTy().coerceTo(var.getTy())) {
             error(e.pos, "assignment type mismatch");
@@ -193,7 +194,7 @@ public class SemantVisitor implements Visitor {
             error(epos, "missing argument for " + formal.fieldName);
             return null;
         }
-        visit(args.head);
+        args.head.accept(this);
         ExpTy e = getExpTy();
         if (!e.getTy().coerceTo(formal.fieldType)) {
             error(args.head.pos, "argument type mismatch");
@@ -218,7 +219,8 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(FieldVar v) {
-        visit(v);
+        v.accept(this);
+       
         ExpTy var = getExpTy();
         Type actual = var.getTy().actual();
         if (actual.isType(Type.RECORD)) {
@@ -242,15 +244,15 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(ForExp e) {
-        visit(e.var.init);
+        e.var.init.accept(this);
         checkInt(getExpTy(), e.var.pos);
-        visit(e.hi);
+        e.hi.accept(this);
         checkInt(getExpTy(), e.hi.pos);
         env.venv.beginScope();
         e.var.entry = new LoopVarEntry(INT);
         env.venv.put(e.var.name, e.var.entry);
         LoopSemantVisitor loop = new LoopSemantVisitor(env);
-        loop.visit(e.body);
+        e.body.accept(loop);
         ExpTy body = loop.getExpTy();
         env.venv.endScope();
         if (!body.getTy().coerceTo(VOID)) {
@@ -415,7 +417,7 @@ public class SemantVisitor implements Visitor {
         NAME name = (NAME) env.tenv.get(e.typ);
         if (name != null) {
             Type actual = name.actual();
-            if (actual instanceof RECORD) {
+            if (actual.isType(Type.RECORD)) {
                 RECORD r = (RECORD) actual;
                 setExpTy(new ExpTy(null,
                         name));
