@@ -1,8 +1,6 @@
 package tiger.mips;
 
 import java.util.HashMap;
-import tiger.absyn.Exp;
-import tiger.absyn.ExpList;
 import tiger.assem.InstrList;
 import tiger.assem.OPER;
 import tiger.frame.Frame;

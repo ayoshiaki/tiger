@@ -54,7 +54,7 @@ public class SemantVisitor implements Visitor {
     static final STRING STRING = new STRING();
     static final NIL NIL = new NIL();
 
-    private Exp checkComparable(ExpTy et, Position pos) {
+    private tiger.translate.Exp checkComparable(ExpTy et, Position pos) {
         Type a = et.getTy().actual();
         if (!(a instanceof INT
                 || a instanceof STRING
@@ -66,7 +66,7 @@ public class SemantVisitor implements Visitor {
         return et.getExp();
     }
 
-    private Exp checkOrderable(ExpTy et, Position pos) {
+    private tiger.translate.Exp checkOrderable(ExpTy et, Position pos) {
         Type a = et.getTy().actual();
         if (!(a instanceof INT
                 || a instanceof STRING)) {
@@ -75,7 +75,7 @@ public class SemantVisitor implements Visitor {
         return et.getExp();
     }
 
-    private Exp checkInt(ExpTy et, Position pos) {
+    private tiger.translate.Exp checkInt(ExpTy et, Position pos) {
         if (!INT.coerceTo(et.getTy())) {
             error(pos, "integer required");
         }
@@ -183,7 +183,7 @@ public class SemantVisitor implements Visitor {
         setExpTy(new ExpTy(null, VOID));
     }
 
-    private ExpList visit(Position epos, RECORD formal, ExpList args) {
+    private tiger.semant.ExpList visit(Position epos, RECORD formal, ExpList args) {
         if (formal == null) {
             if (args != null) {
                 error(args.head.pos, "too many arguments");
@@ -199,7 +199,7 @@ public class SemantVisitor implements Visitor {
         if (!e.getTy().coerceTo(formal.fieldType)) {
             error(args.head.pos, "argument type mismatch");
         }
-        return new ExpList(e.getExp(), visit(epos, formal.tail, args.tail));
+        return new tiger.semant.ExpList(e.getExp(), visit(epos, formal.tail, args.tail));
     }
 
     @Override
@@ -207,7 +207,7 @@ public class SemantVisitor implements Visitor {
         Entry x = (Entry) env.venv.get(e.func);
         if (x.getEntryType() == Entry.FUNENTRY) {
             FunEntry f = (FunEntry) x;
-            ExpList args = visit(e.getPosition(), f.getFormals(), e.args);
+            tiger.semant.ExpList args = visit(e.getPosition(), f.getFormals(), e.args);
             setExpTy(new ExpTy(null,
                     f.getResult()));
             return;
@@ -331,17 +331,12 @@ public class SemantVisitor implements Visitor {
     public void visit(LetExp e) {
         env.venv.beginScope();
         env.tenv.beginScope();
-        ExpList head = new ExpList(null, null), prev = head;
-        for (DecList d = e.decs; d != null; d = d.tail) {
+        for (DecList d = e.decs; d != null; d = d.tail)
             d.head.accept(this);
-            prev = prev.tail = new ExpList(exp, null);
-        }
         e.body.accept(this);
         env.venv.endScope();
         env.tenv.endScope();
-
         setExpTy(new ExpTy(null, getExpTy().getTy()));
-
     }
 
     @Override
@@ -456,12 +451,12 @@ public class SemantVisitor implements Visitor {
     @Override
     public void visit(SeqExp e) {
         Type type = VOID;
-        ExpList head = new ExpList(null, null), prev = head;
+        tiger.semant.ExpList head = new tiger.semant.ExpList(null, null), prev = head;
         for (ExpList exp = e.list; exp != null; exp = exp.tail) {
             exp.head.accept(this);
             ExpTy et = getExpTy();
             type = et.getTy();
-            prev = prev.tail = new ExpList(et.getExp(), null);
+            prev = prev.tail = new tiger.semant.ExpList(et.getExp(), null);
         }
         expTy = new ExpTy(null, type);
     }

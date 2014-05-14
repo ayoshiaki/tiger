@@ -18,7 +18,7 @@ public abstract class Type {
 
     abstract public boolean isType(int type);
 
-    public static Exp checkInt(ExpTy et, Position p) {
+    public static tiger.translate.Exp checkInt(ExpTy et, Position p) {
         if (!(new INT()).coerceTo(et.getTy())) {
             System.err.println("inteiro requerido: " + "(" + p + ")");
         }

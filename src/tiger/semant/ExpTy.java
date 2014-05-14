@@ -1,6 +1,6 @@
 package tiger.semant;
 
-import tiger.absyn.Exp;
+import tiger.translate.Exp;
 import tiger.types.Type;
 
 public class ExpTy {
