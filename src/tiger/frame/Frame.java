@@ -1,7 +1,5 @@
 package tiger.frame;
 
-import tiger.absyn.Exp;
-import tiger.absyn.ExpList;
 import tiger.assem.InstrList;
 import tiger.temp.Label;
 import tiger.temp.Temp;

@@ -1,5 +1,6 @@
 package tiger.semant;
 
+import tiger.translate.Level;
 import tiger.types.RECORD;
 import tiger.types.Type;
 
@@ -7,10 +8,17 @@ public class FunEntry extends Entry {
 
     private RECORD formals;
     private Type result;
+    private Level level;
 
     public FunEntry(RECORD f, Type r) {
         formals = f;
         result = r;
+    }
+
+    FunEntry(Level newLevel, RECORD fields, Type type) {
+        level = newLevel;
+        formals = fields;
+        result = type;
     }
 
     @Override
@@ -44,5 +52,12 @@ public class FunEntry extends Entry {
      */
     public void setResult(Type result) {
         this.result = result;
+    }
+
+    /**
+     * @return the level
+     */
+    public Level getLevel() {
+        return level;
     }
 }

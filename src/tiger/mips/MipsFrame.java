@@ -163,7 +163,7 @@ public class MipsFrame extends tiger.frame.Frame {
 		Stm tempBody=body;
 		TempList regs=argRegs;
 		while (accesses!=null){
-			System.out.println(name);
+			//System.out.println(name);
 			tempBody=new SEQ(new MOVE((accesses.head.exp(new TEMP(FP))),new TEMP(regs.head)),tempBody);
 			accesses=accesses.tail;
 			regs=regs.tail;

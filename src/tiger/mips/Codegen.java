@@ -4,9 +4,25 @@ package tiger.mips;
 import tiger.assem.Instr;
 import tiger.assem.InstrList;
 import tiger.assem.OPER;
-import tiger.assem.LABEL;
-import tiger.tree.*;
-import tiger.temp.*;
+import tiger.tree.Exp;
+import tiger.temp.Label;
+import tiger.temp.Temp;
+import tiger.temp.TempList;
+import tiger.temp.TempMap;
+import tiger.tree.BINOP;
+import tiger.tree.CALL;
+import tiger.tree.CJUMP;
+import tiger.tree.CONST;
+import tiger.tree.EXPR;
+import tiger.tree.ExpList;
+import tiger.tree.JUMP;
+import tiger.tree.LABEL;
+import tiger.tree.MEM;
+import tiger.tree.MOVE;
+import tiger.tree.NAME;
+import tiger.tree.Stm;
+import tiger.tree.StmList;
+import tiger.tree.TEMP;
 
 public class Codegen {
 	MipsFrame frame;
@@ -84,8 +100,8 @@ public class Codegen {
 			munchStm((JUMP) s);
 		else if (s instanceof CJUMP)
 			munchStm((CJUMP) s);
-		else if (s instanceof tiger.tree.LABEL)
-			munchStm((tiger.tree.LABEL) s);
+		else if (s instanceof LABEL)
+			munchStm((LABEL) s);
 		else
 			throw new Error("Codegen.munchStm");
 	}
@@ -154,13 +170,10 @@ public class Codegen {
 		CJUMP[tiger.tree.CJUMP.UGE] = "bgeu";
 	}
 
-	public void visit(CJUMP n) {
 
-											// targets
-	}
 
 	void munchStm(LABEL l) {
-		emit(new LABEL(l.label.toString() + ":", l.label));
+		emit(new tiger.assem.LABEL(l.label.toString() + ":", l.label));
 	}
 
 	Temp munchExp(Exp s) {

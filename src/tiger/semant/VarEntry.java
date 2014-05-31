@@ -1,11 +1,15 @@
 package tiger.semant;
 
+import tiger.translate.Access;
 import tiger.types.Type;
 
 public class VarEntry extends Entry {
     private Type ty;
-    public VarEntry(Type t) {
+    
+    public VarEntry(Access a, Type t) {
+       
         ty = t;
+        super.setAccess(a);
     }
 
     /**
@@ -13,7 +17,7 @@ public class VarEntry extends Entry {
      */
     public Type getTy() {
         return ty;
-    }
+  }
 
     /**
      * @param ty the ty to set
@@ -26,5 +30,6 @@ public class VarEntry extends Entry {
     public int getEntryType() {
         return Entry.VARENTRY;
     }
+
     
 }
