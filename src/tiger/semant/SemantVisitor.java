@@ -11,6 +11,7 @@ import tiger.absyn.Dec;
 import tiger.absyn.DecList;
 import tiger.absyn.Exp;
 import tiger.absyn.ExpList;
+import tiger.absyn.FieldExpList;
 import tiger.absyn.FieldList;
 import tiger.absyn.FieldVar;
 import tiger.absyn.ForExp;
@@ -34,6 +35,14 @@ import tiger.absyn.VarDec;
 import tiger.absyn.VarExp;
 import tiger.absyn.Visitor;
 import tiger.absyn.WhileExp;
+import tiger.mips.MipsFrame;
+import tiger.symbol.Symbol;
+import tiger.temp.Label;
+import tiger.translate.Access;
+import tiger.translate.AccessList;
+import tiger.translate.Frag;
+import tiger.translate.Level;
+import tiger.translate.Translate;
 import tiger.types.ARRAY;
 import tiger.types.INT;
 import tiger.types.NAME;
@@ -42,9 +51,12 @@ import tiger.types.RECORD;
 import tiger.types.STRING;
 import tiger.types.Type;
 import tiger.types.VOID;
+import tiger.util.BoolList;
 
 public class SemantVisitor implements Visitor {
 
+    private Level level;
+    private Translate translate;
     private ExpTy expTy;
     private Env env;
     private Type ty;
@@ -84,9 +96,13 @@ public class SemantVisitor implements Visitor {
 
     public SemantVisitor() {
         env = new Env();
+        translate = new Translate(new MipsFrame());
+        level = new Level(getTranslate().frame);
     }
 
-    public SemantVisitor(Env env) {
+    public SemantVisitor(Env env, Translate t, Level l) {
+        this.translate = t;
+        this.level = l;
         this.env = env;
     }
 
@@ -94,12 +110,19 @@ public class SemantVisitor implements Visitor {
         System.err.println(msg + ": " + pos);
     }
 
-    private void putTypeFields(RECORD f) {
+    private void putTypeFields(RECORD f, AccessList a) {
         if (f == null) {
             return;
         }
-        env.venv.put(f.fieldName, new VarEntry(f.fieldType));
-        putTypeFields(f.tail);
+        env.venv.put(f.fieldName, new VarEntry(a.head, f.fieldType));
+        putTypeFields(f.tail, a.tail);
+    }
+
+    public Frag transProg(Exp exp) {
+        level = new Level(getLevel(), new Label(Symbol.symbol("t_main")), null);
+        exp.accept(this);
+        getTranslate().procEntryExit(getLevel(), expTy.getExp());
+        return getTranslate().getResult();
     }
 
     @Override
@@ -119,8 +142,11 @@ public class SemantVisitor implements Visitor {
                 error(e.pos, "assignment type mismatch");
             }
         }
-        e.entry = new VarEntry(type);
+        tiger.translate.Access access = getLevel().allocLocal(e.escape);
+        e.entry = new VarEntry(access, type);
+
         env.venv.put(e.name, e.entry);
+        expTy = new ExpTy(getTranslate().VarDec(access, init.getExp()), VOID);
     }
 
     @Override
@@ -132,7 +158,7 @@ public class SemantVisitor implements Visitor {
     public void visit(ArrayExp e) {
         NAME name = (NAME) env.tenv.get(e.typ);
         e.size.accept(this);
-     
+
         ExpTy size = getExpTy();
         e.init.accept(this);
         ExpTy init = getExpTy();
@@ -144,7 +170,7 @@ public class SemantVisitor implements Visitor {
                 if (!init.getTy().coerceTo(array.element)) {
                     error(e.init.pos, "element type mismatch");
                 }
-                setExpTy(new ExpTy(null, name));
+                setExpTy(new ExpTy(translate.ArrayExp(size.getExp(), init.getExp()), name));
                 return;
 
             } else {
@@ -174,16 +200,16 @@ public class SemantVisitor implements Visitor {
         if (!exp.getTy().coerceTo(var.getTy())) {
             error(e.pos, "assignment type mismatch");
         }
-        setExpTy(new ExpTy(null, VOID));
+        setExpTy(new ExpTy(getTranslate().AssignExp(var.getExp(), exp.getExp()), VOID));
     }
 
     @Override
     public void visit(BreakExp e) {
         error(e.pos, "break outside loop");
-        setExpTy(new ExpTy(null, VOID));
+        setExpTy(new ExpTy(getTranslate().Error(), VOID));
     }
 
-    private tiger.semant.ExpList visit(Position epos, RECORD formal, ExpList args) {
+    private tiger.translate.ExpList visit(Position epos, RECORD formal, ExpList args) {
         if (formal == null) {
             if (args != null) {
                 error(args.head.pos, "too many arguments");
@@ -199,7 +225,7 @@ public class SemantVisitor implements Visitor {
         if (!e.getTy().coerceTo(formal.fieldType)) {
             error(args.head.pos, "argument type mismatch");
         }
-        return new tiger.semant.ExpList(e.getExp(), visit(epos, formal.tail, args.tail));
+        return new tiger.translate.ExpList(e.getExp(), visit(epos, formal.tail, args.tail));
     }
 
     @Override
@@ -207,20 +233,28 @@ public class SemantVisitor implements Visitor {
         Entry x = (Entry) env.venv.get(e.func);
         if (x.getEntryType() == Entry.FUNENTRY) {
             FunEntry f = (FunEntry) x;
-            tiger.semant.ExpList args = visit(e.getPosition(), f.getFormals(), e.args);
-            setExpTy(new ExpTy(null,
-                    f.getResult()));
+            tiger.translate.ExpList args = visit(e.getPosition(), f.getFormals(), e.args);
+            if (f.getLevel() == null) {
+                expTy = new ExpTy(f.getResult().coerceTo(VOID)
+                        ? translate.ProcExp(e.func, args, level)
+                        : translate.FunExp(e.func, args, level),
+                        f.getResult());
+            } else {
+                expTy = new ExpTy(f.getResult().coerceTo(VOID)
+                        ? translate.ProcExp(f.getLevel(), args, level)
+                        : translate.FunExp(f.getLevel(), args, level),
+                        f.getResult());
+            }
             return;
-
         }
         error(e.pos, "undeclared function: " + e.func);
-        setExpTy(new ExpTy(null, VOID));
+        setExpTy(new ExpTy(translate.Error(), VOID));
     }
 
     @Override
     public void visit(FieldVar v) {
         v.accept(this);
-       
+
         ExpTy var = getExpTy();
         Type actual = var.getTy().actual();
         if (actual.isType(Type.RECORD)) {
@@ -229,7 +263,7 @@ public class SemantVisitor implements Visitor {
                     field != null;
                     field = field.tail) {
                 if (field.fieldName == v.field) {
-                    expTy = new ExpTy(null,
+                    expTy = new ExpTy(translate.FieldVar(var.getExp(), count),
                             field.fieldType);
                     return;
                 }
@@ -245,21 +279,26 @@ public class SemantVisitor implements Visitor {
     @Override
     public void visit(ForExp e) {
         e.var.init.accept(this);
+        ExpTy lo = getExpTy();
         checkInt(getExpTy(), e.var.pos);
         e.hi.accept(this);
+        ExpTy hi = getExpTy();
         checkInt(getExpTy(), e.hi.pos);
         env.venv.beginScope();
-        e.var.entry = new LoopVarEntry(INT);
+        Access access = level.allocLocal(e.var.escape);
+
+        e.var.entry = new LoopVarEntry(access, INT);
         env.venv.put(e.var.name, e.var.entry);
-        LoopSemantVisitor loop = new LoopSemantVisitor(env);
+        LoopSemantVisitor loop = new LoopSemantVisitor(env, getTranslate(), getLevel());
         e.body.accept(loop);
         ExpTy body = loop.getExpTy();
         env.venv.endScope();
         if (!body.getTy().coerceTo(VOID)) {
             error(e.body.pos, "result type mismatch");
         }
-        setExpTy(new ExpTy(null,
+        setExpTy(new ExpTy(translate.ForExp(access, lo.getExp(), hi.getExp(), body.getExp(), loop.getDone()),
                 VOID));
+
     }
 
     private RECORD transTypeFields(HashMap hash, FieldList f) {
@@ -276,6 +315,13 @@ public class SemantVisitor implements Visitor {
         return new RECORD(f.name, name, transTypeFields(hash, f.tail));
     }
 
+    private BoolList escapes(FieldList f) {
+        if (f == null) {
+            return null;
+        }
+        return new BoolList(f.escape, escapes(f.tail));
+    }
+
     @Override
     public void visit(FunctionDec d) {
         // 1st pass - handles the function headers
@@ -285,24 +331,34 @@ public class SemantVisitor implements Visitor {
                 error(f.pos, "function redeclared");
             }
             RECORD fields = transTypeFields(new HashMap(), f.params);
-            f.result.accept(this);
-            Type type = ty;
-            f.entry = new FunEntry(fields, type);
+            Type type = null;
+
+            if (f.result != null) {
+                f.result.accept(this);
+                type = ty;
+            }
+            Level newLevel = new Level(level, new Label(f.name), escapes(f.params));
+            f.entry = new FunEntry(newLevel, fields, type);
             env.venv.put(f.name, f.entry);
         }
         // 2nd pass - handles the function bodies
         for (FunctionDec f = d; f != null; f = f.next) {
             env.venv.beginScope();
-            putTypeFields(f.entry.getFormals());
-            SemantVisitor fun = new SemantVisitor(env);
+            putTypeFields(f.entry.getFormals(), f.entry.getLevel().formals);
+            SemantVisitor fun = new SemantVisitor(env, getTranslate(), f.entry.getLevel());
             ExpTy body;
             f.body.accept(fun);
             body = fun.getExpTy();
+            if (f.entry.getResult() == null) {
+                f.entry.setResult(body.getTy());
+            }
             if (!body.getTy().coerceTo(f.entry.getResult())) {
                 error(f.body.pos, "result type mismatch");
             }
+            translate.procEntryExit(f.entry.getLevel(), body.getExp());
             env.venv.endScope();
         }
+        expTy = new ExpTy(translate.FunctionDec(), VOID);
     }
 
     @Override
@@ -312,31 +368,38 @@ public class SemantVisitor implements Visitor {
         checkInt(test, e.test.pos);
         e.thenclause.accept(this);
         ExpTy thenclause = getExpTy();
-        e.elseclause.accept(this);
-        ExpTy elseclause = expTy;
+        ExpTy elseclause = null;
+        if (e.elseclause != null) {
+            e.elseclause.accept(this);
+            elseclause = expTy;
+        }
         if (!thenclause.getTy().coerceTo(elseclause.getTy())
-                && !elseclause.getTy().coerceTo(thenclause.getTy())) {
+                && (elseclause != null && !elseclause.getTy().coerceTo(thenclause.getTy()))) {
             error(e.pos, "result type mismatch");
         }
-        expTy = new ExpTy(null,
+        expTy = new ExpTy(getTranslate().IfExp(test.getExp(), thenclause.getExp(), elseclause.getExp()),
                 elseclause.getTy());
     }
 
     @Override
     public void visit(IntExp e) {
-        setExpTy(new ExpTy(null, INT));
+        setExpTy(new ExpTy(getTranslate().IntExp(e.value), INT));
     }
 
     @Override
     public void visit(LetExp e) {
         env.venv.beginScope();
         env.tenv.beginScope();
-        for (DecList d = e.decs; d != null; d = d.tail)
+        tiger.translate.ExpList head = new tiger.translate.ExpList(null, null), prev = head;
+
+        for (DecList d = e.decs; d != null; d = d.tail) {
             d.head.accept(this);
+            prev = prev.tail = new tiger.translate.ExpList(expTy.getExp(), null);
+        }
         e.body.accept(this);
         env.venv.endScope();
         env.tenv.endScope();
-        setExpTy(new ExpTy(null, getExpTy().getTy()));
+        setExpTy(new ExpTy(getTranslate().LetExp(head.tail, expTy.getExp()), getExpTy().getTy()));
     }
 
     @Override
@@ -356,7 +419,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(NilExp e) {
-        setExpTy(new ExpTy(null, NIL));
+        setExpTy(new ExpTy(getTranslate().NilExp(), NIL));
     }
 
     @Override
@@ -373,19 +436,19 @@ public class SemantVisitor implements Visitor {
             case OpExp.DIV:
                 checkInt(left, e.left.pos);
                 checkInt(right, e.right.pos);
-                setExpTy(new ExpTy(null, INT));
+                setExpTy(new ExpTy(getTranslate().OpExp(e.oper, left.getExp(), right.getExp()), INT));
                 return;
             case OpExp.EQ:
             case OpExp.NE:
                 checkComparable(left, e.left.pos);
                 checkComparable(right, e.right.pos);
                 if (STRING.coerceTo(left.getTy()) && STRING.coerceTo(right.getTy())) {
-                    setExpTy(new ExpTy(null, INT));
+                    setExpTy(new ExpTy(getTranslate().OpExp(e.oper, left.getExp(), right.getExp()), INT));
                     return;
                 } else if (!left.getTy().coerceTo(right.getTy()) && !right.getTy().coerceTo(left.getTy())) {
                     error(e.pos, "incompatible operands to equality operator");
                 }
-                setExpTy(new ExpTy(null, INT));
+                setExpTy(new ExpTy(getTranslate().OpExp(e.oper, left.getExp(), right.getExp()), INT));
                 return;
             case OpExp.LT:
             case OpExp.LE:
@@ -394,17 +457,40 @@ public class SemantVisitor implements Visitor {
                 checkOrderable(left, e.left.pos);
                 checkOrderable(right, e.right.pos);
                 if (STRING.coerceTo(left.getTy()) && STRING.coerceTo(right.getTy())) {
-                    setExpTy(new ExpTy(null, INT));
+                    setExpTy(new ExpTy(getTranslate().StrOpExp(e.oper, left.getExp(), right.getExp()), INT));
                     return;
                 } else if (!left.getTy().coerceTo(right.getTy()) && !right.getTy().coerceTo(left.getTy())) {
                     error(e.pos, "incompatible operands to inequality operator");
                 }
-                setExpTy(new ExpTy(null, INT));
+                /* ERRADO, DEVE SER IMPLEMENTADO COM CJUMP*/
+                setExpTy(new ExpTy(getTranslate().OpExp(e.oper, left.getExp(), right.getExp()), INT));
                 return;
             default:
                 throw new Error("unknown operator");
         }
 
+    }
+
+    private tiger.translate.ExpList transFields(RECORD f, FieldExpList exp) {
+        if (f == null) {
+            if (exp != null) {
+                error(exp.pos, "too many expressions");
+            }
+            return null;
+        }
+        if (exp == null) {
+            error(exp.pos, "missing expression for " + f.fieldName);
+            return null;
+        }
+        exp.init.accept(this);
+        ExpTy e = expTy;
+        if (exp.name != f.fieldName) {
+            error(exp.pos, "field name mismatch");
+        }
+        if (!e.getTy().coerceTo(f.fieldType)) {
+            error(exp.pos, "field type mismatch");
+        }
+        return new tiger.translate.ExpList(e.getExp(), transFields(f.tail, exp.tail));
     }
 
     @Override
@@ -414,7 +500,7 @@ public class SemantVisitor implements Visitor {
             Type actual = name.actual();
             if (actual.isType(Type.RECORD)) {
                 RECORD r = (RECORD) actual;
-                setExpTy(new ExpTy(null,
+                setExpTy(new ExpTy(getTranslate().RecordExp(transFields(r, e.fields)),
                         name));
                 return;
             }
@@ -422,7 +508,7 @@ public class SemantVisitor implements Visitor {
         } else {
             error(e.pos, "undeclared type: " + e.typ);
         }
-        setExpTy(new ExpTy(null, VOID));
+        setExpTy(new ExpTy(getTranslate().Error(), VOID));
     }
 
     private RECORD visit(HashMap hash, FieldList f) {
@@ -451,14 +537,14 @@ public class SemantVisitor implements Visitor {
     @Override
     public void visit(SeqExp e) {
         Type type = VOID;
-        tiger.semant.ExpList head = new tiger.semant.ExpList(null, null), prev = head;
+        tiger.translate.ExpList head = new tiger.translate.ExpList(null, null), prev = head;
         for (ExpList exp = e.list; exp != null; exp = exp.tail) {
             exp.head.accept(this);
             ExpTy et = getExpTy();
             type = et.getTy();
-            prev = prev.tail = new tiger.semant.ExpList(et.getExp(), null);
+            prev = prev.tail = new tiger.translate.ExpList(et.getExp(), null);
         }
-        expTy = new ExpTy(null, type);
+        expTy = new ExpTy(getTranslate().SeqExp(head.tail), type);
     }
 
     @Override
@@ -466,16 +552,16 @@ public class SemantVisitor implements Visitor {
         Entry x = (Entry) env.venv.get(v.name);
         if (x != null && x.getEntryType() == Entry.VARENTRY) {
             VarEntry ent = (VarEntry) x;
-            expTy = new ExpTy(null, ent.getTy());
+            expTy = new ExpTy(getTranslate().SimpleVar(x.getAccess(), getLevel()), ent.getTy());
             return;
         }
         error(v.pos, "undeclared variable: " + v.name);
-        expTy = new ExpTy(null, VOID);
+        expTy = new ExpTy(getTranslate().Error(), VOID);
     }
 
     @Override
     public void visit(StringExp e) {
-        setExpTy(new ExpTy(null, STRING));
+        setExpTy(new ExpTy(getTranslate().StringExp(e.value), STRING));
     }
 
     @Override
@@ -488,12 +574,12 @@ public class SemantVisitor implements Visitor {
         Type actual = var.getTy().actual();
         if (actual.isType(Type.ARRAY)) {
             ARRAY array = (ARRAY) actual;
-            expTy = new ExpTy(null,
+            expTy = new ExpTy(translate.SubscriptVar(var.getExp(), index.getExp()),
                     array.element);
             return;
         }
         error(v.var.pos, "array required");
-        expTy = new ExpTy(null, VOID);
+        expTy = new ExpTy(translate.Error(), VOID);
         return;
     }
 
@@ -527,6 +613,8 @@ public class SemantVisitor implements Visitor {
             }
         }
 
+        expTy = new ExpTy(translate.TypeDec(), VOID);
+
     }
 
     @Override
@@ -534,13 +622,14 @@ public class SemantVisitor implements Visitor {
         e.test.accept(this);
         ExpTy test = expTy;
         checkInt(test, e.test.pos);
-        LoopSemantVisitor loop = new LoopSemantVisitor(env);
+        LoopSemantVisitor loop = new LoopSemantVisitor(env, getTranslate(), getLevel());
         e.body.accept(loop);
         ExpTy body = loop.getExpTy();
+
         if (!body.getTy().coerceTo(VOID)) {
             error(e.body.pos, "result type mismatch");
         }
-        expTy = new ExpTy(null, VOID);
+        expTy = new ExpTy(getTranslate().WhileExp(test.getExp(), body.getExp(), loop.getDone()), VOID);
     }
 
     @Override
@@ -576,16 +665,38 @@ public class SemantVisitor implements Visitor {
     public void setExpTy(ExpTy expTy) {
         this.expTy = expTy;
     }
+
+    /**
+     * @return the level
+     */
+    public Level getLevel() {
+        return level;
+    }
+
+    /**
+     * @return the translate
+     */
+    public Translate getTranslate() {
+        return translate;
+    }
 }
 
 class LoopSemantVisitor extends SemantVisitor {
 
-    public LoopSemantVisitor(Env env) {
-        super(env);
+    private Label done;
+
+    public LoopSemantVisitor(Env env, Translate t, Level l) {
+        super(env, t, l);
+        done = new tiger.temp.Label();
+
+    }
+
+    public Label getDone() {
+        return done;
     }
 
     @Override
     public void visit(BreakExp e) {
-        setExpTy(new ExpTy(null, VOID));
+        setExpTy(new ExpTy(getTranslate().BreakExp(done), VOID));
     }
 }
