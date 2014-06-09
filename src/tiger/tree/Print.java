@@ -105,7 +105,7 @@ public class Print {
   }
 
   void prExp(TEMP e, int d) {
-     indent(d); say("TEMP "); 
+     indent(d); say("TEMP " + e.temp.num); 
    //  say(tmap.tempMap(e.temp));
   }
 

@@ -281,10 +281,6 @@ public class Translate {
             tmp = new tiger.translate.ExpList(iter.head, tmp);
             iter = iter.tail;
         }
-        if (tmp != null) {
-            exp = new Nx(SEQ(exp.unNx(), tmp.head.unNx()));
-            tmp = tmp.tail;
-        }
         while (tmp != null) {
             exp = new Nx(SEQ(tmp.head.unNx(), exp.unNx()));
             tmp = tmp.tail;
