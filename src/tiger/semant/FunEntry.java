@@ -13,6 +13,7 @@ public class FunEntry extends Entry {
     public FunEntry(RECORD f, Type r) {
         formals = f;
         result = r;
+        level = null;
     }
 
     FunEntry(Level newLevel, RECORD fields, Type type) {

@@ -1,19 +1,65 @@
 package tiger.semant;
+
 import tiger.symbol.Table;
 import tiger.symbol.Symbol;
-import tiger.types.INT;
 
 import tiger.types.NAME;
+import tiger.types.RECORD;
+import tiger.types.Type;
+import tiger.types.VOID;
+
 public class Env {
+
     public Table venv;
     public Table tenv;
-   
+    private static final VOID VOID = SemantVisitor.VOID;
+
+    private static RECORD RECORD(Symbol n, Type t, RECORD x) {
+        return new RECORD(n, t, x);
+    }
+
+    private static RECORD RECORD(Symbol n, Type t) {
+        return new RECORD(n, t, null);
+    }
+
+    private static FunEntry FunEntry(RECORD f, Type r) {
+        return new FunEntry(f, r);
+    }
+
+    private static Symbol sym(String s) {
+        return Symbol.symbol(s);
+    }
+
     public Env() {
         venv = new Table();
         tenv = new Table();
-        NAME n = new NAME(Symbol.symbol("int"));
-        n.bind(new INT());
-        tenv.put(Symbol.symbol("int"),n);
+        // initialize tenv and venv with predefined identifiers
+        NAME INT = new NAME(sym("int"));
+        INT.bind(SemantVisitor.INT);
+        tenv.put(sym("int"), INT);
+
+        NAME STRING = new NAME(sym("string"));
+        STRING.bind(SemantVisitor.STRING);
+        tenv.put(sym("string"), STRING);
+        
+        
+        venv.put(sym("printi"), FunEntry(RECORD(sym("i"), INT), VOID));
+        venv.put(sym("print"), FunEntry(RECORD(sym("s"), STRING), VOID));
+        venv.put(sym("flush"), FunEntry(null, VOID));
+        venv.put(sym("getchar"), FunEntry(null, STRING));
+        venv.put(sym("ord"), FunEntry(RECORD(sym("s"), STRING), INT));
+        venv.put(sym("chr"), FunEntry(RECORD(sym("i"), INT), STRING));
+        venv.put(sym("size"), FunEntry(RECORD(sym("s"), STRING), INT));
+        venv.put(sym("substring"), FunEntry(RECORD(sym("s"), STRING,
+                RECORD(sym("first"), INT,
+                RECORD(sym("n"), INT))),
+                STRING));
+        venv.put(sym("concat"), FunEntry(RECORD(sym("s1"), STRING,
+                RECORD(sym("s2"), STRING)),
+                STRING));
+        venv.put(sym("not"), FunEntry(RECORD(sym("i"), INT), INT));
+        venv.put(sym("exit"), FunEntry(RECORD(sym("i"), INT), VOID));
+
     }
 
     /**
@@ -43,6 +89,4 @@ public class Env {
     public void setTenv(Table tenv) {
         this.tenv = tenv;
     }
-    
-    
 }

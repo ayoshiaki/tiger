@@ -61,7 +61,7 @@ public class SemantVisitor implements Visitor {
     private Env env;
     private Type ty;
     private Exp exp;
-    static final VOID VOID = new VOID();
+    public static final VOID VOID = new VOID();
     static final INT INT = new INT();
     static final STRING STRING = new STRING();
     static final NIL NIL = new NIL();
@@ -222,6 +222,7 @@ public class SemantVisitor implements Visitor {
         }
         args.head.accept(this);
         ExpTy e = getExpTy();
+        
         if (!e.getTy().coerceTo(formal.fieldType)) {
             error(args.head.pos, "argument type mismatch");
         }
@@ -230,6 +231,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(CallExp e) {
+                  
         Entry x = (Entry) env.venv.get(e.func);
         if (x.getEntryType() == Entry.FUNENTRY) {
             FunEntry f = (FunEntry) x;

@@ -71,6 +71,7 @@ public class Translate {
     }
 
     private static Exp CALL(tiger.tree.Exp func, tiger.tree.ExpList args) {
+        
         return new CALL(func, args);
     }
 
@@ -263,6 +264,7 @@ public class Translate {
     public tiger.translate.Exp ForExp(Access i, tiger.translate.Exp lo, tiger.translate.Exp hi, tiger.translate.Exp body, Label done) {
         Access limit = i;
         Level d = i.home;
+        /* TODO ERRADO */
         return (new Nx(SEQ(AssignExp(SimpleVar(i, d), lo).unNx(), AssignExp(
                 SimpleVar(limit, d), hi).unNx())));
     }
@@ -299,6 +301,8 @@ public class Translate {
     public tiger.translate.Exp VarDec(Access a, tiger.translate.Exp init) {
         return new Nx(MOVE(a.acc.exp(TEMP(a.home.frame.FP())), init.unEx()));
     }
+    
+    
 
     public tiger.translate.Exp TypeDec() {
         return new Nx(null);

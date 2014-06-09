@@ -53,7 +53,7 @@ public class Tiger {
     static void emitProc(java.io.PrintWriter out, ProcFrag f) {
 
         java.io.PrintWriter debug =
-                new java.io.PrintWriter(System.out);
+                new java.io.PrintWriter(System.err);
         //out;
         TempMap tempmap = new CombineMap(f.frame,
                 new DefaultMap());
@@ -78,23 +78,27 @@ public class Tiger {
             print.prStmList(traced);
             instrs = codegen(f.frame, traced);
         }
+     
         debug.println("# Instructions: ");
-        //	instrs = f.frame.procEntryExit2(instrs);
         for (InstrList p = instrs; p != null; p = p.tail) {
             debug.println(p.head.assem);
             debug.flush();
         }
-        debug.println(".end  " + f.frame.name);
+        out.println(".end  " + f.frame.name);
         debug.flush();
+        
+        
         RegAlloc reg = new RegAlloc(f.frame, instrs,
-                System.out, false);
+                System.err, false);
+        
         out.println(f.frame.pre());
         for (InstrList p = instrs; p != null; p = p.tail) {
             out.println(p.head.format(reg));
             out.flush();
         }
-        out.println(".end " + f.frame.name);
-        out.println(f.frame.post());
+         out.println(f.frame.post());
+          out.println(".end " + f.frame.name);
+      
         out.flush();
 
     }
@@ -110,30 +114,32 @@ public class Tiger {
                     System.out.println("***Compiling: " + src);
                 }
                 String dst = src.substring(0, src.lastIndexOf(".tig")) + ".s";
-
                 TigerLexer lex = new TigerLexer(new ANTLRFileStream(args[0], "UTF8"));
 
                 CommonTokenStream tokens = new CommonTokenStream(lex);
-
                 TigerParser parser = new TigerParser(tokens);
                 parser.prog();
-
+                
                 SemantVisitor semantic = new SemantVisitor();
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
-                System.out.println("ABSTRACT SYNTAX");
-                Print p = new Print(System.out);
+                
+                Print p = new Print(System.err);
                 p.prExp(tree, 0);
+                
+                
                 java.io.PrintWriter out = new java.io.PrintWriter(
                         new java.io.FileOutputStream(dst));
                 for (Frag f = frags; f != null; f = f.next) {
                     if (f instanceof ProcFrag) {
+                  
                         emitProc(out, (ProcFrag) f);
                     } else if (f instanceof DataFrag) {
                         out.println(((DataFrag) f).data);
                     }
                 }
                 out.close();
+                
             } else {
                 System.err.println("File extension is not \".tig\": ignoring "
                         + src);
