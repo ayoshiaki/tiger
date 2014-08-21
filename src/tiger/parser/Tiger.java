@@ -88,7 +88,7 @@ public class Tiger {
         debug.flush();
         
         
-        RegAlloc reg = new RegAlloc(f.frame, instrs,
+      RegAlloc reg = new RegAlloc(f.frame, instrs,
                 System.err, false);
         
         out.println(f.frame.pre());

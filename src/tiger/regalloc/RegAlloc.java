@@ -91,7 +91,8 @@ public class RegAlloc implements TempMap {
 		if (verbose)
 			flow.show(oStream);
 		ig = new Liveness((AssemFlowGraph) flow);
-		// Add all the registers to ig if not already there (these are the
+                
+               // Add all the registers to ig if not already there (these are the
 		// precolored nodes)
 		// Each one should interfere with all other register nodes
 		List<Node> regNodes = new LinkedList<Node>();
@@ -108,7 +109,7 @@ public class RegAlloc implements TempMap {
 				}
 			}
 		}
-		if (verbose)
+	
 			ig.show(oStream);
 	}
 }
