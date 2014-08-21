@@ -13,4 +13,5 @@ A ideia é que os alunos implementem funcionalidades e arrumem os problemas no c
 Para realizar esta tarefa é necessário que eles conheçam toda a estrutura de um compilador, desde o 
 analisador léxico até a geração de código. 
 
-Funcionalidades extras estão livres de serem implementadas futuramente. 
+A implementação de funcionalidades extras tal como "orientação a objetos" e suporte a "pacotes" será interessante no futuro. 
+
