@@ -1,0 +1,2649 @@
+<html lang="en">
+<head>
+<title>Tiger Compiler Reference Manual</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="Tiger Compiler Reference Manual">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This document presents the EPITA version of the Tiger
+language and compiler.  This revision, $Id: 876d616066c9c622f713c5bb3a8d6d463cf780cf $, was last updated
+September 3, 2013.
+
+Copyright (C) 2002-2007 Akim Demaille.
+
+Copyright (C) 2005-2010, 2012-2013 Roland Levillain.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.1 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, no Front-Cover texts and
+     with the no Back-Cover Texts.  A copy of the license is included
+     in the section entitled ``GNU Free Documentation License.''
+   -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+body {
+  padding: 2em 1em 2em 70px;
+  margin: 0;
+  font-family: sans-serif;
+  color: black;
+  background: white;
+  background-position: top left;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+:link { color: #00C; background: transparent }
+:visited { color: #609; background: transparent }
+a:active { color: #C00; background: transparent }
+
+a:link img, a:visited img { border-style: none } /* no border on img links */
+
+a img { color: white; }        /* trick to hide the border in Netscape 4 */
+@media all {                   /* hide the next rule from Netscape 4 */
+  a img { color: inherit; }    /* undo the color change above */
+}
+
+th, td { /* ns 4 */
+  font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 { text-align: left }
+/* background should be transparent, but WebTV has a bug */
+h1, h2, h3 { color: #005A9C; background: white }
+h1 { font: 170% sans-serif }
+h2 { font: 140% sans-serif }
+h3 { font: 120% sans-serif }
+h4 { font: bold 100% sans-serif }
+h5 { font: italic 100% sans-serif }
+h6 { font: small-caps 100% sans-serif }
+
+.hide { display: none }
+
+div.head { margin-bottom: 1em }
+div.head h1 { margin-top: 2em; clear: both }
+div.head table { margin-left: 2em; margin-top: 2em }
+
+p.copyright { font-size: small }
+p.copyright small { font-size: small }
+
+@media screen {  /* hide from IE3 */
+a[href]:hover { background: #ffa }
+}
+
+pre { margin-left: 2em }
+/*
+p {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+*/
+dt, dd { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */
+dt { font-weight: bold }
+
+pre, code { font-family: monospace } /* navigator 4 requires this */
+
+ul.toc {
+  list-style: disc;		/* Mac NS has problem with 'none' */
+  list-style: none;
+}
+
+@media aural {
+  h1, h2, h3 { stress: 20; richness: 90 }
+  .hide { speak: none }
+  p.copyright { volume: x-soft; speech-rate: x-fast }
+  dt { pause-before: 20% }
+  pre { speak-punctuation: code }
+}
+
+
+
+
+
+/*
+ * Style sheet for the HTML 4.0 specification
+ * $Id: default.css,v 1.13 1999/03/08 17:25:02 ijacobs Exp $
+ */
+
+div.example {
+    width: 100%;
+    color: black;
+}
+div.dtd-example {
+    width: 100%;
+    color: black;
+}
+tt.example {
+    color: maroon;
+    margin-left: 1em;
+}
+pre {
+    color: maroon;
+    margin-left: 1em;
+}
+div.dtd-fragment {
+    width: 100%;
+    border: none;
+    background-color: #eee;
+}
+pre.dtd-fragment {
+    margin-left: 0;
+}
+pre.dtd {
+    color: black;
+    margin-left: 0;
+}
+div.illegal-example {
+    width: 100%;
+    color: red;
+    border: solid red;
+}
+div.illegal-example p {
+    color: black;
+}
+div.deprecated-example {
+    width: 100%;
+    color: red;
+    border: solid rgb(255,165,0); /* orange */
+}
+div.deprecated-example p {
+    color: black;
+}
+div.note {
+    color: green;
+    margin-left: 1em;
+}
+p.note {
+    color: green;
+    margin-left: 1em;
+}
+ul.toc {
+    list-style-type: none;
+}
+
+a.normref {
+    color : red;
+}
+
+a.informref {
+    color : green;
+}
+
+DIV.subtoc {padding: 1em; border: solid thin; margin: 1em 0;
+    background: #ddd}
+
+body {
+  background-image: url(tiger.img/tiger.png);
+}
+--></style>
+</head>
+<body>
+<h1 class="settitle">Tiger Compiler Reference Manual</h1>
+<div class="node">
+<a name="Top"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Tiger-Language-Reference-Manual">Tiger Language Reference Manual</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+
+</div>
+
+<h2 class="unnumbered">The Tiger Project</h2>
+
+<p>This document describes the Tiger project for <acronym><span class="sc">epita</span></acronym>
+students as of
+September 3, 2013.  It is available under various forms:
+     <ul>
+<li><a href="http://www.lrde.epita.fr/~akim/ccmp/tiger.html">Tiger manual in a single <acronym><span class="sc">html</span></acronym> file</a>. 
+<li><a href="http://www.lrde.epita.fr/~akim/ccmp/tiger.split">Tiger manual in several <acronym><span class="sc">html</span></acronym> files</a>. 
+<li><a href="http://www.lrde.epita.fr/~akim/ccmp/tiger.pdf">Tiger manual in <acronym><span class="sc">pdf</span></acronym></a>. 
+<li><a href="http://www.lrde.epita.fr/~akim/ccmp/tiger.txt">Tiger manual in text</a>. 
+<li><a href="http://www.lrde.epita.fr/~akim/ccmp/tiger.info">Tiger manual in Info</a>. 
+</ul>
+
+   <p>More information is available on the <a href="http://tiger.lrde.epita.fr/"><acronym><span class="sc">epita</span></acronym> Tiger Compiler Project Home Page</a>.
+
+   <p>Tiger is derived from a language introduced by
+<a href="http://www.cs.princeton.edu/~appel/">Andrew Appel</a> in his book
+<a href="http://www.cs.princeton.edu/~appel/modern/">Modern Compiler Implementation</a>.  This document is by no means sufficient to produce an
+actual Tiger compiler, nor to understand compilation.  You are
+<strong>strongly</strong> encouraged to buy and read Appel's book: it is an
+<em>excellent</em> book.
+
+   <p>There are several differences with the original book, the most important
+being that <acronym><span class="sc">epita</span></acronym> students have to implement this compiler <strong>in C++
+and using modern object oriented programming techniques</strong>.  You ought to
+buy the original book, nevertheless, pay extreme attention to
+implementing the version of the language specified below, not that of
+the book.
+
+   <div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="#Top">The Tiger Project</a>
+<li><a name="toc_Tiger-Language-Reference-Manual" href="#Tiger-Language-Reference-Manual">1 Tiger Language Reference Manual</a>
+<ul>
+<li><a href="#Lexical-Specifications">1.1 Lexical Specifications</a>
+<li><a href="#Syntactic-Specifications">1.2 Syntactic Specifications</a>
+<li><a href="#Semantics">1.3 Semantics</a>
+<ul>
+<li><a href="#Declarations">1.3.1 Declarations</a>
+<ul>
+<li><a href="#Type-Declarations">1.3.1.1 Type Declarations</a>
+<li><a href="#Variable-Declarations">1.3.1.2 Variable Declarations</a>
+<li><a href="#Function-Declarations">1.3.1.3 Function Declarations</a>
+<li><a href="#Method-Declarations">1.3.1.4 Method Declarations</a>
+</li></ul>
+<li><a href="#Expressions">1.3.2 Expressions</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Language-Extensions" href="#Language-Extensions">2 Language Extensions</a>
+<ul>
+<li><a href="#Additional-Lexical-Specifications">2.1 Additional Lexical Specifications</a>
+<li><a href="#Additional-Syntactic-Specifications">2.2 Additional Syntactic Specifications</a>
+<li><a href="#Additional-Semantics">2.3 Additional Semantics</a>
+</li></ul>
+<li><a name="toc_Predefined-Entities" href="#Predefined-Entities">3 Predefined Entities</a>
+<ul>
+<li><a href="#Predefined-Types">3.1 Predefined Types</a>
+<li><a href="#Predefined-Functions">3.2 Predefined Functions</a>
+</li></ul>
+<li><a name="toc_Implementation" href="#Implementation">4 Implementation</a>
+<ul>
+<li><a href="#Invoking-tc">4.1 Invoking <samp><span class="command">tc</span></samp></a>
+<li><a href="#Errors">4.2 Errors</a>
+<li><a href="#Extensions">4.3 Extensions</a>
+</li></ul>
+<li><a name="toc_The-Reference-Implementation" href="#The-Reference-Implementation">5 The Reference Implementation</a>
+</li></ul>
+</div>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Tiger-Language-Reference-Manual">Tiger Language Reference Manual</a>:   The Tiger Language Definition
+<li><a accesskey="2" href="#Language-Extensions">Language Extensions</a>:          Additional constructions used internally
+<li><a accesskey="3" href="#Predefined-Entities">Predefined Entities</a>:          Primitive Functions and Types
+<li><a accesskey="4" href="#Implementation">Implementation</a>:               The <samp><span class="command">tc</span></samp> Tiger Compiler
+<li><a accesskey="5" href="#The-Reference-Implementation">The Reference Implementation</a>:   The compiler of the <acronym><span class="sc">lrde</span></acronym>
+
+</li></ul>
+<p>--- The Detailed Node Listing ---
+
+<p>Tiger Language Reference Manual
+
+</p>
+<ul class="menu">
+<li><a accesskey="6" href="#Lexical-Specifications">Lexical Specifications</a>:       Tokens
+<li><a accesskey="7" href="#Syntactic-Specifications">Syntactic Specifications</a>:     <acronym><span class="sc">ebnf</span></acronym> grammar
+<li><a accesskey="8" href="#Semantics">Semantics</a>:                    The meaning of Life, Universe and the rest
+
+</li></ul>
+<p>Semantics
+
+</p>
+<ul class="menu">
+<li><a accesskey="9" href="#Declarations">Declarations</a>:                 The semantics of declarations
+<li><a href="#Expressions">Expressions</a>:                  The semantics of expressions
+
+</li></ul>
+<p>Declarations
+
+</p>
+<ul class="menu">
+<li><a href="#Type-Declarations">Type Declarations</a>:            Semantics of type constructions
+<li><a href="#Variable-Declarations">Variable Declarations</a>:        Semantics of variable definitions
+<li><a href="#Function-Declarations">Function Declarations</a>:        Function and primitive declaration semantics
+<li><a href="#Method-Declarations">Method Declarations</a>:          Method declaration semantics
+
+</li></ul>
+<p>Language Extensions
+
+</p>
+<ul class="menu">
+<li><a href="#Additional-Lexical-Specifications">Additional Lexical Specifications</a>:     New Tokens
+<li><a href="#Additional-Syntactic-Specifications">Additional Syntactic Specifications</a>:   <acronym><span class="sc">ebnf</span></acronym> grammar extension
+<li><a href="#Additional-Semantics">Additional Semantics</a>:         Beyond Life, the Universe and Everything
+
+</li></ul>
+<p>Predefined Entities
+
+</p>
+<ul class="menu">
+<li><a href="#Predefined-Types">Predefined Types</a>:             Built-in types
+<li><a href="#Predefined-Functions">Predefined Functions</a>:         Primitives
+
+</li></ul>
+<p>Implementation
+
+</p>
+<ul class="menu">
+<li><a href="#Invoking-tc">Invoking tc</a>:                  Command line options
+<li><a href="#Errors">Errors</a>:                       Handling invalid input
+<li><a href="#Extensions">Extensions</a>:                   Making extensions to your compiler
+
+</li></ul>
+<p>The Reference Implementation
+
+   </ul>
+
+<!-- ====================================== Tiger Language Reference Manual -->
+<div class="node">
+<a name="Tiger-Language-Reference-Manual"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Language-Extensions">Language Extensions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">1 Tiger Language Reference Manual</h2>
+
+<p>This document defines the Tiger language, derived from a
+language introduced by Andrew Appel in his &ldquo;Modern Compiler
+Implementation&rdquo; books (see <a href="assignments.html#Modern-Compiler-Implementation">Modern Compiler Implementation</a>).  We insist so that our
+students buy this book, so we refrained from publishing a complete
+description of the language.  Unfortunately, recent editions of this
+series of book no longer address Tiger (see <a href="assignments.html#In-Java-_002d-Second-Edition">In Java - Second Edition</a>), and therefore they no
+longer include a definition of the Tiger compiler.  As a result,
+students were more inclined to xerox the books, rather than buying newer
+editions.  To fight this trend, we decided to publish a complete
+definition of the language.  Of course, the definition below is not a
+verbatim copy from the original language definition: these words are
+ours.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Lexical-Specifications">Lexical Specifications</a>:       Tokens
+<li><a accesskey="2" href="#Syntactic-Specifications">Syntactic Specifications</a>:     <acronym><span class="sc">ebnf</span></acronym> grammar
+<li><a accesskey="3" href="#Semantics">Semantics</a>:                    The meaning of Life, Universe and the rest
+</ul>
+
+<!--  Lexical Specifications -->
+<div class="node">
+<a name="Lexical-Specifications"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Syntactic-Specifications">Syntactic Specifications</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tiger-Language-Reference-Manual">Tiger Language Reference Manual</a>
+
+</div>
+
+<h3 class="section">1.1 Lexical Specifications</h3>
+
+     <dl>
+<dt><dfn>Keywords</dfn><dd>&lsquo;<samp><span class="samp">array</span></samp>&rsquo;, &lsquo;<samp><span class="samp">if</span></samp>&rsquo;, &lsquo;<samp><span class="samp">then</span></samp>&rsquo;, &lsquo;<samp><span class="samp">else</span></samp>&rsquo;, &lsquo;<samp><span class="samp">while</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">for</span></samp>&rsquo;, &lsquo;<samp><span class="samp">to</span></samp>&rsquo;, &lsquo;<samp><span class="samp">do</span></samp>&rsquo;, &lsquo;<samp><span class="samp">let</span></samp>&rsquo;, &lsquo;<samp><span class="samp">in</span></samp>&rsquo;, &lsquo;<samp><span class="samp">end</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">of</span></samp>&rsquo;, &lsquo;<samp><span class="samp">break</span></samp>&rsquo;, &lsquo;<samp><span class="samp">nil</span></samp>&rsquo;, &lsquo;<samp><span class="samp">function</span></samp>&rsquo;, &lsquo;<samp><span class="samp">var</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">type</span></samp>&rsquo;, &lsquo;<samp><span class="samp">import</span></samp>&rsquo; and &lsquo;<samp><span class="samp">primitive</span></samp>&rsquo;
+
+     <br><dt><dfn>Object-related keywords</dfn><dd>The keywords &lsquo;<samp><span class="samp">class</span></samp>&rsquo;, &lsquo;<samp><span class="samp">extends</span></samp>&rsquo;, &lsquo;<samp><span class="samp">method</span></samp>&rsquo; and &lsquo;<samp><span class="samp">new</span></samp>&rsquo;
+are reserved for object-related constructions.  They are valid keywords
+when the object extension of the language is enabled, and reserved
+words if this extension is disabled (i.e., they cannot be used as
+identifiers in object-less syntax).
+
+     <br><dt><dfn>Symbols</dfn><dd>&lsquo;<samp><span class="samp">,</span></samp>&rsquo;, &lsquo;<samp><span class="samp">:</span></samp>&rsquo;, &lsquo;<samp><span class="samp">;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">(</span></samp>&rsquo;, &lsquo;<samp><span class="samp">)</span></samp>&rsquo;, &lsquo;<samp><span class="samp">[</span></samp>&rsquo;, &lsquo;<samp><span class="samp">]</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">{</span></samp>&rsquo;, &lsquo;<samp><span class="samp">}</span></samp>&rsquo;, &lsquo;<samp><span class="samp">.</span></samp>&rsquo;, &lsquo;<samp><span class="samp">+</span></samp>&rsquo;, &lsquo;<samp><span class="samp">-</span></samp>&rsquo;, &lsquo;<samp><span class="samp">*</span></samp>&rsquo;, &lsquo;<samp><span class="samp">/</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">=</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&lt;&gt;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&lt;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&lt;=</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&gt;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&gt;=</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">|</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">:=</span></samp>&rsquo;
+
+     <br><dt><dfn>White characters</dfn><dd>Space and tabulations are the only white space characters supported. 
+Both count as a single character when tracking locations.
+
+     <br><dt><dfn>End-of-line</dfn><dd>End of lines are &lsquo;<samp><span class="samp">\n\r</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">\r\n</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">\r</span></samp>&rsquo;, and
+&lsquo;<samp><span class="samp">\n</span></samp>&rsquo;, freely intermixed.
+
+     <br><dt><dfn>Strings</dfn><dd>The strings are <acronym><span class="sc">ansi</span></acronym>-C strings: enclosed by &lsquo;<samp><span class="samp">"</span></samp>&rsquo;, with support for
+the following escapes:
+          <dl>
+<dt>&lsquo;<samp><span class="samp">\a</span></samp>&rsquo;, &lsquo;<samp><span class="samp">\b</span></samp>&rsquo;, &lsquo;<samp><span class="samp">\f</span></samp>&rsquo;, &lsquo;<samp><span class="samp">\n</span></samp>&rsquo;, &lsquo;<samp><span class="samp">\r</span></samp>&rsquo;, &lsquo;<samp><span class="samp">\t</span></samp>&rsquo;, &lsquo;<samp><span class="samp">\v</span></samp>&rsquo;<dd>control characters.
+
+          <br><dt>\<var>num</var><dd>The character which code is <var>num</var> in octal.  Valid character codes
+belong to an extended (8-bit) <acronym><span class="sc">ascii</span></acronym> set, i.e. values between 0 and 255
+in decimal (0 and 377 in octal).  <var>num</var> is composed of exactly three
+octal characters, and any invalid value is a scan error.
+
+          <br><dt>\x<var>num</var><dd>The character which code is <var>num</var> in hexadecimal (upper case or
+lower case or mixed). <var>num</var> is composed of exactly 2 hexadecimal
+characters.  Likewise, expected values belong to an extended (8-bit)
+<acronym><span class="sc">ascii</span></acronym> set.
+
+          <br><dt>&lsquo;<samp><span class="samp">\\</span></samp>&rsquo;<dd>A single backslash.
+
+          <br><dt>&lsquo;<samp><span class="samp">\"</span></samp>&rsquo;<dd>A double quote.
+
+          <br><dt>\<var>character</var><dd>If no rule above applies, this is an error. 
+</dl>
+
+     <p>All the other characters are plain characters and are to be included in
+the string.  In particular, multi-line strings are allowed.
+
+     <br><dt><dfn>Comments</dfn><dd>Like C comments, but can be nested:
+     <pre class="example">          Code
+          /* Comment
+             /* Nested comment */
+             Comment */
+          Code
+</pre>
+     <br><dt><dfn>Identifiers</dfn><dd>Identifiers start with a letter, followed by any number of alphanumeric
+characters plus the underscore.  Identifiers are case sensitive. 
+Moreover, the special <strong>_main</strong> string is also accepted as a valid
+identifier.
+
+     <pre class="display">          id ::= letter { letter | digit | <strong>_</strong> } | <strong>_main</strong>
+          letter ::=
+              <strong>a</strong> | <strong>b</strong> | <strong>c</strong> | <strong>d</strong> | <strong>e</strong> | <strong>f</strong> | <strong>g</strong> | <strong>h</strong> | <strong>i</strong> | <strong>j</strong> | <strong>k</strong> | <strong>l</strong> |
+              <strong>m</strong> | <strong>n</strong> | <strong>o</strong> | <strong>p</strong> | <strong>q</strong> | <strong>r</strong> | <strong>s</strong> | <strong>t</strong> | <strong>u</strong> | <strong>v</strong> | <strong>w</strong> | <strong>x</strong> |
+              <strong>y</strong> | <strong>z</strong> |
+              <strong>A</strong> | <strong>B</strong> | <strong>C</strong> | <strong>D</strong> | <strong>E</strong> | <strong>F</strong> | <strong>G</strong> | <strong>H</strong> | <strong>I</strong> | <strong>J</strong> | <strong>K</strong> | <strong>L</strong> |
+              <strong>M</strong> | <strong>N</strong> | <strong>O</strong> | <strong>P</strong> | <strong>Q</strong> | <strong>R</strong> | <strong>S</strong> | <strong>T</strong> | <strong>U</strong> | <strong>V</strong> | <strong>W</strong> | <strong>X</strong> |
+              <strong>Y</strong> | <strong>Z</strong>
+          digit ::= <strong>0</strong> | <strong>1</strong> | <strong>2</strong> | <strong>3</strong> | <strong>4</strong> | <strong>5</strong> | <strong>6</strong> | <strong>7</strong> | <strong>8</strong> | <strong>9</strong>
+</pre>
+     <br><dt><dfn>Numbers</dfn><dd>There are only integers in Tiger.
+     <pre class="display">          integer ::= digit { digit }
+          op ::= <strong>+</strong> | <strong>-</strong> | <strong>*</strong> | <strong>/</strong> | <strong>=</strong> | <strong>&lt;&gt;</strong> | <strong>&gt;</strong> | <strong>&lt;</strong> | <strong>&gt;=</strong> | <strong>&lt;=</strong> | <strong>&amp;</strong> | <strong>|</strong>
+</pre>
+     <br><dt><dfn>Invalid characters</dfn><dd>Any other character is invalid. 
+</dl>
+
+<!--  Syntactic Specifications -->
+<div class="node">
+<a name="Syntactic-Specifications"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Semantics">Semantics</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Lexical-Specifications">Lexical Specifications</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tiger-Language-Reference-Manual">Tiger Language Reference Manual</a>
+
+</div>
+
+<h3 class="section">1.2 Syntactic Specifications</h3>
+
+<p>We use Extended <acronym><span class="sc">bnf</span></acronym>, with &lsquo;<samp><span class="samp">[</span></samp>&rsquo; and &lsquo;<samp><span class="samp">]</span></samp>&rsquo; for zero or once, and
+&lsquo;<samp><span class="samp">{</span></samp>&rsquo; and &lsquo;<samp><span class="samp">}</span></samp>&rsquo; for any number of repetition including zero.
+
+<pre class="example">     program ::=
+         exp
+       | decs
+     
+     exp ::=
+       <i># Literals.</i>
+         <strong>nil</strong>
+       | integer
+       | string
+     
+       <i># Array and record creations.</i>
+       | type-id <strong>[</strong> exp <strong>]</strong> <strong>of</strong> exp
+       | type-id <strong>{</strong>[ id <strong>=</strong> exp { <strong>,</strong> id <strong>=</strong> exp } ] <strong>}</strong>
+     
+       <i># Object creation.</i>
+       | <strong>new</strong> type-id
+     
+       <i># Variables, field, elements of an array.</i>
+       | lvalue
+     
+       <i># Function call.</i>
+       | id <strong>(</strong> [ exp { <strong>,</strong> exp }] <strong>)</strong>
+     
+       <i># Method call.</i>
+       | lvalue <strong>.</strong> id <strong>(</strong> [ exp { <strong>,</strong> exp }] <strong>)</strong>
+     
+       <i># Operations.</i>
+       | <strong>-</strong> exp
+       | exp op exp
+       | <strong>(</strong> exps <strong>)</strong>
+     
+       <i># Assignment.</i>
+       | lvalue <strong>:=</strong> exp
+     
+       <i># Control structures.</i>
+       | <strong>if</strong> exp <strong>then</strong> exp [<strong>else</strong> exp]
+       | <strong>while</strong> exp <strong>do</strong> exp
+       | <strong>for</strong> id <strong>:=</strong> exp <strong>to</strong> exp <strong>do</strong> exp
+       | <strong>break</strong>
+       | <strong>let</strong> decs <strong>in</strong> exps <strong>end</strong>
+     
+     lvalue ::= id
+       | lvalue <strong>.</strong> id
+       | lvalue <strong>[</strong> exp <strong>]</strong>
+     exps ::= [ exp { <strong>;</strong> exp } ]
+     
+     decs ::= { dec }
+     dec ::=
+       <i># Type declaration.</i>
+         <strong>type</strong> id <strong>=</strong> ty
+       <i># Class definition (alternative form).</i>
+       | <strong>class</strong> id [ <strong>extends</strong> type-id ] <strong>{</strong> classfields <strong>}</strong>
+       <i># Variable declaration.</i>
+       | vardec
+       <i># Function declaration.</i>
+       | <strong>function</strong> id <strong>(</strong> tyfields <strong>)</strong> [ <strong>:</strong> type-id ] <strong>=</strong> exp
+       <i># Primitive declaration.</i>
+       | <strong>primitive</strong> id <strong>(</strong> tyfields <strong>)</strong> [ <strong>:</strong> type-id ]
+       <i># Importing a set of declarations.</i>
+       | <strong>import</strong> string
+     
+     vardec ::= <strong>var</strong> id [ <strong>:</strong> type-id ] <strong>:=</strong> exp
+     
+     classfields ::= { classfield }
+     <i># Class fields.</i>
+     classfield ::=
+       <i># Attribute declaration.</i>
+         vardec
+       <i># Method declaration.</i>
+       | <strong>method</strong> id <strong>(</strong> tyfields <strong>)</strong> [ <strong>:</strong> type-id ] <strong>=</strong> exp
+     
+     <i># Types.</i>
+     ty ::=
+        <i># Type alias.</i>
+          type-id
+        <i># Record type definition.</i>
+        | <strong>{</strong> tyfields  <strong>}</strong>
+        <i># Array type definition.</i>
+        | <strong>array</strong> <strong>of</strong> type-id
+        <i># Class definition (canonical form).</i>
+        | <strong>class</strong> [ <strong>extends</strong> type-id ] <strong>{</strong> classfields <strong>}</strong>
+     tyfields ::= [ id <strong>:</strong> type-id { <strong>,</strong> id <strong>:</strong> type-id } ]
+     type-id ::= id
+     
+     op ::= <strong>+</strong> | <strong>-</strong> | <strong>*</strong> | <strong>/</strong> | <strong>=</strong> | <strong>&lt;&gt;</strong> | <strong>&gt;</strong> | <strong>&lt;</strong> | <strong>&gt;=</strong> | <strong>&lt;=</strong> | <strong>&amp;</strong> | <strong>|</strong>
+</pre>
+   <p>Precedence of the <var>op</var> (high to low):
+
+<pre class="example">     * /
+     + -
+     &gt;= &lt;= = &lt;&gt; &lt; &gt;
+     &amp;
+     |
+</pre>
+   <p>Comparison operators (<code>&lt;</code>, <code>&lt;=</code>, <code>=</code>, <code>&lt;&gt;</code>,
+<code>&gt;</code>, <code>&gt;=</code>) are not associative.  All the remaining operators
+are left-associative.
+
+<!--  Semantics -->
+<div class="node">
+<a name="Semantics"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Syntactic-Specifications">Syntactic Specifications</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tiger-Language-Reference-Manual">Tiger Language Reference Manual</a>
+
+</div>
+
+<h3 class="section">1.3 Semantics</h3>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Declarations">Declarations</a>:                 The semantics of declarations
+<li><a accesskey="2" href="#Expressions">Expressions</a>:                  The semantics of expressions
+</ul>
+
+<div class="node">
+<a name="Declarations"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Expressions">Expressions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Semantics">Semantics</a>
+
+</div>
+
+<h4 class="subsection">1.3.1 Declarations</h4>
+
+     <dl>
+<!--  -->
+<dt><em>import</em><dd>An <code>import</code> clause denote the same expression where it was
+(recursively) replaced by the set of declarations its corresponding
+import-file contains.  An import-file has the following syntax (see
+<a href="#Syntactic-Specifications">Syntactic Specifications</a>, for a definition of the symbols):
+
+     <pre class="example">          import-file ::= decs
+</pre>
+     <p>Because the syntax is different, it is convenient to use another
+extension.  We use <samp><span class="file">*.tih</span></samp> for files to import, for instance:
+
+     <pre class="example">          /* fortytwo-fn.tih. */
+          function fortytwo () : int = 42
+          
+          /* fortytwo-var.tih. */
+          import "fortytwo-fn.tih"
+          var fortytwo := fortytwo ()
+          
+          /* fortytwo-main.tig. */
+          let
+            import "fortytwo-var.tih"
+          in
+            print_int (fortytwo); print ("\n")
+          end
+</pre>
+     <p class="noindent">is rigorously equivalent to:
+
+     <pre class="example">          let
+            function fortytwo () : int = 42
+            var fortytwo := fortytwo ()
+          in
+            print_int (fortytwo); print ("\n")
+          end
+</pre>
+     <p>There can never be a duplicate-name conflict between declarations from
+different files.  For instance:
+
+     <pre class="example">          /* 1.tih */
+          function one () : int = 1
+          
+          let
+            import "1.tih"
+            import "1.tih"
+          in
+            one () = one ()
+          end
+</pre>
+     <p class="noindent">is <em>valid</em> although
+
+     <pre class="example">          let
+            function one () : int = 1
+            function one () : int = 1
+          in
+            one () = one ()
+          end
+</pre>
+     <p class="noindent">is not: the function <code>one</code> is defined twice in a row of function
+declarations.
+
+     <p>Importing a nonexistent file is an error.  A imported file may not
+include itself, directly or indirectly.  Both these errors must be
+diagnosed, with status set to 1 (see <a href="#Errors">Errors</a>).
+
+     <p>When processing an import directive, the compiler starts looking for
+files in the current directory, then in all the directories of the
+include path, in order.
+
+     <!--  -->
+     <br><dt><em>name spaces</em><dd><a name="index-name-spaces-1"></a>There are three name spaces: types, variables and functions.  The
+original language definition features two: variables and functions share
+the same name space.  The motivation, as noted by SÃ©bastien Carlier, is
+that in FunTiger, in the second part of the book, functions can be
+assigned to variables:
+
+     <pre class="example">          let
+            type a = {a : int}
+            var  a := 0
+            function a (a : a) : a = a{a = a.a}
+          in
+            a (a{a = a})
+          end
+</pre>
+     <p>Three name spaces support is easier to implement. 
+</dl>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Type-Declarations">Type Declarations</a>:            Semantics of type constructions
+<li><a accesskey="2" href="#Variable-Declarations">Variable Declarations</a>:        Semantics of variable definitions
+<li><a accesskey="3" href="#Function-Declarations">Function Declarations</a>:        Function and primitive declaration semantics
+<li><a accesskey="4" href="#Method-Declarations">Method Declarations</a>:          Method declaration semantics
+</ul>
+
+<div class="node">
+<a name="Type-Declarations"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Variable-Declarations">Variable Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declarations">Declarations</a>
+
+</div>
+
+<h5 class="subsubsection">1.3.1.1 Type Declarations</h5>
+
+     <dl>
+<dt><em>arrays</em><dd><a name="index-arrays-2"></a>The size of the array does not belong to the type.  Index of arrays
+starts from 0 and ends at size - 1.
+
+     <pre class="example">          let
+            type int_array = array of int
+            var  table := int_array[100] of 0
+          in
+            ...
+          end
+</pre>
+     <p>Arrays are initialized with the <em>same</em> instance of value.  This
+leads to aliasing for entities with pointer semantics (strings, arrays
+and records).
+
+     <pre class="example">          let
+            type rec = { val : int }
+            type rec_arr = array of rec
+            var  table := rec_arr[2] of rec { val = 42 }
+          in
+            table[0].val := 51
+            /* Now table[1].val = 51. */
+          end
+</pre>
+     <p class="noindent">Use a loop to instantiate several initialization values.
+
+     <pre class="example">          let
+            type rec = { val : int }
+            type rec_arr = array of rec
+            var  table := rec_arr[2] of nil
+          in
+            for i := 0 to 1 do
+              table[i] := rec { val = 42 };
+            table[0].val := 51
+            /* table[1].val = 42. */
+          end
+</pre>
+     <!--  -->
+     <br><dt><em>records</em><dd>Records are defined by a list of fields between braces.  Fields are
+described as &ldquo;fieldname : type-id&rdquo; and are separated by a coma.  Field
+names are unique for a given record type.
+
+     <pre class="example">          let
+            type indexed_string = {index : int, value : string}
+          in
+            ...
+          end
+</pre>
+     <!--  -->
+     <br><dt><em>classes</em><dd>(See also <a href="#Method-Declarations">Method Declarations</a>.)
+
+     <p>Classes define a set of attributes and methods.  Empty classes are
+valid.  Attribute declaration is like variable declaration; method
+declaration is similar to function declaration, but uses the keyword
+<code>method</code> instead of <code>function</code>.
+
+     <p>There are two ways to declare a class.  The first version (known as
+<em>canonical</em>) uses <code>type</code>, and is similar to record and array
+declaration :
+
+     <pre class="example">          let
+            type Foo = class extends Object
+            {
+              var bar := 42
+              method baz () = print ("Foo.\n")
+            }
+          in
+            /* ... */
+          end
+</pre>
+     <p>The second version (known as <em>alternative</em> or Appel's) doesn't make
+use of <code>type</code>, but introduces classes declarations directly.  This
+is the syntax described by Andrew Appel in his books:
+
+     <pre class="example">          let
+            class Foo extends Object
+            {
+              var bar := 42
+              method baz () = print ("Foo.\n")
+            }
+          in
+            /* ... */
+          end
+</pre>
+     <p>For simplicity reasons, constructs using the alternative syntax are
+considered as <em>syntactic sugar</em> for the canonical syntax, and are
+<em>desugared</em> by the parser into this first form, using the following
+transformation:
+
+     <pre class="example">          <strong>class</strong> <var>Name</var> [ <strong>extends</strong> <var>Super</var> ] <strong>{</strong> <var>Classfields</var> <strong>}</strong>
+          =&gt; <strong>type</strong> <var>Name</var> <strong>=</strong> <strong>class</strong> [ <strong>extends</strong> <var>Super</var> ] <strong>{</strong> <var>Classfields</var> <strong>}</strong>
+</pre>
+     <p>where <var>Name</var>, <var>Super</var> and <var>Classfields</var> are respectively the
+class name, the super class name and the contents of the class
+(attributes and methods) of the class.
+
+     <p>In the rest of the section, Appel's form will be often used, to offer a
+uniform reading with his books, but remember that the <em>main syntax
+is the other one</em>, and <em>Appel's syntax is to be desugared into the
+canonical one</em>.
+
+     <pre class="sp">
+     
+     </pre>
+     
+Declarations of class members follow the same rules as variable and
+function declarations: <em>consecutive</em> method declarations constitute
+a block (or chunk) of methods, while a block of attributes contains only
+<em>a single one</em> attribute declaration (several attribute
+declarations thus form several blocks).  An extra rule holds for class
+members: there shall be no two attributes with the same name in the same
+class definition, nor two methods with the name.
+
+     <pre class="example">          let
+            class duplicate_attrs
+            {
+              var a := 1
+              method m () = ()
+              /* Error, duplicate attribute in the same class.  */
+              var a := 2
+            }
+            class duplicate_meths
+            {
+              method m () = ()
+              var a := 1
+              /* Error, duplicate method in the same class.  */
+              method m () = ()
+            }
+          in
+          end
+</pre>
+     <p class="noindent">Note that this last rule applies only to the strict scope of the class,
+not to the scopes of inner classes.
+
+     <pre class="example">          let
+            type C = class
+            {
+              var a := 1
+              method m () =
+                let
+                  type D = class
+                  {
+                    /* These members have same names as C's, but this is allowed
+                       since they are not in the same scope.  */
+          	  var a := 1
+          	  method m () = ()
+                  }
+                in
+                end
+            }
+          in
+          end
+</pre>
+     <pre class="sp">
+     
+     </pre>
+     
+Objects of a given class are created using the keyword <code>new</code>. 
+There are no constructors in Tiger (nor destructors), so the
+attributes are always initialized by the value given at their
+declaration.
+
+     <pre class="example">          let
+            class Foo
+            {
+              var bar := 42
+              method baz () = print ("Foo.\n")
+            }
+            class Empty
+            {
+            }
+            var foo1 : Foo := new Foo
+            /* As for any variable, the type annotation is optional.  */
+            var foo2 := new Foo
+          in
+            /* ... */
+          end
+</pre>
+     <p>The access to a member (either an attribute or a method) of an object
+from outside the class uses the <em>dotted</em> notation (as in C++, Java,
+C#, etc.).  There are no visibility qualifier/restriction (i.e., all
+attributes of an object accessible in the current scope are accessible
+in read and write modes), and all its methods can be called.
+
+     <pre class="example">          let
+            class Foo
+            {
+              var bar := 42
+              method baz () = print ("Foo.\n")
+            }
+            var foo := new Foo
+          in
+            print_int (foo.bar);
+            foo.baz ()
+          end
+</pre>
+     <p>To access to a member (either an attribute or a method) from within the
+class where it is defined, use the <code>self</code> identifier (equivalent to
+C++'s Or Java's <em>this</em>), which refers to the current instance of the
+object.
+
+     <pre class="example">          let
+            class Point2d
+            {
+              var row : int := 0
+              var col : int := 0
+          
+              method print_row () = print_int (self.row)
+              method print_col () = print_int (self.col)
+              method print () =
+              (
+                print ("(");
+                self.print_row ();
+                print (", ");
+                self.print_col ();
+                print (")")
+              )
+            }
+          in
+            /* ... */
+          end
+</pre>
+     <p>The use of <code>self</code> is mandatory to access a member of the class (or
+of its super class(es)) from within the class.  A variable or a method
+not preceded by `<code>self.</code>' won't be looked up in the scope of the
+class.
+
+     <pre class="example">          let
+            var a := 42
+            function m () = print ("m ()\n")
+          
+            class C
+            {
+              var a := 51
+              method m () = print ("C.m ()\n")
+          
+              method print_a ()      = (print_int (a); print ("\n"))
+              method print_self_a () = (print_int (self.a); print ("\n"))
+          
+              method call_m ()      = m ()
+              method call_self_m () = self.m ()
+            }
+          
+            var c := new C
+          in
+            c.print_a ();       /* Print `42'.  */
+            c.print_self_a ();  /* Print `51'.  */
+          
+            c.call_m ();        /* Print `m ()'.  */
+            c.call_self_m ()    /* Print `C.m ()'.  */
+          end
+</pre>
+     <p>The Tiger language supports single inheritance thanks to the
+keyword <code>extends</code>, so that a class can inherit from another class
+declared previously, or declared in the same block of class
+declarations.  A class with no manifest inheritance (no <code>extends</code>
+statement following the class name) automatically inherits from the
+built-in class <code>Object</code> (this feature is an extension of Appel's
+object-oriented proposal).
+
+     <p>Inclusion polymorphism is supported as well: when a class <var>Y</var>
+inherits from a class <var>X</var> (directly or through several inheritance
+links), any object of <var>Y</var> can <em>be seen as</em> an object of type
+<var>X</var>.  Hence, objects have two types: the static type, known at
+compile time, and the dynamic (or exact) type, known at run time, which
+is a subtype of (or identical to) the static type.  Therefore, an object
+of static type <var>Y</var> can be assigned to a variable of type <var>X</var>.
+
+     <pre class="example">          let
+            /* Manifest inheritance from Object: an A is an Object.  */
+            class A extends Object {}
+            /* Implicit inheritance from Object: a  B is an Object.  */
+            class B {}
+          
+            /* C is an A.  */
+            class C extends A {}
+          
+            var a  : A := new A
+            var b  : B := new B
+            var c1 : C := new C
+            /* When the type is not given explicitly, it is inferred from the
+               initialization; here, C2 has static and dynamic type C.  */
+            var c2 := new C
+          
+            /* This variable has static type A, but dynamic type C.  */
+            var c3 : A := new C
+          in
+            /* Allowed (upcast).  */
+            a := c1
+          
+            /* Forbidden (downcast).  */
+            /* c2 := a */
+          end
+</pre>
+     <p>As stated before, a class can inherit from a class<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+declared previously (and visible in the scope), or from a class declared
+in the same block of <em>type</em> declarations (recall that a class
+declaration is in fact a type declaration).  Recursive inheritance is
+not allowed.
+
+     <pre class="example">          let
+            /* Allowed: A declared before B.  */
+            class A {}
+            class B extends A {}
+          
+            /* Allowed: C declared before D.  */
+            class C {}
+            var foo := -42
+            class D extends C {}
+          
+            /* Allowed: forward inheritance, with E and F in the same
+               block.  */
+            class F extends E {}
+            class E {}
+          
+            /* Forbidden: forward inheritance, with G and H in different
+               blocks.   */
+            class H extends G {}
+            var bar := 2501
+            class G {}
+          
+            /* Forbidden: recursive inheritance.  */
+            class I extends J {}
+            class J extends I {}
+          
+            /* Forbidden: recursive inheritance and forward inheritance
+               with K and L in different blocks.  */
+            class K extends L {}
+            var baz := 2097
+            class L extends K {}
+          
+            /* Forbidden: M inherits from a non-class type.  */
+            class M extends int {}
+          in
+            /* ... */
+          end
+</pre>
+     <p class="noindent">All members from the super classes (transitive closure of the &ldquo;is a&rdquo;
+relationship) are accessible using the dotted notation, and the
+identifier <code>self</code> when they are used from within the class.
+
+     <p>Let us consider a block of type definitions.  For each class of this
+block, any of its members (either attributes or methods) can reference
+any type introduced in scope of the block, <em>including the class
+type enclosing the considered members</em>.
+
+     <pre class="example">          let
+            /* A block of types.  */
+            class A
+            {
+              /* Valid forward reference to B, defined in the same block
+                 as the class enclosing this member.  */
+              var b := new B
+            }
+            type t = int
+            class B
+            {
+              /* Invalid forward reference to C, defined in another block
+                 (binding error).  */
+              var c := new C
+            }
+          
+            /* A block of variables.  */
+            var v : t := 42
+          
+            /* Another block of types.  */
+            class C
+            {
+            }
+          in
+          end
+</pre>
+     <p class="noindent">However, a class member cannot reference another member defined in a
+class defined later in the program, in the current class or in a future
+class (except if the member referred to is in the same block as the
+referring member, hence in the same class, since a block of members
+cannot obviously span across two or more classes).  And recall that
+class members can only reference previously defined class members, or
+members of the same block of members (e.g., a chunk of methods).
+
+     <pre class="example">          let
+            /* A block of types.  */
+            class X
+            {
+              var i := 1
+          
+              /* Valid forward reference to self.o(), defined in the same
+                 block of methods.  */
+              method m () : int = self.o ()
+              /* Invalid forward reference to self.p(), defined in another
+                 (future) block of methods (type error).  */
+              method n () = self.p ()
+              /* Valid (backward) reference to self.i, defined earlier.  */
+              method o () : int = self.i
+          
+              var j := 2
+          
+              method p () = ()
+          
+              var y := new Y
+          
+              /* Invalid forward reference to y.r(), defined in another
+                 (future) class (type error).  */
+              method q () = self.y.r ()
+            }
+          
+            class Y
+            {
+              method r () = ()
+            }
+          in
+          end
+</pre>
+     <p class="noindent"><strong>To put it in a nutshell</strong>: <em>within a chunk of types</em>,
+forward references to classes are allowed, while forward references to
+members are limited to the block of members where the referring entity
+is defined.
+
+     <!--  -->
+     <br><dt><em>recursive types</em><dd>Types can be recursive,
+
+     <pre class="example">          let
+            type stringlist = {head : string, tail : stringlist}
+          in
+            ...
+          end
+</pre>
+     <p class="noindent">or mutually recursive (if they are declared in the same chunk) in
+Tiger.
+
+     <pre class="example">          let
+            type indexed_string = {index : int, value : string}
+            type indexed_string_list = {head : indexed_string, tail :
+            indexed_string_list}
+          in
+            ...
+          end
+</pre>
+     <p class="noindent">but there shall be no cycle.  This
+
+     <pre class="example">          let
+            type a = b
+            type b = a
+          in
+            ...
+          end
+</pre>
+     <p class="noindent">is invalid.
+
+     <!--  -->
+     <br><dt><em>type equivalence</em><dd><a name="index-type-equivalence-3"></a>Two types are equivalent iff there are issued from the same type
+construction (array or record construction, or primitive type).  As in
+C, unlike Pascal, structural equivalence is rejected.
+
+     <p>Type aliases do not build new types, hence they are equivalent.
+
+     <pre class="example">          let
+            type a = int
+            type b = int
+            var a := 1
+            var b := 2
+          in
+            a = b           /* OK */
+          end
+          
+          let
+            type a = {foo : int}
+            type b = {foo : int}
+            var va := a{foo = 1}
+            var vb := b{foo = 2}
+          in
+            va = vb
+          end
+          
+          is invalid, and must be rejected with exit status set to 5.
+</pre>
+     </dl>
+
+<!-- ====================================================================== -->
+<div class="node">
+<a name="Variable-Declarations"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Function-Declarations">Function Declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Type-Declarations">Type Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declarations">Declarations</a>
+
+</div>
+
+<h5 class="subsubsection">1.3.1.2 Variable Declarations</h5>
+
+     <dl>
+<!--  -->
+<dt><em>variables</em><dd>
+There are two forms of variable declarations in Tiger: the short one
+and the long one.
+
+     <p>In the short form, only the name of the variable and the initial value of
+the variable are specified, the variable type is &ldquo;inferred&rdquo;.
+
+     <pre class="example">          let
+            var foo := 1  /* foo is typed as an integer */
+          in
+            ...
+          end
+</pre>
+     <p>In the long form, the type of the variable is specified.  Since one
+cannot infer a record type for <code>nil</code>, the long form is mandated
+when declaring a variable initialized to <code>nil</code>.
+
+     <pre class="example">          let
+            type foo = {foo : int}
+            var bar : foo := nil       /* Correct.   */
+            var baz       := nil       /* Incorrect. */
+          in
+            ...
+          end
+</pre>
+     </dl>
+
+<!-- ====================================================================== -->
+<div class="node">
+<a name="Function-Declarations"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Method-Declarations">Method Declarations</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Variable-Declarations">Variable Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declarations">Declarations</a>
+
+</div>
+
+<h5 class="subsubsection">1.3.1.3 Function Declarations</h5>
+
+     <dl>
+<!--  -->
+<dt><em>functions</em><dd>To declare a function, provide its return value type:
+
+     <pre class="example">          let
+            function not (i : int) : int =
+              if i = 0 then
+                1
+              else
+                0
+          in
+            ...
+          end
+</pre>
+     <p class="noindent">A procedure has no value return type.
+
+     <pre class="example">          let
+            function print_conditional (s : string, i : int) =
+              if i then
+                print (s)
+              else
+                print ("error")
+          in
+            print_string ("foo", 1)
+          end
+</pre>
+     <p>Functions can be recursive, but mutually recursive functions must be in
+the same sequence of function declarations (no other declaration should
+be placed between them).
+
+     <p>See the semantics of function calls for the argument passing policy
+(see <a href="#Expressions">Expressions</a>).
+
+     <!--  -->
+     <br><dt><em>primitive</em><dd><a name="index-primitive-4"></a>A primitive is a built-in function, i.e., a function which body is
+provided by the runtime system.  See <a href="#Predefined-Functions">Predefined Functions</a>, for the
+list of standard primitives. Aside from the lack of body, and henceforth
+the absence of translation, primitive declarations behave as function
+declarations.  They share the same name space, and obey the same
+duplicate-name rule.  For instance:
+
+     <pre class="example">          let
+            primitive one () : int
+            function  one () : int = 1
+          in
+            ...
+          end
+          
+          is invalid, and must be rejected with exit status set to 4.
+</pre>
+     </dl>
+
+<!-- ====================================================================== -->
+<div class="node">
+<a name="Method-Declarations"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Function-Declarations">Function Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Declarations">Declarations</a>
+
+</div>
+
+<h5 class="subsubsection">1.3.1.4 Method Declarations</h5>
+
+     <dl>
+<!--  -->
+<dt><em>Overriding methods</em><dd>When a method in a class overrides a method of a super class, the
+overridden method (in the super class) is no longer accessible.  Dynamic
+dispatch is performed, using the exact type of the object (known at
+run time) to select the method according to this exact type.
+
+     <p>However, the interface of the accessible attributes and callable methods
+remains restricted to the static interface (i.e., the one of the static
+type of the object).
+
+     <pre class="example">          let
+            class Shape
+            {
+              /* Position.  */
+              var row := 0
+              var col := 0
+          
+              method print_row () = (print ("row = "); print_int (self.row))
+              method print_col () = (print ("col = "); print_int (self.col))
+          
+              method print () =
+                (
+                  print ("Shape = { ");
+                  self.print_row ();
+                  print (", ");
+                  self.print_col ();
+                  print (" }")
+                )
+            }
+          
+            class Circle extends Shape
+            {
+              var radius := 1
+          
+              method print_radius () = (print ("radius = "); print_int (self.radius))
+          
+              /* Overridden method.  */
+              method print () =
+                (
+                  print ("Circle = { ");
+                  self.print_row ();
+                  print (", ");
+                  self.print_col ();
+                  print (", ");
+                  self.print_radius ();
+                  print (" }")
+                )
+            }
+          
+            /* C has static type Shape, and dynamic (exact) type Circle.  */
+            var c : Shape := new Circle
+          in
+            /* Dynamic dispatch to Circle's print method.  */
+            c.print ();
+          
+            /* Allowed.  */
+            c.print_row ()
+          
+            /* Forbidden: `print_radius' is not a member of Shape (nor of its
+               super class(es)).  */
+            /* c.print_radius () */
+          end
+</pre>
+     <br><dt><em>Method invariance</em><dd>Methods are invariant in Tiger: each redefinition of a method
+in a subclass shall have the exact same signature as the original
+(overridden) method.  This invariance applies to
+
+          <ol type=1 start=1>
+<li>the number of arguments,
+
+          <li>the types of the arguments,
+
+          <li>the type of the return value<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>.
+          </ol>
+
+     <pre class="example">          let
+            class Food {}
+            class Grass extends Food {}
+          
+            class Animal
+            {
+              method eat (f : Food) = ()
+            }
+          
+            class Cow extends Animal
+            {
+              /* Invalid: methods shall be invariant.  */
+              method eat (g : Grass) = ()
+            }
+          in
+          end
+</pre>
+     </dl>
+
+<!--  -->
+<div class="node">
+<a name="Expressions"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Declarations">Declarations</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Semantics">Semantics</a>
+
+</div>
+
+<h4 class="subsection">1.3.2 Expressions</h4>
+
+     <dl>
+<dt><em>L-values</em><dd>The &lsquo;<samp><span class="samp">l-values</span></samp>&rsquo; (whose value can be read or changed) are: elements
+of arrays, fields of records, instances of classes, arguments and
+variables.
+
+     <br><dt><em>Valueless expressions</em><dd>Some expressions have no value: procedure calls, assignments, <code>if</code>s
+with no <code>else</code> clause, loops and <code>break</code>.  Empty sequences
+(&lsquo;<samp><span class="samp">()</span></samp>&rsquo;) and <code>let</code>s with an empty body are also valueless.
+
+     <br><dt><em>Nil</em><dd>The reserved word <code>nil</code> refers to a value from a <code>record</code> type. 
+Do not use <code>nil</code> where its type cannot be determined.
+
+     <pre class="example">          let
+            type any_record = {any : int}
+            var nil_var : any_record := nil
+            function nil_test(parameter : any_record) : int = ...
+            var invalid := nil             /* no type, invalid */
+          in
+            if nil &lt;&gt; nil_var then
+              ...
+            if nil_test (nil_var) then
+              ...
+            if nil = nil then ...         /* no type, invalid */
+          end
+</pre>
+     <br><dt><em>Integers</em><dd>An integer literal is a series of decimal digits (therefore it is
+non-negative).  Since the compiler targets 32-bit architectures, since
+it needs to handle signed integers, a literal integer value must fit in
+a signed 32-bit integer.  Any other integer value is a scanner error.
+
+     <br><dt><em>Booleans</em><dd>There is no Boolean type in Tiger: they are encoded as integers, with
+the same semantics as in C, i.e., 0 is the only value standing for
+&ldquo;false&rdquo;, anything else stands for &ldquo;true&rdquo;.
+
+     <br><dt><em>Strings</em><dd>A string constant is a possibly empty series of printable characters,
+spaces or escapes sequences (see <a href="#Lexical-Specifications">Lexical Specifications</a>) enclosed
+between double quotes.
+
+     <pre class="example">          let
+            var s := "\t\124\111\107\105\122\n"
+          in
+            print(s)
+          end
+</pre>
+     <br><dt><em>Record instantiation</em><dd>A record instantiation must define the value of all the fields and in
+the same order as in the definition of the record type.
+
+     <br><dt><em>Class instantiation</em><dd>An object is created with <code>new</code>.  There are no constructors in
+Tiger, so <code>new</code> takes only one operand, the name of the type to
+instantiate.
+
+     <br><dt><em>Function call</em><dd>Function arguments are evaluated from the left to the right.  Arrays and
+records arguments are passed by reference, strings and integer are
+passed by value.
+
+     <p>The following example:
+
+     <pre class="example">          let
+            type my_record = {value : int}
+            function reference(parameter : my_record) =
+              parameter.value := 42
+            function value(parameter : string) =
+              parameter := "Tiger is the best language\n"
+            var rec1 := my_record{value = 1}
+            var str := "C++ rulez"
+          in
+            reference (rec1);
+            print_int (rec1.value);
+            print ("\n");
+            value (str);
+            print (str);
+            print ("\n")
+          end
+</pre>
+     <p class="noindent">results in:
+
+     <pre class="example">          42
+          
+          C++ rulez
+</pre>
+     <br><dt><em>Boolean operators</em><dd>Tiger Boolean operators normalize their result to 0/1.  For instance,
+because <code>&amp;</code> and <code>|</code> can be implemented as syntactic sugar, one
+could easily make &lsquo;<samp><span class="samp">123 | 456</span></samp>&rsquo; return &lsquo;<samp><span class="samp">1</span></samp>&rsquo; or &lsquo;<samp><span class="samp">123</span></samp>&rsquo;: make
+them return &lsquo;<samp><span class="samp">1</span></samp>&rsquo;.  Andrew Appel does not enforce this for &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo;
+and &lsquo;<samp><span class="samp">|</span></samp>&rsquo;; we do, so that the following program has a well defined
+behavior:
+
+     <pre class="example">          print_int ("0" &lt; "9" | 42)
+</pre>
+     <br><dt><em>Arithmetic</em><dd>Arithmetic expressions only apply on integers and return integers. 
+Available operators in Tiger are : +,-,* and /.
+
+     <br><dt><em>Comparison</em><dd>Comparison operators (&lsquo;<samp><span class="samp">=</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&lt;&gt;</span></samp>&rsquo;, and &lsquo;<samp><span class="samp">&lt;=</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&lt;</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">&gt;=</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&gt;</span></samp>&rsquo;) return a Boolean value.
+
+          <dl>
+<dt><em>Integer and string comparison</em><dd>All the comparison operators apply to pairs of strings and pairs of
+integers, with obvious semantics.
+
+          <br><dt><em>String comparison</em><dd>Comparison of strings is based on the lexicographic order.
+
+          <br><dt><em>Array and record comparison</em><dd>Pairs of arrays and pairs of records <em>of the same type</em> can be
+compared for equality (&lsquo;<samp><span class="samp">=</span></samp>&rsquo;) and inequality (&lsquo;<samp><span class="samp">&lt;&gt;</span></samp>&rsquo;).  Identity
+equality applies, i.e., an array or a record is only equal to itself
+(shallow equality), regardless of the contents equality (deep
+equality). The value <code>nil</code> can be compared against a value which
+type is that of a record, e.g. &lsquo;<samp><span class="samp">nil = nil</span></samp>&rsquo; is invalid.
+
+          <p>Arrays, records and objects cannot be ordered: &lsquo;<samp><span class="samp">&lt;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&gt;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&lt;=</span></samp>&rsquo;,
+&lsquo;<samp><span class="samp">&gt;=</span></samp>&rsquo; are valid only for pairs of strings or integers.
+
+          <br><dt><em>Void comparison</em><dd>In conformance with A. Appel's specifications, any two void entities are
+equal. 
+</dl>
+
+     <br><dt><em>Assignment</em><dd>Assignments yield no value.  The following code is syntactically
+correct, but type incorrect:
+
+     <pre class="example">          let
+            var foo := 1
+            var bar := 1
+          in
+            foo := (bar := 2) + 1
+          end
+</pre>
+     <p>Note that the following code is valid:
+
+     <pre class="example">          let
+            var void1 := ()
+            var void2 := ()
+            var void3 := ()
+          in
+            void1 := void2 := void3 := ()
+          end
+</pre>
+     <br><dt><em>Array and record assignment</em><dd>Array and record assignments are shallow, not deep, copies.  Therefore
+aliasing effects arise: if an array or a record variable <var>a</var> is
+assigned another variable <var>b</var> of the same type, then changes on
+<var>b</var> will affect <var>a</var> and vice versa.
+
+     <pre class="example">          let
+            type bar = {foo : int}
+            var rec1 := bar{foo = 1}
+            var rec2 := bar{foo = 2}
+          in
+            print_int(rec1.foo);
+            print(" is the value of rec1\n");
+            print_int(rec2.foo);
+            print(" is the value of rec2\n");
+            rec1 := rec2;
+            rec2.foo = 42;
+            print_int(rec1.foo);
+            print(" is the new value of rec1\n")
+          end
+</pre>
+     <br><dt><em>Polymorphic (object) assignment</em><dd>Upcasts are valid for objects because of inclusion polymorphism.
+
+     <pre class="example">          let
+            class A {}
+            class B extends A {}
+            var a := new A
+            var b := new B
+          in
+            a := b
+          end
+</pre>
+     <p class="noindent">Upcasts can be performed when defining a new object variable, by forcing
+the type of the declared variable to a super class of the actual object.
+
+     <pre class="example">          let
+            class C {}
+            class D extends C {}
+            var c : C := new D
+          in
+          end
+</pre>
+     <p>Tiger doesn't provide a downcast feature performing run time type
+identification (<acronym><span class="sc">rtti</span></acronym>), like C++'s <code>dynamic_cast</code>.
+
+     <pre class="example">          let
+            class E {}
+            class F extends E {}
+            var e : E := new F
+            var f := new F
+          in
+            /* Invalid: downcast.  */
+            f := e
+          end
+</pre>
+     <br><dt><em>Sequences</em><dd>A sequence is a possibly empty series of expressions separated by
+semicolons and enclosed by parenthesis. By convention, there are no
+sequences of a single expression (see the following item).  The sequence
+is evaluated from the left to the right.  The value of the whole
+sequence is that of its last expression.
+
+     <pre class="example">          let
+            var a := 1
+          in
+            a := (
+                   print ("first exp to display\n");
+                   print ("second exp to display\n");
+                   a := a + 1;
+                   a
+                 ) + 42;
+            print ("the last value of a is : ");
+            print_int (a);
+            print ("\n")
+          end
+</pre>
+     <br><dt><em>Parentheses</em><dd>Parentheses enclosing a single expression enforce syntactic grouping.
+
+     <br><dt><em>Lifetime</em><dd>Records and arrays have infinite lifetime: their values lasts forever
+even if the scope of their creation is left.
+
+     <pre class="example">          let
+            type bar = {foo : int}
+            var rec1 := bar{foo = 1}
+          in
+            rec1 := let
+                      var rec2 := bar{foo = 42}
+                    in
+                      rec2
+                    end;
+            print_int(rec1.foo);
+            print("\n")
+          end
+</pre>
+     <br><dt><em>if-then-else</em><dd>In an if-expression:
+
+     <pre class="example">          if <var>exp1</var> then
+            <var>exp2</var>
+          else
+            <var>exp3</var>
+</pre>
+     <p class="noindent"><var>exp1</var> is typed as an integer, <var>exp2</var> and <var>exp3</var> must have
+the same type which will be the type of the entire structure.  The
+resulting type cannot be that of <code>nil</code>.
+
+     <br><dt><em>if-then</em><dd>In an if-expression:
+     <pre class="example">          if <var>exp1</var> then
+            <var>exp2</var>
+</pre>
+     <p><var>exp1</var> is typed as an integer, and <var>exp2</var> must have no value. 
+The whole expression has no value either.
+
+     <br><dt><em>while</em><dd>In a while-expression:
+     <pre class="example">          while <var>exp1</var> do
+            <var>exp2</var>
+</pre>
+     <p><var>exp1</var> is typed as an integer, <var>exp2</var> must have no value.  The
+whole expression has no value either.
+
+     <br><dt><em>for</em><dd>The following <code>for</code> loop
+     <pre class="example">          for <var>id</var> := <var>exp1</var> to <var>exp2</var> do
+            <var>exp3</var>
+</pre>
+     <p>introduces a fresh variable, <var>id</var>, which ranges from the value of
+<var>exp1</var> to that of <var>exp2</var>, inclusive, by steps of 1.  The scope
+of <var>id</var> is restricted to <var>exp3</var>.  The variable <var>id</var> cannot
+be assigned to.  The type of both <var>exp1</var> and <var>exp2</var> is integer,
+they can range from the minimal to the maximal integer values.  The body
+<var>exp3</var> and the whole loop have no value.
+
+     <br><dt><em>break</em><dd>A break terminates the nearest enclosing loop (<code>while</code> or
+<code>for</code>).  A break must be enclosed by a loop.  A break cannot appear
+inside a definition (e.g., between <code>let</code> and <code>in</code>), except if
+it is enclosed by a loop, of course.
+
+     <br><dt><em>let</em><dd>In the let-expression:
+     <pre class="example">          let
+            <var>decs</var>
+          in
+            <var>exps</var>
+          end
+</pre>
+     <p><var>decs</var> is a sequence of declaration and <var>exps</var> is a sequence of
+expressions separated by a semi-colon.  The whole expression has the
+value of <var>exps</var>. 
+</dl>
+
+<!-- ==================================================== Language Extensions -->
+<div class="node">
+<a name="Language-Extensions"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Predefined-Entities">Predefined Entities</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Tiger-Language-Reference-Manual">Tiger Language Reference Manual</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">2 Language Extensions</h2>
+
+<p>Numerous extensions of the Tiger language are defined above. 
+These extensions are <em>not</em> accessible to the user: if he uses
+one of them in a Tiger program, the compiler must reject it.  They
+are used internally by the compiler itself, for example to desugar using
+concrete syntax.  A special flag of the parser must be turned on to
+enable them.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Additional-Lexical-Specifications">Additional Lexical Specifications</a>:     New Tokens
+<li><a accesskey="2" href="#Additional-Syntactic-Specifications">Additional Syntactic Specifications</a>:   <acronym><span class="sc">ebnf</span></acronym> grammar extension
+<li><a accesskey="3" href="#Additional-Semantics">Additional Semantics</a>:         Beyond Life, the Universe and Everything
+</ul>
+
+<!--  Additional Lexical Specifications -->
+<div class="node">
+<a name="Additional-Lexical-Specifications"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Additional-Syntactic-Specifications">Additional Syntactic Specifications</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Language-Extensions">Language Extensions</a>
+
+</div>
+
+<h3 class="section">2.1 Additional Lexical Specifications</h3>
+
+<p>Additional keywords and identifiers.
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">_cast</span></samp>&rsquo;<dd>Used to cast an expression or a l-value to a given type.
+
+     <br><dt>&lsquo;<samp><span class="samp">_decs</span></samp>&rsquo;, &lsquo;<samp><span class="samp">_exp</span></samp>&rsquo;, &lsquo;<samp><span class="samp">_lvalue</span></samp>&rsquo;, &lsquo;<samp><span class="samp">_namety</span></samp>&rsquo;<dd>These keywords are used to plug an existing <acronym><span class="sc">ast</span></acronym> into an
+<acronym><span class="sc">ast</span></acronym> being built by the parser.  There is a keyword per type of
+pluggable <acronym><span class="sc">ast</span></acronym> (list of declarations, expression, l-value, type
+name).
+
+     <br><dt>Reserved identifiers<dd>They start with an underscore, and use the same letters as standard
+identifiers.  These symbols are used internally by the compiler to name
+or rename entities. Note that <strong>_main</strong> is still a valid identifier,
+not a reserved one.
+
+     <pre class="display">          reserved-id ::= <strong>_</strong> { letter | digit | <strong>_</strong> }
+</pre>
+     </dl>
+
+<!--  Additional Syntactic Specifications -->
+<div class="node">
+<a name="Additional-Syntactic-Specifications"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Additional-Semantics">Additional Semantics</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Additional-Lexical-Specifications">Additional Lexical Specifications</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Language-Extensions">Language Extensions</a>
+
+</div>
+
+<h3 class="section">2.2 Additional Syntactic Specifications</h3>
+
+     <dl>
+<dt><em>Grammar extensions</em><dd>
+In addition to the rules of the standard Tiger grammar
+(see <a href="#Syntactic-Specifications">Syntactic Specifications</a>), extensions adds the following
+productions.
+
+     <pre class="example">          <i># A list of decs metavariable</i>
+          decs ::= <strong>_decs</strong> <strong>(</strong> integer <strong>)</strong> decs
+          
+          exp ::=
+            <i># Cast of an expression to a given type</i>
+             <strong>_cast</strong> <strong>(</strong> exp <strong>,</strong> ty <strong>)</strong>
+            <i># An expression metavariable</i>
+           | <strong>_exp</strong> <strong>(</strong> integer <strong>)</strong>
+          
+          lvalue ::=
+            <i># Cast of a l-value to a given type</i>
+             <strong>_cast</strong> <strong>(</strong> lvalue <strong>,</strong> ty <strong>)</strong>
+            <i># A l-value metavariable</i>
+           | <strong>_lvalue</strong> <strong>(</strong> integer <strong>)</strong>
+          
+          <i># A type name metavariable</i>
+          type-id ::= <strong>_namety</strong> <strong>(</strong> integer <strong>)</strong>
+</pre>
+     <br><dt><em>Metavariables</em><dd>The &lsquo;<samp><span class="samp">_decs</span></samp>&rsquo;, &lsquo;<samp><span class="samp">_exp</span></samp>&rsquo;, &lsquo;<samp><span class="samp">_lvalue</span></samp>&rsquo;, &lsquo;<samp><span class="samp">_namety</span></samp>&rsquo; keywords
+are used as metavariables, i.e., they are names attached to an (already built)
+<acronym><span class="sc">ast</span></acronym>.  They <em>don't create new <acronym></em><span class="sc">ast</span><em></acronym> nodes</em>, but are used to
+<em>retrieve existing nodes</em>, stored previously.  For instance,
+upon an <code>_exp (51)</code> statement, the parser fetches the tree attached
+to the metavariable 51 (an expression) from the parsing context (see the
+implementation for details). 
+</dl>
+
+<!--  Additional Semantics -->
+<div class="node">
+<a name="Additional-Semantics"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Additional-Syntactic-Specifications">Additional Syntactic Specifications</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Language-Extensions">Language Extensions</a>
+
+</div>
+
+<h3 class="section">2.3 Additional Semantics</h3>
+
+     <dl>
+<dt><em>Casts</em><dd>A <code>_cast</code> statement changes the type of an expression or an l-lvalue
+to a given type.  Beware that the type-checker is forced to accept the
+new type as is, and must trust the programmer about the new semantics of
+the expression/l-value.  Bad casts can raise errors in the next stages of
+the back-end, or even lead to invalid output code.
+
+     <p>Casts work both on expressions and l-values.  For instance, these are
+valid casts:
+
+     <pre class="example">          _cast ("a", int)
+          
+          _cast (a_string, int) := 42
+</pre>
+     <p>(Although these examples could produce code with a strange
+behavior at execution time.)
+
+     <p>Casts are currently only used in concrete syntax transformations inside
+the bound checking extension and, as any language extension, are
+forbidden in standard Tiger programs. 
+</dl>
+
+<!-- ==================================================== Predefined Entities -->
+<div class="node">
+<a name="Predefined-Entities"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Implementation">Implementation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Language-Extensions">Language Extensions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">3 Predefined Entities</h2>
+
+<p>These entities are <dfn>predefined</dfn>, i.e., they are available when you
+start the Tiger compiler, but a Tiger program may
+redefine them.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Predefined-Types">Predefined Types</a>:             Built-in types
+<li><a accesskey="2" href="#Predefined-Functions">Predefined Functions</a>:         Primitives
+</ul>
+
+<!--  Predefined Types -->
+<div class="node">
+<a name="Predefined-Types"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Predefined-Functions">Predefined Functions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Predefined-Entities">Predefined Entities</a>
+
+</div>
+
+<h3 class="section">3.1 Predefined Types</h3>
+
+<p>There are three predefined types:
+
+     <dl>
+<dt>&lsquo;<samp><span class="samp">int</span></samp>&rsquo;<dd>which is the type of all the literal integers.
+
+     <br><dt>&lsquo;<samp><span class="samp">string</span></samp>&rsquo;<dd>which is the type of all the literal strings.
+
+     <br><dt>&lsquo;<samp><span class="samp">Object</span></samp>&rsquo;<dd>which is the super class type on top of every class hierarchy (i.e., the
+top-most super class in the transitive closure of the generalization
+relationship). 
+</dl>
+
+<!--  Predefined Functions -->
+<div class="node">
+<a name="Predefined-Functions"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Predefined-Types">Predefined Types</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Predefined-Entities">Predefined Entities</a>
+
+</div>
+
+<h3 class="section">3.2 Predefined Functions</h3>
+
+<p>Some runtime function may fail if some assertions are not fulfilled.  In
+that case, the program must exit with a properly labeled error message,
+and with exit code 120.  The error messages must follow the standard. 
+Any difference, in better or worse, is a failure to comply with the
+(this) Tiger Reference Manual.
+
+<!-- This file is common between the Tiger Reference Manual, and the Havm -->
+<!-- documentation.  The master copy is Tiger's. -->
+<div class="defun">
+&mdash; string: <b>chr</b> (<var>code : int</var>)<var><a name="index-chr-5"></a></var><br>
+<blockquote><p>Return the one character long string containing the character which
+code is <var>code</var>.  If <var>code</var> does not belong to the range
+[0..255], raise a runtime error: &lsquo;<samp><span class="samp">chr: character out of range</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; string: <b>concat</b> (<var>first: string, second: string</var>)<var><a name="index-concat-6"></a></var><br>
+<blockquote><p>Concatenate <var>first</var> and <var>second</var>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; void: <b>exit</b> (<var>status: int</var>)<var><a name="index-exit-7"></a></var><br>
+<blockquote><p>Exit the program with exit code <var>status</var>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; void: <b>flush</b> ()<var><a name="index-flush-8"></a></var><br>
+<blockquote><p>Flush the output buffer. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; string: <b>getchar</b> ()<var><a name="index-getchar-9"></a></var><br>
+<blockquote><p>Read a character on input. Return an empty string on an end of file. 
+</p></blockquote></div>
+
+<!-- This is because of a bug in Texinfo that we can use @deffnx inside -->
+<!-- a @ifset here. -->
+<div class="defun">
+&mdash; int: <b>not</b> (<var>boolean: int</var>)<var><a name="index-not-10"></a></var><br>
+<blockquote><p>Return 1 if <var>boolean</var> = 1, else return 0. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; int: <b>ord</b> (<var>string: string</var>)<var><a name="index-ord-11"></a></var><br>
+<blockquote><p>Return the ascii code of the first character in <var>string</var> and -1 if
+the given string is empty. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; void: <b>print</b> (<var>string: string</var>)<var><a name="index-print-12"></a></var><br>
+<blockquote><p>Print <var>string</var> on the standard output. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; void: <b>print_err</b> (<var>string: string</var>)<var><a name="index-print_005ferr-13"></a></var><br>
+<blockquote><p>Note: this is an EPITA extension.  Same as <code>print</code>, but the output
+is written to the standard error. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; void: <b>print_int</b> (<var>int: int</var>)<var><a name="index-print_005fint-14"></a></var><br>
+<blockquote><p>Note: this is an EPITA extension.  Output <var>int</var> in its decimal
+canonical form (equivalent to &lsquo;<samp><span class="samp">%d</span></samp>&rsquo; for <code>printf</code>). 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; int: <b>size</b> (<var>string: string</var>)<var><a name="index-size-15"></a></var><br>
+<blockquote><p>Return the size in characters of the <var>string</var>. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; int: <b>strcmp</b> (<var>a: string, b: string</var>)<var><a name="index-strcmp-16"></a></var><br>
+<blockquote><p>Note: this is an EPITA extension.  Compare the strings <var>a</var> and
+<var>b</var>: return -1 if <var>a</var> &lt; <var>b</var>, 0 if equal, and 1 otherwise. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; int: <b>streq</b> (<var>a: string, b: string</var>)<var><a name="index-streq-17"></a></var><br>
+<blockquote><p>Note: this is an EPITA extension.  Return 1 if the strings <var>a</var> and
+<var>b</var> are equal, 0 otherwise.  Often faster than <code>strcmp</code> to test
+string equality. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; string: <b>substring</b> (<var>string: string, first: int, length: int</var>)<var><a name="index-substring-18"></a></var><br>
+<blockquote><p>Return a string composed of the characters of <var>string</var> starting at
+the <var>first</var> character (0 being the origin), and composed of
+<var>length</var> characters (i.e., up to and including the character
+<var>first</var> + <var>length</var>).
+
+        <p>Let <var>size</var> be the size of the <var>string</var>, the following assertions
+must hold:
+          <ul>
+<li>0 &lt;= <var>first</var>
+
+          <li>0 &lt;= <var>length</var>
+
+          <li><var>first</var> + <var>length</var> &lt;= <var>size</var>
+</ul>
+
+     <p class="noindent">otherwise a runtime failure is raised: &lsquo;<samp><span class="samp">substring: arguments out
+of bounds</span></samp>&rsquo;. 
+</p></blockquote></div>
+
+<!-- ========================================================= Implementation -->
+<div class="node">
+<a name="Implementation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#The-Reference-Implementation">The Reference Implementation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Predefined-Entities">Predefined Entities</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Implementation</h2>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Invoking-tc">Invoking tc</a>:                  Command line options
+<li><a accesskey="2" href="#Errors">Errors</a>:                       Handling invalid input
+<li><a accesskey="3" href="#Extensions">Extensions</a>:                   Making extensions to your compiler
+</ul>
+
+<!--  Invoking tc -->
+<div class="node">
+<a name="Invoking-tc"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Errors">Errors</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Implementation">Implementation</a>
+
+</div>
+
+<h3 class="section">4.1 Invoking <samp><span class="command">tc</span></samp></h3>
+
+<p>Synopsis:
+
+<pre class="example">     tc <var>option</var>... <var>file</var>
+</pre>
+   <p class="noindent">where <var>file</var> can be &lsquo;<samp><span class="samp">-</span></samp>&rsquo;, denoting the standard input.
+
+   <p>Global options are:
+
+     <dl>
+<dt><samp><span class="option">-h</span></samp><dt><samp><span class="option">--help</span></samp><dd>Display the help message, and exit successfully.
+
+     <br><dt><samp><span class="option">--version</span></samp><dd>Display the version, and exit successfully.
+
+     <br><dt><samp><span class="option">--task-list</span></samp><dd>List the registered tasks.
+
+     <br><dt><samp><span class="option">--task-order</span></samp><dd>Report the order in which the tasks will be run. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the file library (TC-1) are:
+
+     <dl>
+<dt><samp><span class="option">-p</span></samp><dt><samp><span class="option">--library-prepend</span></samp><dd>Prepend a directory to include path.
+
+     <br><dt><samp><span class="option">-P</span></samp><dt><samp><span class="option">--library-append</span></samp><dd>Append a directory to include path.
+
+     <br><dt><samp><span class="option">--library-display</span></samp><dd>Report the include search path. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to scanning and parsing (TC-1) are:
+
+     <dl>
+<dt><samp><span class="option">--scan-trace</span></samp><dd>Enable Flex scanners traces.
+
+     <br><dt><samp><span class="option">--parse-trace</span></samp><dd>Enable Bison parsers traces.
+
+     <br><dt><samp><span class="option">--parse</span></samp><dd>Parse the file given as argument (objects forbidden).
+
+     <br><dt><samp><span class="option">--prelude=</span><var>prelude</var></samp><dd>Load the definitions of the file <var>prelude</var> before the actual
+argument.  The result is equivalent to parsing:
+
+     <pre class="example">          let
+            import "<var>prelude</var>"
+          in
+            /* The argument file. */
+          end
+</pre>
+     <p>To disable any prelude file, pass an empty <var>prelude</var>.  The default
+value is <code>builtin</code>, denoting the builtin prelude.
+
+     <br><dt><samp><span class="option">-X</span></samp><dt><samp><span class="option">--no-prelude</span></samp><dd>Same as <samp><span class="option">--prelude=""</span></samp>. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the <acronym><span class="sc">ast</span></acronym> (TC-2) are:
+
+     <dl>
+<dt><samp><span class="option">-o</span></samp><dt><samp><span class="option">--object</span></samp><dd>Enable object constructs of the language (class and method
+declarations, object creation, method calls, etc.).
+
+     <br><dt><samp><span class="option">--object-parse</span></samp><dd>Same as <samp><span class="option">--object --parse</span></samp>, i.e. parse the file given as
+argument, allowing objects.
+
+     <br><dt><samp><span class="option">-A</span></samp><dt><samp><span class="option">--ast-display</span></samp><dd>Display the <span class="sc">ast</span>.
+
+     <br><dt><samp><span class="option">-D</span></samp><dt><samp><span class="option">--ast-delete</span></samp><dd>Reclaim the memory allocated for the <span class="sc">ast</span>. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to escapes computation (TC-3) are:
+
+     <dl>
+<dt><samp><span class="option">--bound</span></samp><dd>Make sure bindings (regular or taking overloading or objects constructs
+into account) are computed.
+
+     <br><dt><samp><span class="option">-b</span></samp><dt><samp><span class="option">--bindings-compute</span></samp><dd>Bind the name uses to their definitions (objects forbidden).
+
+     <br><dt><samp><span class="option">-B</span></samp><dt><samp><span class="option">--bindings-display</span></samp><dd>Enable the bindings display in the next <samp><span class="option">--ast-display</span></samp>
+invocation.  This option does not imply <samp><span class="option">--bindings-compute</span></samp>.
+
+     <br><dt><samp><span class="option">--object-bindings-compute</span></samp><dd>Bind the name uses to their definitions, allowing objects. 
+consistency. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the renaming to unique identifiers
+(TC-R) are:
+
+     <dl>
+<dt><samp><span class="option">--rename</span></samp><dd>Rename identifiers (objects forbidden). 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to escapes computation (TC-E) are:
+
+     <dl>
+<dt><samp><span class="option">-e</span></samp><dt><samp><span class="option">--escapes-compute</span></samp><dd>Compute the escapes.
+
+     <br><dt><samp><span class="option">-E</span></samp><dt><samp><span class="option">--escapes-display</span></samp><dd>Enable the escape display.  This option does not imply
+<samp><span class="option">--escapes-compute</span></samp>, so that it is possible to check that the
+defaults (everybody escapes) are properly implemented.  Pass <samp><span class="option">-A</span></samp>
+afterward to see its result. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to type checking (TC-4) are:
+
+     <dl>
+<dt><samp><span class="option">-T</span></samp><dt><samp><span class="option">--typed</span></samp><dd>Make sure types (regular or taking overloading or objects constructs
+into account) are computed.
+
+     <br><dt><samp><span class="option">--types-compute</span></samp><dd>Compute and check (regular) types (objects forbidden).
+
+     <br><dt><samp><span class="option">--object-types-compute</span></samp><dd>Compute and check (regular) types, allowing objects. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to desugaring (TC-D) are:
+
+     <dl>
+<dt><samp><span class="option">--desugar-for</span></samp><dd>Enable the translation of <code>for</code> loops into <code>while</code> loops.
+
+     <br><dt><samp><span class="option">--desugar-string-cmp</span></samp><dd>Enable the desugaring of string comparisons.
+
+     <br><dt><samp><span class="option">--desugared</span></samp><dd>Make sure syntactic sugar (regular or taking overloading into account)
+has been removed from the <acronym><span class="sc">ast</span></acronym>.
+
+     <br><dt><samp><span class="option">--desugar</span></samp><dd>Remove syntactic sugar from the <acronym><span class="sc">ast</span></acronym>.  Desired translations must be
+enabled beforehand (e.g. with <samp><span class="option">--desugar-for</span></samp> or
+<samp><span class="option">--desugar-string-cmp</span></samp>).
+
+     <br><dt><samp><span class="option">--overfun-desugar</span></samp><dd>Like <samp><span class="option">--desugar</span></samp> but with support for overloaded functions (see
+TC-A). 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the inlining optimization (TC-I)
+are:
+
+     <dl>
+<dt><samp><span class="option">--inline</span></samp><dd>Inline bodies of (non overloaded) functions at call sites.
+
+     <br><dt><samp><span class="option">--overfun-inline</span></samp><dd>Inline bodies of functions (overloaded or not) at call sites.
+
+     <br><dt><samp><span class="option">--prune</span></samp><dd>Remove unused (non overloaded) functions.
+
+     <br><dt><samp><span class="option">--overfun-prune</span></samp><dd>Remove unused functions (overloaded or not). 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the bounds checking instrumentation
+(TC-B) are:
+
+     <dl>
+<dt><samp><span class="option">--bound-checks-add</span></samp><dd>Add dynamic bounds checks.
+
+     <br><dt><samp><span class="option">--overfun-bound-checks-add</span></samp><dd>Add dynamic bounds checks, with support for overloading. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to overloading support (TC-A) are:
+
+     <dl>
+<dt><samp><span class="option">--overfun-bindings-compute</span></samp><dd>Binding variables, types, and breaks as usual, by bind function calls to
+the set of function definitions baring the same name.
+
+     <br><dt><samp><span class="option">-O</span></samp><dt><samp><span class="option">--overfun-types-compute</span></samp><dd>Type-check and resolve (bind) overloaded function calls.  Implies
+<samp><span class="option">--overfun-bindings-compute</span></samp>. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the desugaring of object constructs
+(TC-O) are:
+
+     <dl>
+<dt><samp><span class="option">--object-desugar</span></samp><dd>Translate object constructs from the program into their non object
+counterparts, i.e., transform a Tiger program into a Panther one. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the high level intermediate representation
+(TC-5) are:
+
+     <dl>
+<dt><samp><span class="option">--hir-compute</span></samp><dd>Translate to <span class="sc">hir</span> (objects forbidden).  Implies <samp><span class="option">--typed</span></samp>.
+
+     <br><dt><samp><span class="option">-H</span></samp><dt><samp><span class="option">--hir-display</span></samp><dd>Display the high level intermediate representation. Implies
+<samp><span class="option">--hir-compute</span></samp>. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the low level intermediate representation
+(TC-6) are:
+
+     <dl>
+<dt><samp><span class="option">--canon-trace</span></samp><dd>Trace the canonicalization of <span class="sc">hir</span> to <span class="sc">lir</span>.
+
+     <br><dt><samp><span class="option">--canon-compute</span></samp><dd>Canonicalize the <acronym><span class="sc">lir</span></acronym> fragments.
+
+     <br><dt><samp><span class="option">-C</span></samp><dt><samp><span class="option">--canon-display</span></samp><dd>Display the canonicalized intermediate representation <em>before</em>
+basic blocks and traces computation. Implies <samp><span class="option">--lir-compute</span></samp>.  It
+is convenient to determine whether a failure is due to canonicalization,
+or traces.
+
+     <br><dt><samp><span class="option">--traces-trace</span></samp><dd>Trace the basic blocks and traces canonicalization of <span class="sc">hir</span> to
+<span class="sc">lir</span>.
+
+     <br><dt><samp><span class="option">--traces-compute</span></samp><dd>Compute the basic blocks from canonicalized <acronym><span class="sc">hir</span></acronym> fragments. 
+Implies <samp><span class="option">--canon-compute</span></samp>.
+
+     <br><dt><samp><span class="option">--lir-compute</span></samp><dd>Translate to <span class="sc">lir</span>.  Implies <samp><span class="option">--traces-compute</span></samp>.  Actually, it
+is nothing but a nice looking alias for the latter.
+
+     <br><dt><samp><span class="option">-L</span></samp><dt><samp><span class="option">--lir-display</span></samp><dd>Display the low level intermediate representation. Implies
+<samp><span class="option">--lir-compute</span></samp>. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the instruction selection (TC-7) are:
+
+     <dl>
+<dt><samp><span class="option">--inst-compute</span></samp><dd>Convert from <acronym><span class="sc">lir</span></acronym> to pseudo assembly with temporaries. 
+Implies <samp><span class="option">--lir-compute</span></samp>.
+
+     <br><dt><samp><span class="option">-I</span></samp><dt><samp><span class="option">--inst-display</span></samp><dd>Display the pseudo assembly, (without the runtime prologue).  Implies
+<samp><span class="option">--inst-compute</span></samp>.
+
+     <br><dt><samp><span class="option">-R</span></samp><dt><samp><span class="option">--runtime-display</span></samp><dd>Display the assembly runtime prologue for the current target. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the liveness information (TC-8) are:
+
+     <dl>
+<dt><samp><span class="option">-F</span></samp><dt><samp><span class="option">--flowgraphs-dump</span></samp><dd>Save each function flow graph in a Graphviz file.  Implies
+<samp><span class="option">--inst-compute</span></samp>.
+
+     <br><dt><samp><span class="option">-V</span></samp><dt><samp><span class="option">--liveness-dump</span></samp><dd>Save each function flow graph enriched with liveness information in a
+Graphviz file. Implies <samp><span class="option">--inst-compute</span></samp>.
+
+     <br><dt><samp><span class="option">-N</span></samp><dt><samp><span class="option">--interference-dump</span></samp><dd>Save each function interference graph in a Graphviz file.  Implies
+<samp><span class="option">--inst-compute</span></samp>. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the target are:
+
+     <dl>
+<dt><samp><span class="option">--callee-save=</span><var>num</var></samp><dt><samp><span class="option">--caller-save=</span><var>num</var></samp><dd>Set the maximum number of callee/caller save registers to <var>num</var>, a
+positive number.  Note that (currently) this does not reset the current
+target, hence to actually change the behavior, one needs
+&lsquo;<samp><span class="samp">--callee-save=0 --target-mips</span></samp>&rsquo;.
+
+     <br><dt><samp><span class="option">--target-mips</span></samp><dd>Set the target to Mips.
+
+     <br><dt><samp><span class="option">--target-ia32</span></samp><dd>This optional flag sets the target to <acronym><span class="sc">ia-32</span></acronym>.
+
+     <br><dt><samp><span class="option">--target-default</span></samp><dd>If no target is selected, select Mips.  This option is triggered by all
+the options that need a target.
+
+     <br><dt><samp><span class="option">--target-display</span></samp><dd>Report information about the current target. 
+</dl>
+
+   <pre class="sp">
+
+</pre>
+
+The options related to the register allocation are:
+
+     <dl>
+<dt><samp><span class="option">--asm-coalesce-disable</span></samp><dd>Disable coalescence.
+
+     <br><dt><samp><span class="option">--asm-flowgraphs</span></samp><dd>Dump the flow graphs.
+
+     <br><dt><samp><span class="option">--asm-trace</span></samp><dd>Trace register allocation.
+
+     <br><dt><samp><span class="option">-s</span></samp><dt><samp><span class="option">--asm-compute</span></samp><dd>Allocate the registers.
+
+     <br><dt><samp><span class="option">-S</span></samp><dt><samp><span class="option">--asm-display</span></samp><dd>Display the final assembler, runtime included. 
+</dl>
+
+<!--  Errors -->
+<div class="node">
+<a name="Errors"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Extensions">Extensions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invoking-tc">Invoking tc</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Implementation">Implementation</a>
+
+</div>
+
+<h3 class="section">4.2 Errors</h3>
+
+<p>Errors must be reported on the standard error output.  The exit status
+and the standard error output must be consistent: the exit status is 0
+if and only if there is no output at all on the standard error output. 
+There are actually some exceptions: when tracing (scanning, parsing,
+etc.) are enabled.
+
+   <p>Compile errors must be reported on the standard error flow with precise
+error location.  The format of the error output must exactly be
+
+<pre class="example">     <var>location</var>: <var>error message</var>
+</pre>
+   <p class="noindent">where the <var>location</var> includes the file name, initial position, and
+final position.  There is no fixed set of error messages.
+
+   <p>Examples include:
+
+<pre class="example">     $ <kbd>echo "1 + + 2" | ./tc -</kbd>
+     error--&gt;standard input:1.4: syntax error, unexpected "+"
+     error--&gt;Parsing Failed
+</pre>
+   <p class="noindent">and
+
+<pre class="example">     $ <kbd>echo "1 + () + 2" | ./tc -T -</kbd>
+     error--&gt;standard input:1.0-5: type mismatch
+     error--&gt;  right operand type: void
+     error--&gt;  expected type: int
+</pre>
+   <p><a name="index-g_t_0040error_007b_007d-19"></a><a name="index-g_t_0040result_007b_007d-20"></a><strong>Warning:</strong> The symbol error--&gt; is not part of the actual output. 
+It is only used in this document to highlight that the message is
+produced on the standard error flow.  Do not include it as part of the
+compiler's messages.  The same applied to &rArr;.
+
+   <pre class="sp">
+
+</pre>
+
+The compiler exit value should reflect faithfully the compilation
+status.  The possible values are:
+
+     <dl>
+<dt>0<dd>Everything is all right.
+
+     <br><dt>1<dd>Some error which does not fall into the other categories occurred. 
+For instance, <code>malloc</code> or <code>fopen</code> failed, a file is missing
+etc.
+
+     <p>An unsupported option must cause <samp><span class="command">tc</span></samp> to exit 64
+(<code>EX_USAGE</code>) even if related to a stage option otherwise these
+optional features will be tested, and it will most probably have 0.  For
+instance, a TC-5 delivery that does not support bounds
+checking must not accept <samp><span class="option">--bounds-checking</span></samp>.
+
+     <br><dt>2<dd>Error detected during the scanning, e.g., invalid character.
+
+     <br><dt>3<dd>Parse error.
+
+     <br><dt>4<dd>Identifier binding errors such as duplicate name definition, or
+undefined name use.
+
+     <br><dt>5<dd>Type checking errors (such as type incompatibility).
+
+     <br><dt>64 (<code>EX_USAGE</code>)<dd>The command was used incorrectly, e.g., with the wrong number of
+arguments, a bad flag, a bad syntax in a parameter, or whatever.  This
+is the value used by <code>argp</code>. 
+</dl>
+
+   <p>When several errors have occurred, the least value should be issued,
+not the earliest.  For instance:
+
+<pre class="example">     (let error in end; %)
+</pre>
+   <p class="noindent">should exit 2, not 3, although the parse error was first detected.
+
+   <pre class="sp">
+
+</pre>
+
+<a name="index-runtime-error-21"></a>In addition to compiler errors, the compiled programs may have to raise
+a runtime error, for instance when runtime functions received improper
+arguments.  In that case use the exit code 120, and issue a clear
+diagnostic.  Because of the basic <acronym><span class="sc">mips</span></acronym> model we target which
+does not provide the standard error output, the message is to be output
+onto the standard output.
+
+<!--  Extensions -->
+<div class="node">
+<a name="Extensions"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Errors">Errors</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Implementation">Implementation</a>
+
+</div>
+
+<h3 class="section">4.3 Extensions</h3>
+
+<p>A strictly compliant compiler must behave exactly as specified in this
+document and in Andrew Appel's book, and as demonstrated by the samples
+exhibited in this document and in see <a href="assignments.html#Top">Assignments</a>.
+
+   <p>Nevertheless, you are entirely free to extend your compiler as you wish,
+as long as this extension is enabled by a non standard option. 
+Extensions include:
+
+     <dl>
+<dt><acronym><span class="sc">ansi</span></acronym> Colors<dd>Do not do that by default, in particular without checking if the output
+<code>isatty</code>, as the correction program will not appreciate.
+
+     <br><dt>Language Extensions<dd>If for instance you intend to support loop-expression, the construct
+must be rejected (as a syntax error) if the corresponding option was not
+specified. 
+</dl>
+
+   <p>In <strong>any case</strong>, if you don't implement an extension that was
+suggested (such as <samp><span class="option">--hir-use-ix</span></samp>, then <strong>you must not
+accept the option</strong>.  If the compiler accepts an option, then the effect
+of this option will be checked.  For instance, if your compiler accepts
+<samp><span class="option">--hir-use-ix</span></samp> but does not implement it, then be sure to get 0
+on these tests.
+
+<!-- =========================================== The Reference Implementation -->
+<div class="node">
+<a name="The-Reference-Implementation"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Implementation">Implementation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">5 The Reference Implementation</h2>
+
+<p>The so-called &ldquo;reference compiler&rdquo; is the compiler the <acronym><span class="sc">lrde</span></acronym> develops
+to (i) prototype what students will have to implement, and to (ii)
+control the output from student compilers.  It might be useful to some
+to see the name we gave to our options.  The following is informative
+only, the exact contract for a conforming implementation of a Tiger
+compiler is defined above, <a href="#Implementation">Implementation</a>.
+
+<pre class="example">     $ <kbd>tc --help</kbd>
+     Usage: tc [OPTION...] INPUT-FILE
+     Tiger Compiler, Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010  LRDE.
+     
+      0. Tasks
+           --task-graph           show task graph
+           --task-list            list registered tasks
+           --task-selection       list tasks to be run
+           --time-report          report execution times
+     
+      1. Parsing
+           --library-display      display library search path
+       -p, --library-prepend=DIR  prepend directory DIR to the search path
+           --parse                parse a file
+           --parse-trace          trace the parse
+           --prelude=STRING       name of the prelude.  Defaults to "builtin"
+                                  denoting the builtin prelude
+       -P, --library-append=DIR   append directory DIR to the search path
+           --scan-trace           trace the scanning
+       -X, --no-prelude           same as --prelude=""
+     
+      2. Abstract Syntax Tree
+       -A, --ast-display          display the AST
+       -D, --ast-delete           delete the AST
+     
+      2.5 Cloning
+           --clone                clone the Ast
+     
+      3. Bind
+       -b, --bindings-compute     bind the identifiers
+           --bound                default the computation of bindings to Tiger
+                                  (without overloading)
+       -B, --bindings-display     enable bindings display in the AST
+           --rename               rename identifiers to unique names
+     
+      3. Callgraph
+           --callgraph-compute    build the call graph
+           --callgraph-dump       dump the call graph
+           --escapes-sl-compute   compute the escaping static links and the
+                                  functions requiring a static link
+           --escapes-sl-display   enable static links' escapes in the AST
+           --parentgraph-compute  build the parent graph
+           --parentgraph-dump     dump the parent graph
+     
+      3. Escapes
+           --escapes-check        check that escape tags are correct
+       -e, --escapes-compute      compute the escaping variables and the functions
+                                  requiring a static link
+           --escapes-necessary-check   check that tagged variables are escaping
+           --escapes-sufficient-check   check that escaping variables are tagged
+           --escapes-tags-display enable escape tags display in the AST
+       -E, --escapes-display      enable escape display in the AST
+     
+      4. Type checking
+           --types-compute        check for type violations
+       -T, --typed                default the type-checking to Tiger (without
+                                  overloading)
+     
+      4.5 Type checking with overloading
+           --overfun-bindings-compute   bind the identifiers, allowing function
+                                  overloading
+       -O, --overfun-types-compute   check for type violations, allowing function
+                                  overloading
+     
+      5. Translation to High Level Intermediate Representation
+           --hir-compute          translate to HIR
+           --hir-naive            don't use "Ix" during the translation
+       -H, --hir-display          display the HIR
+     
+      6. Translation to Low Level Intermediate Representation
+           --canon-compute        canonicalize
+           --canon-trace          trace the canonicalization of the LIR
+       -C, --canon-display        display the canonicalized IR
+           --lir-compute          translate to LIR (alias for --trace-compute)
+       -L, --lir-display          display the low level intermediate representation
+           --traces-compute       make traces
+           --traces-trace         trace the traces computation
+     
+      7. Target selection
+           --argument=NUM         max number of argument registers
+           --callee-save=NUM      max number of callee save registers
+           --caller-save=NUM      max number of caller save registers
+           --garbage-collection   enable garbage collection
+       -i, --inst-compute         select the instructions
+           --inst-debug           enable instructions verbose display
+       -I, --inst-display         display the instructions
+           --rule-trace           enable rule reducing display
+       -R, --runtime-display      display the runtime
+           --target-display       display the current target
+           --target-ia32          select the IA32 as target
+           --target-mips          select the MIPS as target
+           --targeted             default the target to MIPS
+       -Y, --nolimips-display     display Nolimips compatible instructions (i.e.,
+                                  allocatethe frames and then display the
+                                  instructions
+     
+      8. Liveness
+       -F, --flowgraph-dump       dump the flowgraphs
+       -N, --interference-dump    dump the interference graphs
+       -V, --liveness-dump        dump the liveness graphs
+     
+      9. Register Allocation
+           --asm-coalesce-disable disable coalescence
+           --asm-flowgraphs       dump the flow graphs
+           --asm-trace            trace register allocation
+       -s, --asm-compute          allocate the registers
+       -S, --asm-display          display the final assembler
+     
+      Desugaring and bound-checking
+           --bound-checks-add     add dynamic bound checks
+           --desugar              desugar the AST
+           --desugar-for          desugar « for » loops
+           --desugar-string-cmp   desugar string comparisons
+           --desugared            Default the removal of syntactic sugar from the
+                                  AST to Tiger (without overloading)
+           --overfun-bound-checks-add   add dynamic bound checks with support for
+                                  overloading
+           --overfun-desugar      desugar the AST, allowing function overloading
+           --raw-bound-checks-add add bound-checking to the AST without recomputing
+                                  bindings nor types
+           --raw-desugar          desugar the AST without recomputing bindings nor
+                                  types
+     
+      Inlining
+           --inline               inline functions
+           --overfun-inline       inline functions with support for overloading
+           --overfun-prune        prune unused functions with support for
+                                  overloading
+           --prune                prune unused functions
+     
+      Object
+       -o, --object               enable object extensions
+           --object-bindings-compute   bind the identifiers, allowing objects
+           --object-desugar       remove object constructs from the program
+           --object-parse         parse a file, allowing objects
+           --object-rename        rename identifiers to unique names, allowing
+                                  objects
+           --object-types-compute check for type violations, allowing objects
+           --raw-object-desugar   remove object constructs from the program without
+                                  recomputing bindings nor types
+     
+      Temporaries
+           --tempmap-display      display the temporary table
+     
+       -?, --help                 Give this help list
+           --usage                Give a short usage message
+           --version              Print program version
+     
+     Mandatory or optional arguments to long options are also mandatory or optional
+     for any corresponding short options.
+     
+     Report bugs to tiger@lrde.epita.fr.
+</pre>
+   <div class="float">
+<a name="tc_002dhelp"></a>
+<p><strong class="float-caption">Example 5.1: <kbd>tc --help</kbd></strong></p></div>
+
+   <div class="footnote">
+<hr>
+<a name="texinfo-footnotes-in-document"></a><h4>Notes de bas de page</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> A super
+class can only be a <em>class</em> type, and not another kind of type.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> Which is not the case in C++,
+where methods have <em>covariant</em> return values.</p>
+
+   <hr></div>
+
+</body></html>
+
