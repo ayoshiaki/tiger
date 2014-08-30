@@ -84,7 +84,6 @@ public class Tiger {
             debug.println(p.head.assem);
             debug.flush();
         }
-        out.println(".end  " + f.frame.name);
         debug.flush();
         
         
