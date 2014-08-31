@@ -299,12 +299,12 @@ public class Codegen {
         }
         if (e.binop == 1) {
             if (e.left instanceof CONST) {
-                emit(OPER("subi `d0," + ((CONST) e.left).value + ",`s0", L(r),
+                emit(OPER("sub `d0,`s0," + ((CONST) e.left).value + "", L(r),
                         L(munchExp(e.right))));
                 return r;
             }
             if (e.right instanceof CONST) {
-                emit(OPER("subi `d0,`s0," + ((CONST) e.right).value + "", L(r),
+                emit(OPER("sub `d0,`s0," + ((CONST) e.right).value + "", L(r),
                         L(munchExp(e.left))));
                 return r;
             }
@@ -398,3 +398,4 @@ public class Codegen {
         }
     }
 }
+
