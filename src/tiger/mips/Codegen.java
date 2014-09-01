@@ -121,24 +121,24 @@ public class Codegen {
          */
         switch (s.relop) {
             case CJUMP.EQ:
-                emit(new OPER("JE `j0 ; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("beq $t1,$t2,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.NE:
-                emit(new OPER("JNE 'j0; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("bne $t1,$t2,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.LT:
-                emit(new OPER("JL `j0 ; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("bltz $t1,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.LE:
-                emit(new OPER("JLE `j0; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("blez $t1,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.GT:
-                emit(new OPER("JG `j0 ; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("bgtz $t1,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.GE:
-                emit(new OPER("JGE `j0; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("bgez $t1,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
-            case CJUMP.ULT:
+            /*case CJUMP.ULT:
                 emit(new OPER("JB `j0 ; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.ULE:
@@ -149,11 +149,8 @@ public class Codegen {
                 break;
             case CJUMP.UGE:
                 emit(new OPER("JAE `j0; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
-                break;
+                break;*/
         }
-
-        /* faz o jump para false */
-        emit(new OPER("JMP `j0 ; munchCJump", null, null, new LabelList(s.iffalse, null)));
 
         /* faz o jump para false */
         emit(new tiger.assem.LABEL(label_aux.toString() + ":", label_aux));
