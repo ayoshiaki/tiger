@@ -109,7 +109,7 @@ public class Codegen {
         Temp temp_esq = munchExp(s.left);
         Temp temp_dir = munchExp(s.right);
 
-        emit(new OPER("CMP `s0, `s1; munchCJump", null, new TempList(temp_esq, new TempList(temp_dir, null))));
+        emit(new OPER("", null, new TempList(temp_esq, new TempList(temp_dir, null))));
 
         /**
          * Para jumps "longe" necessita um label auxiliar
@@ -154,7 +154,7 @@ public class Codegen {
 
         /* faz o jump para false */
         emit(new tiger.assem.LABEL(label_aux.toString() + ":", label_aux));
-        emit(new OPER("JMP `j0 ; munchCJump", null, null, new LabelList(s.iftrue, null)));
+        emit(new OPER("j L0", null, null, new LabelList(s.iftrue, null)));
 
     }
 
