@@ -109,7 +109,7 @@ public class Codegen {
         Temp temp_esq = munchExp(s.left);
         Temp temp_dir = munchExp(s.right);
 
-        emit(new OPER("CMP `s0, `s1; munchCJump", null, new TempList(temp_esq, new TempList(temp_dir, null))));
+        emit(new OPER("", null, new TempList(temp_esq, new TempList(temp_dir, null))));
 
         /**
          * Para jumps "longe" necessita um label auxiliar
@@ -121,24 +121,24 @@ public class Codegen {
          */
         switch (s.relop) {
             case CJUMP.EQ:
-                emit(new OPER("JE `j0 ; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("beq $t1,$t2,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.NE:
-                emit(new OPER("JNE 'j0; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("bne $t1,$t2,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.LT:
-                emit(new OPER("JL `j0 ; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("bltz $t1,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.LE:
-                emit(new OPER("JLE `j0; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("blez $t1,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.GT:
-                emit(new OPER("JG `j0 ; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("bgtz $t1,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.GE:
-                emit(new OPER("JGE `j0; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                emit(new OPER("bgez $t1,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
-            case CJUMP.ULT:
+            /*case CJUMP.ULT:
                 emit(new OPER("JB `j0 ; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.ULE:
@@ -149,15 +149,12 @@ public class Codegen {
                 break;
             case CJUMP.UGE:
                 emit(new OPER("JAE `j0; munchCJump", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
-                break;
+                break;*/
         }
 
         /* faz o jump para false */
-        emit(new OPER("JMP `j0 ; munchCJump", null, null, new LabelList(s.iffalse, null)));
-
-        /* faz o jump para false */
         emit(new tiger.assem.LABEL(label_aux.toString() + ":", label_aux));
-        emit(new OPER("JMP `j0 ; munchCJump", null, null, new LabelList(s.iftrue, null)));
+        emit(new OPER("j L0", null, null, new LabelList(s.iftrue, null)));
 
     }
 
@@ -299,12 +296,12 @@ public class Codegen {
         }
         if (e.binop == 1) {
             if (e.left instanceof CONST) {
-                emit(OPER("subi `d0," + ((CONST) e.left).value + ",`s0", L(r),
+                emit(OPER("sub `d0,`s0," + ((CONST) e.left).value + "", L(r),
                         L(munchExp(e.right))));
                 return r;
             }
             if (e.right instanceof CONST) {
-                emit(OPER("subi `d0,`s0," + ((CONST) e.right).value + "", L(r),
+                emit(OPER("sub `d0,`s0," + ((CONST) e.right).value + "", L(r),
                         L(munchExp(e.left))));
                 return r;
             }
@@ -398,3 +395,4 @@ public class Codegen {
         }
     }
 }
+
