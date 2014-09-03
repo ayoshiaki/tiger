@@ -1,0 +1,6 @@
+let 
+	var x := 999
+	x:= x-9
+in
+	printi(x:int)
+end
