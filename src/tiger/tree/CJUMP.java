@@ -18,16 +18,16 @@ public class CJUMP extends Stm {
   }
   public static int notRel(int relop) {
     switch (relop) {
-        case EQ:  return NE;
-        case NE:  return EQ;
-	case LT:  return GE;
-	case GE:  return LT;
-	case GT:  return LE;
-	case LE:  return GT;
-	case ULT: return UGE;
-	case UGE: return ULT;
-	case UGT: return ULE;
-	case ULE: return UGT;
+        case EQ:  return EQ;
+        case NE:  return NE;
+	case LT:  return LT;
+	case GE:  return GE;
+	case GT:  return GT;
+	case LE:  return LE;
+	case ULT: return ULT;
+	case UGE: return UGE;
+	case UGT: return UGT;
+	case ULE: return ULE;
 	default: throw new Error("bad relop in CJUMP.notRel");
     }
   }
