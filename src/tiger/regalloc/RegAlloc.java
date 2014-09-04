@@ -110,6 +110,6 @@ public class RegAlloc implements TempMap {
 			}
 		}
 	
-			ig.show(oStream);
+			//ig.show(oStream);
 	}
 }
