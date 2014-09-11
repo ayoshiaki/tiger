@@ -1,4 +1,4 @@
-// Generated from Tiger.g by ANTLR 4.2
+// Generated from Tiger.g by ANTLR 4.4
 
 package tiger.parser;
 import tiger.symbol.*;
@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class TigerParser extends Parser {
+	static { RuntimeMetaData.checkVersion("4.4", RuntimeMetaData.VERSION); }
+
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
@@ -106,8 +108,8 @@ public class TigerParser extends Parser {
 	}
 
 	public static class DecContext extends ParserRuleContext {
-		public Dec d = null;;
-		public NameTy nt = null;;
+		public Dec d;
+		public NameTy nt;
 		public TypedecContext typedec;
 		public FunctiondecContext functiondec;
 		public Token VAR;
@@ -115,21 +117,21 @@ public class TigerParser extends Parser {
 		public Token COLON;
 		public TypeidContext typeid;
 		public ExpContext exp;
-		public TypeidContext typeid() {
-			return getRuleContext(TypeidContext.class,0);
-		}
-		public TerminalNode ASSIGN() { return getToken(TigerParser.ASSIGN, 0); }
 		public ExpContext exp() {
 			return getRuleContext(ExpContext.class,0);
 		}
 		public TerminalNode ID() { return getToken(TigerParser.ID, 0); }
-		public TerminalNode VAR() { return getToken(TigerParser.VAR, 0); }
-		public FunctiondecContext functiondec() {
-			return getRuleContext(FunctiondecContext.class,0);
-		}
-		public TerminalNode COLON() { return getToken(TigerParser.COLON, 0); }
+		public TerminalNode ASSIGN() { return getToken(TigerParser.ASSIGN, 0); }
 		public TypedecContext typedec() {
 			return getRuleContext(TypedecContext.class,0);
+		}
+		public TerminalNode VAR() { return getToken(TigerParser.VAR, 0); }
+		public TerminalNode COLON() { return getToken(TigerParser.COLON, 0); }
+		public TypeidContext typeid() {
+			return getRuleContext(TypeidContext.class,0);
+		}
+		public FunctiondecContext functiondec() {
+			return getRuleContext(FunctiondecContext.class,0);
 		}
 		public DecContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -202,27 +204,27 @@ public class TigerParser extends Parser {
 	}
 
 	public static class TypedecContext extends ParserRuleContext {
-		public Dec d = null;;
-		public TypeDec l = null;;
+		public Dec d;
+		public TypeDec l;
 		public Token ID;
 		public TyContext ty;
-		public TyContext ty(int i) {
-			return getRuleContext(TyContext.class,i);
-		}
+		public List<TerminalNode> ID() { return getTokens(TigerParser.ID); }
+		public List<TerminalNode> TYPE() { return getTokens(TigerParser.TYPE); }
 		public TerminalNode EQ(int i) {
 			return getToken(TigerParser.EQ, i);
 		}
-		public List<TerminalNode> ID() { return getTokens(TigerParser.ID); }
-		public List<TyContext> ty() {
-			return getRuleContexts(TyContext.class);
+		public TyContext ty(int i) {
+			return getRuleContext(TyContext.class,i);
 		}
 		public TerminalNode TYPE(int i) {
 			return getToken(TigerParser.TYPE, i);
 		}
-		public List<TerminalNode> TYPE() { return getTokens(TigerParser.TYPE); }
-		public List<TerminalNode> EQ() { return getTokens(TigerParser.EQ); }
 		public TerminalNode ID(int i) {
 			return getToken(TigerParser.ID, i);
+		}
+		public List<TerminalNode> EQ() { return getTokens(TigerParser.EQ); }
+		public List<TyContext> ty() {
+			return getRuleContexts(TyContext.class);
 		}
 		public TypedecContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -253,7 +255,7 @@ public class TigerParser extends Parser {
 			setState(66);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -283,55 +285,55 @@ public class TigerParser extends Parser {
 	}
 
 	public static class FunctiondecContext extends ParserRuleContext {
-		public Dec d;;
-		public FunctionDec l;;
+		public Dec d;
+		public FunctionDec l;
 		public Token FUNCTION;
 		public Token ID;
 		public TyfieldsContext tyfields;
 		public Token COLON;
 		public TypeidContext typeid;
 		public ExpContext exp;
-		public TyfieldsContext tyfields(int i) {
-			return getRuleContext(TyfieldsContext.class,i);
+		public List<ExpContext> exp() {
+			return getRuleContexts(ExpContext.class);
 		}
 		public TerminalNode EQ(int i) {
 			return getToken(TigerParser.EQ, i);
 		}
-		public TerminalNode RPAREN(int i) {
-			return getToken(TigerParser.RPAREN, i);
-		}
-		public List<TypeidContext> typeid() {
-			return getRuleContexts(TypeidContext.class);
-		}
-		public List<ExpContext> exp() {
-			return getRuleContexts(ExpContext.class);
-		}
-		public List<TerminalNode> ID() { return getTokens(TigerParser.ID); }
 		public TypeidContext typeid(int i) {
 			return getRuleContext(TypeidContext.class,i);
 		}
-		public List<TerminalNode> LPAREN() { return getTokens(TigerParser.LPAREN); }
+		public List<TerminalNode> COLON() { return getTokens(TigerParser.COLON); }
+		public TerminalNode ID(int i) {
+			return getToken(TigerParser.ID, i);
+		}
+		public List<TerminalNode> RPAREN() { return getTokens(TigerParser.RPAREN); }
+		public ExpContext exp(int i) {
+			return getRuleContext(ExpContext.class,i);
+		}
+		public TyfieldsContext tyfields(int i) {
+			return getRuleContext(TyfieldsContext.class,i);
+		}
+		public List<TerminalNode> ID() { return getTokens(TigerParser.ID); }
+		public List<TerminalNode> FUNCTION() { return getTokens(TigerParser.FUNCTION); }
 		public List<TyfieldsContext> tyfields() {
 			return getRuleContexts(TyfieldsContext.class);
 		}
-		public List<TerminalNode> EQ() { return getTokens(TigerParser.EQ); }
-		public TerminalNode LPAREN(int i) {
-			return getToken(TigerParser.LPAREN, i);
+		public TerminalNode RPAREN(int i) {
+			return getToken(TigerParser.RPAREN, i);
 		}
-		public List<TerminalNode> FUNCTION() { return getTokens(TigerParser.FUNCTION); }
-		public List<TerminalNode> RPAREN() { return getTokens(TigerParser.RPAREN); }
+		public List<TerminalNode> LPAREN() { return getTokens(TigerParser.LPAREN); }
 		public TerminalNode COLON(int i) {
 			return getToken(TigerParser.COLON, i);
 		}
 		public TerminalNode FUNCTION(int i) {
 			return getToken(TigerParser.FUNCTION, i);
 		}
-		public ExpContext exp(int i) {
-			return getRuleContext(ExpContext.class,i);
+		public List<TypeidContext> typeid() {
+			return getRuleContexts(TypeidContext.class);
 		}
-		public List<TerminalNode> COLON() { return getTokens(TigerParser.COLON); }
-		public TerminalNode ID(int i) {
-			return getToken(TigerParser.ID, i);
+		public List<TerminalNode> EQ() { return getTokens(TigerParser.EQ); }
+		public TerminalNode LPAREN(int i) {
+			return getToken(TigerParser.LPAREN, i);
 		}
 		public FunctiondecContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -379,7 +381,7 @@ public class TigerParser extends Parser {
 			setState(102);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -422,20 +424,20 @@ public class TigerParser extends Parser {
 	}
 
 	public static class TyContext extends ParserRuleContext {
-		public Ty t = null;;
+		public Ty t;
 		public TypeidContext typeid;
 		public TyfieldsContext tyfields;
 		public Token ARRAY;
-		public TerminalNode LBRACE() { return getToken(TigerParser.LBRACE, 0); }
-		public TypeidContext typeid() {
-			return getRuleContext(TypeidContext.class,0);
-		}
-		public TerminalNode OF() { return getToken(TigerParser.OF, 0); }
+		public TerminalNode ARRAY() { return getToken(TigerParser.ARRAY, 0); }
 		public TerminalNode RBRACE() { return getToken(TigerParser.RBRACE, 0); }
 		public TyfieldsContext tyfields() {
 			return getRuleContext(TyfieldsContext.class,0);
 		}
-		public TerminalNode ARRAY() { return getToken(TigerParser.ARRAY, 0); }
+		public TerminalNode LBRACE() { return getToken(TigerParser.LBRACE, 0); }
+		public TerminalNode OF() { return getToken(TigerParser.OF, 0); }
+		public TypeidContext typeid() {
+			return getRuleContext(TypeidContext.class,0);
+		}
 		public TyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -533,26 +535,26 @@ public class TigerParser extends Parser {
 	}
 
 	public static class TyfieldsContext extends ParserRuleContext {
-		public FieldList first = null;;
+		public FieldList first;
 		public Token ID;
 		public TypeidContext typeid;
-		public List<TypeidContext> typeid() {
-			return getRuleContexts(TypeidContext.class);
-		}
-		public List<TerminalNode> COMMA() { return getTokens(TigerParser.COMMA); }
 		public List<TerminalNode> ID() { return getTokens(TigerParser.ID); }
-		public TypeidContext typeid(int i) {
-			return getRuleContext(TypeidContext.class,i);
-		}
 		public TerminalNode COLON(int i) {
 			return getToken(TigerParser.COLON, i);
 		}
+		public TypeidContext typeid(int i) {
+			return getRuleContext(TypeidContext.class,i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(TigerParser.COMMA); }
 		public List<TerminalNode> COLON() { return getTokens(TigerParser.COLON); }
-		public TerminalNode COMMA(int i) {
-			return getToken(TigerParser.COMMA, i);
+		public List<TypeidContext> typeid() {
+			return getRuleContexts(TypeidContext.class);
 		}
 		public TerminalNode ID(int i) {
 			return getToken(TigerParser.ID, i);
+		}
+		public TerminalNode COMMA(int i) {
+			return getToken(TigerParser.COMMA, i);
 		}
 		public TyfieldsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -623,7 +625,7 @@ public class TigerParser extends Parser {
 	}
 
 	public static class DecsContext extends ParserRuleContext {
-		public DecList d = null;;
+		public DecList d;
 		public DecContext dec;
 		public List<DecContext> dec() {
 			return getRuleContexts(DecContext.class);
@@ -683,18 +685,18 @@ public class TigerParser extends Parser {
 	}
 
 	public static class ExpContext extends ParserRuleContext {
-		public Exp e;;
+		public Exp e;
 		public AndexpContext andexp;
 		public AndexpContext ar;
-		public List<AndexpContext> andexp() {
-			return getRuleContexts(AndexpContext.class);
-		}
-		public List<TerminalNode> OR() { return getTokens(TigerParser.OR); }
 		public AndexpContext andexp(int i) {
 			return getRuleContext(AndexpContext.class,i);
 		}
+		public List<TerminalNode> OR() { return getTokens(TigerParser.OR); }
 		public TerminalNode OR(int i) {
 			return getToken(TigerParser.OR, i);
+		}
+		public List<AndexpContext> andexp() {
+			return getRuleContexts(AndexpContext.class);
 		}
 		public ExpContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -722,7 +724,7 @@ public class TigerParser extends Parser {
 			setState(159);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -750,20 +752,20 @@ public class TigerParser extends Parser {
 	}
 
 	public static class AndexpContext extends ParserRuleContext {
-		public Exp e;;
+		public Exp e;
 		public CompexpContext cl;
 		public CompexpContext compexp;
 		public CompexpContext cr;
+		public TerminalNode AND(int i) {
+			return getToken(TigerParser.AND, i);
+		}
+		public List<CompexpContext> compexp() {
+			return getRuleContexts(CompexpContext.class);
+		}
 		public CompexpContext compexp(int i) {
 			return getRuleContext(CompexpContext.class,i);
 		}
 		public List<TerminalNode> AND() { return getTokens(TigerParser.AND); }
-		public List<CompexpContext> compexp() {
-			return getRuleContexts(CompexpContext.class);
-		}
-		public TerminalNode AND(int i) {
-			return getToken(TigerParser.AND, i);
-		}
 		public AndexpContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -790,7 +792,7 @@ public class TigerParser extends Parser {
 			setState(170);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -818,40 +820,40 @@ public class TigerParser extends Parser {
 	}
 
 	public static class CompexpContext extends ParserRuleContext {
-		public Exp e;;
-		public int op;;
+		public Exp e;
+		public int op;
 		public SumexpContext sumexp;
 		public SumexpContext r;
-		public TerminalNode NEQ(int i) {
-			return getToken(TigerParser.NEQ, i);
-		}
+		public List<TerminalNode> GE() { return getTokens(TigerParser.GE); }
 		public List<TerminalNode> NEQ() { return getTokens(TigerParser.NEQ); }
+		public TerminalNode LE(int i) {
+			return getToken(TigerParser.LE, i);
+		}
 		public TerminalNode EQ(int i) {
 			return getToken(TigerParser.EQ, i);
 		}
-		public TerminalNode LT(int i) {
-			return getToken(TigerParser.LT, i);
-		}
 		public List<TerminalNode> LT() { return getTokens(TigerParser.LT); }
-		public List<SumexpContext> sumexp() {
-			return getRuleContexts(SumexpContext.class);
-		}
+		public List<TerminalNode> GT() { return getTokens(TigerParser.GT); }
 		public List<TerminalNode> LE() { return getTokens(TigerParser.LE); }
+		public TerminalNode NEQ(int i) {
+			return getToken(TigerParser.NEQ, i);
+		}
 		public SumexpContext sumexp(int i) {
 			return getRuleContext(SumexpContext.class,i);
-		}
-		public TerminalNode GT(int i) {
-			return getToken(TigerParser.GT, i);
-		}
-		public List<TerminalNode> GT() { return getTokens(TigerParser.GT); }
-		public TerminalNode LE(int i) {
-			return getToken(TigerParser.LE, i);
 		}
 		public TerminalNode GE(int i) {
 			return getToken(TigerParser.GE, i);
 		}
+		public List<SumexpContext> sumexp() {
+			return getRuleContexts(SumexpContext.class);
+		}
 		public List<TerminalNode> EQ() { return getTokens(TigerParser.EQ); }
-		public List<TerminalNode> GE() { return getTokens(TigerParser.GE); }
+		public TerminalNode GT(int i) {
+			return getToken(TigerParser.GT, i);
+		}
+		public TerminalNode LT(int i) {
+			return getToken(TigerParser.LT, i);
+		}
 		public CompexpContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -878,7 +880,7 @@ public class TigerParser extends Parser {
 			setState(194);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -946,21 +948,21 @@ public class TigerParser extends Parser {
 	}
 
 	public static class SumexpContext extends ParserRuleContext {
-		public Exp e;;
-		public int op;;
+		public Exp e;
+		public int op;
 		public MulexpContext mulexp;
 		public MulexpContext r;
-		public TerminalNode MINUS(int i) {
-			return getToken(TigerParser.MINUS, i);
-		}
-		public List<MulexpContext> mulexp() {
-			return getRuleContexts(MulexpContext.class);
-		}
-		public List<TerminalNode> MINUS() { return getTokens(TigerParser.MINUS); }
 		public MulexpContext mulexp(int i) {
 			return getRuleContext(MulexpContext.class,i);
 		}
+		public TerminalNode MINUS(int i) {
+			return getToken(TigerParser.MINUS, i);
+		}
 		public List<TerminalNode> PLUS() { return getTokens(TigerParser.PLUS); }
+		public List<TerminalNode> MINUS() { return getTokens(TigerParser.MINUS); }
+		public List<MulexpContext> mulexp() {
+			return getRuleContexts(MulexpContext.class);
+		}
 		public TerminalNode PLUS(int i) {
 			return getToken(TigerParser.PLUS, i);
 		}
@@ -990,7 +992,7 @@ public class TigerParser extends Parser {
 			setState(210);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -1034,20 +1036,20 @@ public class TigerParser extends Parser {
 	}
 
 	public static class MulexpContext extends ParserRuleContext {
-		public Exp e;;
-		public int op;;
+		public Exp e;
+		public int op;
 		public AtomContext atom;
 		public AtomContext r;
-		public TerminalNode TIMES(int i) {
-			return getToken(TigerParser.TIMES, i);
-		}
-		public List<TerminalNode> TIMES() { return getTokens(TigerParser.TIMES); }
 		public AtomContext atom(int i) {
 			return getRuleContext(AtomContext.class,i);
 		}
 		public TerminalNode DIVIDE(int i) {
 			return getToken(TigerParser.DIVIDE, i);
 		}
+		public TerminalNode TIMES(int i) {
+			return getToken(TigerParser.TIMES, i);
+		}
+		public List<TerminalNode> TIMES() { return getTokens(TigerParser.TIMES); }
 		public List<TerminalNode> DIVIDE() { return getTokens(TigerParser.DIVIDE); }
 		public List<AtomContext> atom() {
 			return getRuleContexts(AtomContext.class);
@@ -1078,7 +1080,7 @@ public class TigerParser extends Parser {
 			setState(226);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -1122,8 +1124,8 @@ public class TigerParser extends Parser {
 	}
 
 	public static class AtomContext extends ParserRuleContext {
-		public Exp e;;
-		public ExpList expList = null;;
+		public Exp e;
+		public ExpList expList;
 		public Token NIL;
 		public Token INT;
 		public Token STRING;
@@ -1146,45 +1148,26 @@ public class TigerParser extends Parser {
 		public Token BREAK;
 		public Token LET;
 		public DecsContext decs;
-		public TerminalNode LBRACE() { return getToken(TigerParser.LBRACE, 0); }
-		public TerminalNode INT() { return getToken(TigerParser.INT, 0); }
-		public TerminalNode NIL() { return getToken(TigerParser.NIL, 0); }
-		public ExpsContext exps() {
-			return getRuleContext(ExpsContext.class,0);
-		}
-		public DecsContext decs() {
-			return getRuleContext(DecsContext.class,0);
-		}
-		public List<TerminalNode> EQ() { return getTokens(TigerParser.EQ); }
-		public TerminalNode IN() { return getToken(TigerParser.IN, 0); }
-		public TerminalNode WHILE() { return getToken(TigerParser.WHILE, 0); }
-		public TerminalNode IF() { return getToken(TigerParser.IF, 0); }
-		public TerminalNode LET() { return getToken(TigerParser.LET, 0); }
-		public TerminalNode DO() { return getToken(TigerParser.DO, 0); }
-		public TerminalNode OF() { return getToken(TigerParser.OF, 0); }
-		public TerminalNode TO() { return getToken(TigerParser.TO, 0); }
-		public TerminalNode ID(int i) {
-			return getToken(TigerParser.ID, i);
-		}
-		public TerminalNode THEN() { return getToken(TigerParser.THEN, 0); }
-		public List<TerminalNode> RBRACK() { return getTokens(TigerParser.RBRACK); }
-		public TerminalNode EQ(int i) {
-			return getToken(TigerParser.EQ, i);
-		}
-		public TerminalNode LBRACK(int i) {
-			return getToken(TigerParser.LBRACK, i);
-		}
-		public TypeidContext typeid() {
-			return getRuleContext(TypeidContext.class,0);
-		}
-		public TerminalNode MINUS() { return getToken(TigerParser.MINUS, 0); }
 		public List<ExpContext> exp() {
 			return getRuleContexts(ExpContext.class);
 		}
-		public List<TerminalNode> ID() { return getTokens(TigerParser.ID); }
+		public TerminalNode ELSE() { return getToken(TigerParser.ELSE, 0); }
+		public TerminalNode IF() { return getToken(TigerParser.IF, 0); }
 		public TerminalNode BREAK() { return getToken(TigerParser.BREAK, 0); }
-		public TerminalNode LPAREN() { return getToken(TigerParser.LPAREN, 0); }
-		public TerminalNode RBRACE() { return getToken(TigerParser.RBRACE, 0); }
+		public TerminalNode LBRACE() { return getToken(TigerParser.LBRACE, 0); }
+		public TerminalNode EQ(int i) {
+			return getToken(TigerParser.EQ, i);
+		}
+		public TerminalNode ID(int i) {
+			return getToken(TigerParser.ID, i);
+		}
+		public TerminalNode TO() { return getToken(TigerParser.TO, 0); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(TigerParser.LBRACK, i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(TigerParser.RBRACK); }
+		public TerminalNode INT() { return getToken(TigerParser.INT, 0); }
+		public TerminalNode NIL() { return getToken(TigerParser.NIL, 0); }
 		public TerminalNode COMMA(int i) {
 			return getToken(TigerParser.COMMA, i);
 		}
@@ -1192,20 +1175,39 @@ public class TigerParser extends Parser {
 			return getToken(TigerParser.DOT, i);
 		}
 		public List<TerminalNode> LBRACK() { return getTokens(TigerParser.LBRACK); }
+		public List<TerminalNode> ID() { return getTokens(TigerParser.ID); }
 		public List<TerminalNode> DOT() { return getTokens(TigerParser.DOT); }
-		public TerminalNode FOR() { return getToken(TigerParser.FOR, 0); }
-		public TerminalNode ELSE() { return getToken(TigerParser.ELSE, 0); }
-		public TerminalNode RBRACK(int i) {
-			return getToken(TigerParser.RBRACK, i);
-		}
-		public TerminalNode ASSIGN() { return getToken(TigerParser.ASSIGN, 0); }
+		public TerminalNode RBRACE() { return getToken(TigerParser.RBRACE, 0); }
+		public TerminalNode DO() { return getToken(TigerParser.DO, 0); }
+		public TerminalNode LPAREN() { return getToken(TigerParser.LPAREN, 0); }
 		public List<TerminalNode> COMMA() { return getTokens(TigerParser.COMMA); }
+		public TerminalNode OF() { return getToken(TigerParser.OF, 0); }
+		public DecsContext decs() {
+			return getRuleContext(DecsContext.class,0);
+		}
+		public TerminalNode THEN() { return getToken(TigerParser.THEN, 0); }
+		public TerminalNode FOR() { return getToken(TigerParser.FOR, 0); }
+		public TerminalNode STRING() { return getToken(TigerParser.STRING, 0); }
 		public TerminalNode RPAREN() { return getToken(TigerParser.RPAREN, 0); }
+		public TerminalNode WHILE() { return getToken(TigerParser.WHILE, 0); }
 		public ExpContext exp(int i) {
 			return getRuleContext(ExpContext.class,i);
 		}
-		public TerminalNode STRING() { return getToken(TigerParser.STRING, 0); }
+		public TerminalNode IN() { return getToken(TigerParser.IN, 0); }
+		public TerminalNode ASSIGN() { return getToken(TigerParser.ASSIGN, 0); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(TigerParser.RBRACK, i);
+		}
+		public ExpsContext exps() {
+			return getRuleContext(ExpsContext.class,0);
+		}
+		public TypeidContext typeid() {
+			return getRuleContext(TypeidContext.class,0);
+		}
 		public TerminalNode END() { return getToken(TigerParser.END, 0); }
+		public List<TerminalNode> EQ() { return getTokens(TigerParser.EQ); }
+		public TerminalNode MINUS() { return getToken(TigerParser.MINUS, 0); }
+		public TerminalNode LET() { return getToken(TigerParser.LET, 0); }
 		public AtomContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1234,7 +1236,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new NilExp(new Position((((AtomContext)_localctx).NIL!=null?((AtomContext)_localctx).NIL.getLine():0), (((AtomContext)_localctx).NIL!=null?((AtomContext)_localctx).NIL.getCharPositionInLine():0)));
 				}
 				break;
-
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
@@ -1242,7 +1243,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new IntExp(new Position((((AtomContext)_localctx).INT!=null?((AtomContext)_localctx).INT.getLine():0), (((AtomContext)_localctx).INT!=null?((AtomContext)_localctx).INT.getCharPositionInLine():0)), Integer.parseInt((((AtomContext)_localctx).INT!=null?((AtomContext)_localctx).INT.getText():null))); 
 				}
 				break;
-
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
@@ -1250,7 +1250,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new StringExp(new Position((((AtomContext)_localctx).STRING!=null?((AtomContext)_localctx).STRING.getLine():0), (((AtomContext)_localctx).STRING!=null?((AtomContext)_localctx).STRING.getCharPositionInLine():0)), (((AtomContext)_localctx).STRING!=null?((AtomContext)_localctx).STRING.getText():null)); 
 				}
 				break;
-
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
@@ -1268,7 +1267,6 @@ public class TigerParser extends Parser {
 
 				}
 				break;
-
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
@@ -1302,7 +1300,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new CallExp(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null)),_localctx.expList);
 				}
 				break;
-
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
@@ -1341,7 +1338,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new RecordExp(new Position(_localctx.start.getLine(), _localctx.start.getCharPositionInLine()), Symbol.symbol((((AtomContext)_localctx).typeid!=null?_input.getText(((AtomContext)_localctx).typeid.start,((AtomContext)_localctx).typeid.stop):null)), first);
 				}
 				break;
-
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
@@ -1391,7 +1387,6 @@ public class TigerParser extends Parser {
 
 				}
 				break;
-
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
@@ -1455,7 +1450,6 @@ public class TigerParser extends Parser {
 				}
 				}
 				break;
-
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
@@ -1464,7 +1458,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new OpExp(new Position((((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getLine():0), (((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getCharPositionInLine():0)), new IntExp(new Position((((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getLine():0), (((AtomContext)_localctx).MINUS!=null?((AtomContext)_localctx).MINUS.getCharPositionInLine():0)), 0), OpExp.MINUS, ((AtomContext)_localctx).exp.e);
 				}
 				break;
-
 			case 10:
 				enterOuterAlt(_localctx, 10);
 				{
@@ -1474,7 +1467,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  ((AtomContext)_localctx).exps.e;
 				}
 				break;
-
 			case 11:
 				enterOuterAlt(_localctx, 11);
 				{
@@ -1495,7 +1487,6 @@ public class TigerParser extends Parser {
 				}
 				}
 				break;
-
 			case 12:
 				enterOuterAlt(_localctx, 12);
 				{
@@ -1506,7 +1497,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new WhileExp(new Position((((AtomContext)_localctx).WHILE!=null?((AtomContext)_localctx).WHILE.getLine():0), (((AtomContext)_localctx).WHILE!=null?((AtomContext)_localctx).WHILE.getCharPositionInLine():0)), ((AtomContext)_localctx).e1.e, ((AtomContext)_localctx).e2.e);
 				}
 				break;
-
 			case 13:
 				enterOuterAlt(_localctx, 13);
 				{
@@ -1521,7 +1511,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new ForExp(new Position((((AtomContext)_localctx).FOR!=null?((AtomContext)_localctx).FOR.getLine():0), (((AtomContext)_localctx).FOR!=null?((AtomContext)_localctx).FOR.getCharPositionInLine():0)), new VarDec(new Position((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getLine():0), (((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getCharPositionInLine():0)), Symbol.symbol((((AtomContext)_localctx).ID!=null?((AtomContext)_localctx).ID.getText():null)), null, ((AtomContext)_localctx).e1.e), ((AtomContext)_localctx).e2.e, ((AtomContext)_localctx).e3.e);
 				}
 				break;
-
 			case 14:
 				enterOuterAlt(_localctx, 14);
 				{
@@ -1529,7 +1518,6 @@ public class TigerParser extends Parser {
 				((AtomContext)_localctx).e =  new BreakExp(new Position ((((AtomContext)_localctx).BREAK!=null?((AtomContext)_localctx).BREAK.getLine():0), (((AtomContext)_localctx).BREAK!=null?((AtomContext)_localctx).BREAK.getCharPositionInLine():0)));
 				}
 				break;
-
 			case 15:
 				enterOuterAlt(_localctx, 15);
 				{
@@ -1555,15 +1543,15 @@ public class TigerParser extends Parser {
 	}
 
 	public static class ExpsContext extends ParserRuleContext {
-		public SeqExp e = null;;
-		public ExpList f;;
+		public SeqExp e;
+		public ExpList f;
 		public ExpContext exp;
+		public List<ExpContext> exp() {
+			return getRuleContexts(ExpContext.class);
+		}
 		public List<TerminalNode> SEMICOLON() { return getTokens(TigerParser.SEMICOLON); }
 		public TerminalNode SEMICOLON(int i) {
 			return getToken(TigerParser.SEMICOLON, i);
-		}
-		public List<ExpContext> exp() {
-			return getRuleContexts(ExpContext.class);
 		}
 		public ExpContext exp(int i) {
 			return getRuleContext(ExpContext.class,i);
