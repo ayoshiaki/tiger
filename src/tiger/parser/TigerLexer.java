@@ -1,4 +1,4 @@
-// Generated from Tiger.g by ANTLR 4.4
+// Generated from Tiger.g by ANTLR 4.2
 
 package tiger.parser;
 import tiger.symbol.*;
@@ -15,8 +15,6 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class TigerLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.4", RuntimeMetaData.VERSION); }
-
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
@@ -32,13 +30,13 @@ public class TigerLexer extends Lexer {
 	};
 
 	public static final String[] tokenNames = {
-		"'\\u0000'", "'\\u0001'", "'\\u0002'", "'\\u0003'", "'\\u0004'", "'\\u0005'", 
-		"'\\u0006'", "'\\u0007'", "'\b'", "'\t'", "'\n'", "'\\u000B'", "'\f'", 
-		"'\r'", "'\\u000E'", "'\\u000F'", "'\\u0010'", "'\\u0011'", "'\\u0012'", 
-		"'\\u0013'", "'\\u0014'", "'\\u0015'", "'\\u0016'", "'\\u0017'", "'\\u0018'", 
-		"'\\u0019'", "'\\u001A'", "'\\u001B'", "'\\u001C'", "'\\u001D'", "'\\u001E'", 
-		"'\\u001F'", "' '", "'!'", "'\"'", "'#'", "'$'", "'%'", "'&'", "'''", 
-		"'('", "')'", "'*'", "'+'", "','", "'-'", "'.'"
+		"<INVALID>",
+		"COMMENT", "COMMENT_SL", "STRING", "'array'", "'break'", "'function'", 
+		"'else'", "'do'", "'of'", "'nil'", "'type'", "'for'", "'to'", "'in'", 
+		"'end'", "'.'", "'if'", "'while'", "'var'", "'let'", "'then'", "INT", 
+		"','", "'>'", "'/'", "':'", "';'", "'|'", "'>='", "'<'", "'-'", "'*'", 
+		"'<='", "':='", "'('", "')'", "'['", "']'", "'<>'", "'&'", "'+'", "'{'", 
+		"'}'", "'='", "WS", "ID"
 	};
 	public static final String[] ruleNames = {
 		"COMMENT", "COMMENT_SL", "STRING", "ARRAY", "BREAK", "FUNCTION", "ELSE", 
