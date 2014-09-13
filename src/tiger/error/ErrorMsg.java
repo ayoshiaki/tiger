@@ -1,4 +1,4 @@
-package error;
+package tiger.error;
 
 public class ErrorMsg {
   private LineList linePos = new LineList(-1,null);
