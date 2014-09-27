@@ -151,4 +151,197 @@ public class Print implements Visitor{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+     java.io.PrintStream out;
+
+    public Print(java.io.PrintStream o) {
+        out = o;
+    }
+
+    void indent(int d) {
+        for (int i = 0; i < d; i++) {
+            out.print(' ');
+        }
+    }
+
+    void say(String s) {
+        out.print(s);
+    }
+
+    void say(int i) {
+        Integer local = new Integer(i);
+        out.print(local.toString());
+    }
+
+    void say(boolean b) {
+        Boolean local = new Boolean(b);
+        out.print(local.toString());
+    }
+
+    void sayln(String s) {
+        say(s);
+        say("\n");
+    }
+    
+    void prExp(OpExp e, int d) {
+        sayln("OpExp(");
+        indent(d + 1);
+        switch (e.oper) {
+            case OpExp.PLUS:
+                say("PLUS");
+                break;
+            case OpExp.MINUS:
+                say("MINUS");
+                break;
+            case OpExp.MUL:
+                say("MUL");
+                break;
+            case OpExp.DIV:
+                say("DIV");
+                break;
+            case OpExp.EQ:
+                say("EQ");
+                break;
+            case OpExp.NE:
+                say("NE");
+                break;
+            case OpExp.LT:
+                say("LT");
+                break;
+            case OpExp.LE:
+                say("LE");
+                break;
+            case OpExp.GT:
+                say("GT");
+                break;
+            case OpExp.GE:
+                say("GE");
+                break;
+            default:
+                throw new Error("Print.prExp.OpExp");
+        }
+        sayln(",");
+        prExp(e.left, d + 1);
+        sayln(",");
+        prExp(e.right, d + 1);
+        say(")");
+    }
+
+    void prExp(VarExp e, int d) {
+        sayln("varExp(");
+        prVar(e.var, d + 1);
+        say(")");
+    }
+
+    void prExp(NilExp e, int d) {
+        say("NilExp()");
+    }
+
+    void prExp(IntExp e, int d) {
+        say("IntExp(");
+        say(e.value);
+        say(")");
+    }
+
+    void prExp(StringExp e, int d) {
+        say("StringExp(");
+        say(e.value);
+        say(")");
+    }
+
+    void prExp(CallExp e, int d) {
+        say("CallExp(");
+        say(e.func.toString());
+        sayln(",");
+        prExplist(e.args, d + 1);
+        say(")");
+    }
+
+    void prExp(RecordExp e, int d) {
+        say("RecordExp(");
+        say(e.typ.toString());
+        sayln(",");
+        prFieldExpList(e.fields, d + 1);
+        say(")");
+    }
+
+    void prExp(SeqExp e, int d) {
+        sayln("SeqExp(");
+        prExplist(e.list, d + 1);
+        say(")");
+    }
+
+    void prExp(AssignExp e, int d) {
+        sayln("AssignExp(");
+        prVar(e.var, d + 1);
+        sayln(",");
+        prExp(e.exp, d + 1);
+        say(")");
+    }
+
+    void prExp(IfExp e, int d) {
+        sayln("IfExp(");
+        prExp(e.test, d + 1);
+        sayln(",");
+        prExp(e.thenclause, d + 1);
+        if (e.elseclause != null) { /* else is optional */
+            sayln(",");
+            prExp(e.elseclause, d + 1);
+        }
+        say(")");
+    }
+
+    void prExp(WhileExp e, int d) {
+        sayln("WhileExp(");
+        prExp(e.test, d + 1);
+        sayln(",");
+        prExp(e.body, d + 1);
+        sayln(")");
+    }
+
+    void prExp(ForExp e, int d) {
+        sayln("ForExp(");
+        indent(d + 1);
+        prDec(e.var, d + 1);
+        sayln(",");
+        prExp(e.hi, d + 1);
+        sayln(",");
+        prExp(e.body, d + 1);
+        say(")");
+    }
+
+    void prExp(BreakExp e, int d) {
+        say("BreakExp()");
+    }
+
+    void prExp(LetExp e, int d) {
+        say("LetExp(");
+        sayln("");
+        prDecList(e.decs, d + 1);
+        sayln(",");
+        prExp(e.body, d + 1);
+        say(")");
+    }
+
+    void prExp(ArrayExp e, int d) {
+        say("ArrayExp(");
+        say(e.typ.toString());
+        sayln(",");
+        prExp(e.size, d + 1);
+        sayln(",");
+        prExp(e.init, d + 1);
+        say(")");
+    }
+
+    /* Print Exp class types. Indent d spaces. */
+    public void prExp(Exp e, int d) {
+        indent(d);
+        try{ 
+        e.accept(this);
+        }catch (Exception c){
+            throw new Error("Print.prExp");
+        }
+    }
+    
+    
+    
 }
