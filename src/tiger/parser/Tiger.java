@@ -124,8 +124,8 @@ public class Tiger {
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
                 
-                Print p = new Print(System.err);
-                p.prExp(tree, 0);
+                //Print p = new Print(System.err);
+                //p.prExp(tree, 0);
                 
                 
                 java.io.PrintWriter out = new java.io.PrintWriter(
