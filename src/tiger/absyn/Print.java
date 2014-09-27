@@ -10,7 +10,10 @@ package tiger.absyn;
  * @author Daniel
  */
 public class Print implements Visitor{
-
+    
+    int d=0;
+    int i=0;
+    
     @Override
     public void visit(Absyn e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -151,7 +154,7 @@ public class Print implements Visitor{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-     java.io.PrintStream out;
+    java.io.PrintStream out;
 
     public Print(java.io.PrintStream o) {
         out = o;
@@ -180,6 +183,39 @@ public class Print implements Visitor{
     void sayln(String s) {
         say(s);
         say("\n");
+    }
+    
+    void prVar(SimpleVar v, int d) {
+        say("SimpleVar(");
+        say(v.name.toString());
+        say(")");
+    }
+
+    void prVar(FieldVar v, int d) {
+        sayln("FieldVar(");
+        prVar(v.var, d + 1);
+        sayln(",");
+        indent(d + 1);
+        say(v.field.toString());
+        say(")");
+    }
+
+    void prVar(SubscriptVar v, int d) {
+        sayln("SubscriptVar(");
+        prVar(v.var, d + 1);
+        sayln(",");
+        prExp(v.index, d + 1);
+        say(")");
+    }
+
+    /* Print A_var types. Indent d spaces. */
+    void prVar(Var v, int d) {
+        indent(d);
+        try{
+            v.accept(this);
+        }catch(Exception c){
+            throw new Error("Print.prVar");
+        }
     }
     
     void prExp(OpExp e, int d) {
