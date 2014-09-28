@@ -378,6 +378,61 @@ public class Print implements Visitor{
         }
     }
     
-    
+    void prDec(FunctionDec d, int i) {
+        say("FunctionDec(");
+        if (d != null) {
+            sayln(d.name.toString());
+            prFieldlist(d.params, i + 1);
+            sayln(",");
+            if (d.result != null) {
+                indent(i + 1);
+                sayln(d.result.name.toString());
+            }
+            prExp(d.body, i + 1);
+            sayln(",");
+            indent(i + 1);
+            prDec(d.next, i + 1);
+        }
+        say(")");
+    }
+
+    void prDec(VarDec d, int i) {
+        say("VarDec(");
+        say(d.name.toString());
+        sayln(",");
+        if (d.typ != null) {
+            indent(i + 1);
+            say(d.typ.name.toString());
+            sayln(",");
+        }
+        prExp(d.init, i + 1);
+        sayln(",");
+        indent(i + 1);
+        say(d.escape);
+        say(")");
+    }
+
+    void prDec(TypeDec d, int i) {
+        if (d != null) {
+            say("TypeDec(");
+            say(d.name.toString());
+            sayln(",");
+            prTy(d.ty, i + 1);
+            if (d.next != null) {
+                say(",");
+                prDec(d.next, i + 1);
+            }
+            say(")");
+        }
+    }
+
+    public void prDec(Dec d, int i) {
+        indent(i);
+        try{
+            d.accept(this);
+        } catch (Exception c){
+            throw new Error("Print.prDec");
+        }
+    }    
     
 }
