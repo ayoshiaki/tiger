@@ -16,17 +16,17 @@ public class Print implements Visitor{
     
     @Override
     public void visit(Absyn e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        e.accept(this);
     }
 
     @Override
     public void visit(Exp e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        e.accept(this);
     }
 
     @Override
     public void visit(Dec d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        d.accept(this);
     }
 
     @Override
