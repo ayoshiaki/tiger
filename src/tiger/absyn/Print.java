@@ -433,6 +433,93 @@ public class Print implements Visitor{
         } catch (Exception c){
             throw new Error("Print.prDec");
         }
-    }    
+    }
     
+    void prTy(NameTy t, int i) {
+        say("NameTy(");
+        say(t.name.toString());
+        say(")");
+    }
+
+    void prTy(RecordTy t, int i) {
+        sayln("RecordTy(");
+        prFieldlist(t.fields, i + 1);
+        say(")");
+    }
+
+    void prTy(ArrayTy t, int i) {
+        say("ArrayTy(");
+        say(t.typ.toString());
+        say(")");
+    }
+
+    void prTy(Ty t, int i) {
+        if (t != null) {
+            indent(i);
+            try{
+             t.accept(this);
+            } catch (Exception c) {
+                throw new Error("Print.prTy");
+            }
+        }
+    }
+
+    void prFieldlist(FieldList f, int d) {
+        indent(d);
+        say("Fieldlist(");
+        if (f != null) {
+            sayln("");
+            indent(d + 1);
+            say(f.name.toString());
+            sayln("");
+            indent(d + 1);
+            say(f.typ.toString());
+            sayln(",");
+            indent(d + 1);
+            say(f.escape);
+            sayln(",");
+            prFieldlist(f.tail, d + 1);
+        }
+        say(")");
+    }
+
+    void prExplist(ExpList e, int d) {
+        indent(d);
+        say("ExpList(");
+        if (e != null) {
+            sayln("");
+            prExp(e.head, d + 1);
+            if (e.tail != null) {
+                sayln(",");
+                prExplist(e.tail, d + 1);
+            }
+        }
+        say(")");
+    }
+
+    void prDecList(DecList v, int d) {
+        indent(d);
+        say("DecList(");
+        if (v != null) {
+            sayln("");
+            prDec(v.head, d + 1);
+            sayln(",");
+            prDecList(v.tail, d + 1);
+        }
+        say(")");
+    }
+
+    void prFieldExpList(FieldExpList f, int d) {
+        indent(d);
+        say("FieldExpList(");
+        if (f != null) {
+            sayln("");
+            say(f.name.toString());
+            sayln(",");
+            prExp(f.init, d + 1);
+            sayln(",");
+            prFieldExpList(f.tail, d + 1);
+        }
+        say(")");
+    }
 }
