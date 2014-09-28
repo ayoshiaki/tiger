@@ -46,17 +46,17 @@ public class Print implements Visitor{
 
     @Override
     public void visit(ArrayTy e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prTy(e, i); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void visit(AssignExp e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prExp(e, d); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void visit(BreakExp e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prExp(e, d); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
