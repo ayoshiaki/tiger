@@ -1,10 +1,10 @@
 package tiger.absyn;
 
-public class Print {
+public class PrintOld {
 
     java.io.PrintStream out;
 
-    public Print(java.io.PrintStream o) {
+    public PrintOld(java.io.PrintStream o) {
         out = o;
     }
 
