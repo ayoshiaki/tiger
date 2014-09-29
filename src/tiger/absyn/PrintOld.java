@@ -1,162 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tiger.absyn;
 
-/**
- *
- * @author Daniel
- */
-public class Print implements Visitor{
-    
-    int d=0;
-    int i=0;
-    
-    @Override
-    public void visit(Absyn e) {
-        e.accept(this);
-    }
+public class PrintOld {
 
-    @Override
-    public void visit(Exp e) {
-        e.accept(this);
-    }
-
-    @Override
-    public void visit(Dec d) {
-        d.accept(this);
-    }
-
-    @Override
-    public void visit(VarDec e) {
-        prDec(e, i);
-    }
-
-    @Override
-    public void visit(VarExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(ArrayExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(ArrayTy e) {
-        prTy(e, i); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void visit(AssignExp e) {
-        prExp(e, d); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void visit(BreakExp e) {
-        prExp(e, d); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void visit(CallExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(FieldVar e) {
-        prVar(e, d);
-    }
-
-    @Override
-    public void visit(ForExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(FunctionDec e) {
-     prDec(e, i);
-    }
-
-    @Override
-    public void visit(IfExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(IntExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(LetExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(NameTy e) {
-        prTy(e, i);
-    }
-
-    @Override
-    public void visit(NilExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(OpExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(RecordExp e) {
-       prExp(e, d);
-    }
-
-    @Override
-    public void visit(RecordTy e) {
-        prTy(e, i);
-    }
-
-    @Override
-    public void visit(SeqExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(SimpleVar e) {
-        prVar(e, d);
-    }
-
-    @Override
-    public void visit(StringExp e) {
-       prExp(e, d); 
-    }
-
-    @Override
-    public void visit(SubscriptVar e) {
-        prVar(e, d);
-    }
-
-    @Override
-    public void visit(TypeDec e) {
-        prDec(e, i);
-    }
-
-    @Override
-    public void visit(WhileExp e) {
-        prExp(e, d);
-    }
-
-    @Override
-    public void visit(Ty t) {
-        t.accept(this);
-    }
-    
     java.io.PrintStream out;
 
-    public Print(java.io.PrintStream o) {
+    public PrintOld(java.io.PrintStream o) {
         out = o;
     }
 
@@ -184,7 +32,7 @@ public class Print implements Visitor{
         say(s);
         say("\n");
     }
-    
+
     void prVar(SimpleVar v, int d) {
         say("SimpleVar(");
         say(v.name.toString());
@@ -211,13 +59,17 @@ public class Print implements Visitor{
     /* Print A_var types. Indent d spaces. */
     void prVar(Var v, int d) {
         indent(d);
-        try{
-            v.accept(this);
-        }catch(Exception c){
+        if (v instanceof SimpleVar) {
+            prVar((SimpleVar) v, d);
+        } else if (v instanceof FieldVar) {
+            prVar((FieldVar) v, d);
+        } else if (v instanceof SubscriptVar) {
+            prVar((SubscriptVar) v, d);
+        } else {
             throw new Error("Print.prVar");
         }
     }
-    
+
     void prExp(OpExp e, int d) {
         sayln("OpExp(");
         indent(d + 1);
@@ -371,13 +223,41 @@ public class Print implements Visitor{
     /* Print Exp class types. Indent d spaces. */
     public void prExp(Exp e, int d) {
         indent(d);
-        try{ 
-        e.accept(this);
-        }catch (Exception c){
+        if (e instanceof OpExp) {
+            prExp((OpExp) e, d);
+        } else if (e instanceof VarExp) {
+            prExp((VarExp) e, d);
+        } else if (e instanceof NilExp) {
+            prExp((NilExp) e, d);
+        } else if (e instanceof IntExp) {
+            prExp((IntExp) e, d);
+        } else if (e instanceof StringExp) {
+            prExp((StringExp) e, d);
+        } else if (e instanceof CallExp) {
+            prExp((CallExp) e, d);
+        } else if (e instanceof RecordExp) {
+            prExp((RecordExp) e, d);
+        } else if (e instanceof SeqExp) {
+            prExp((SeqExp) e, d);
+        } else if (e instanceof AssignExp) {
+            prExp((AssignExp) e, d);
+        } else if (e instanceof IfExp) {
+            prExp((IfExp) e, d);
+        } else if (e instanceof WhileExp) {
+            prExp((WhileExp) e, d);
+        } else if (e instanceof ForExp) {
+            prExp((ForExp) e, d);
+        } else if (e instanceof BreakExp) {
+            prExp((BreakExp) e, d);
+        } else if (e instanceof LetExp) {
+            prExp((LetExp) e, d);
+        } else if (e instanceof ArrayExp) {
+            prExp((ArrayExp) e, d);
+        } else {
             throw new Error("Print.prExp");
         }
     }
-    
+
     void prDec(FunctionDec d, int i) {
         say("FunctionDec(");
         if (d != null) {
@@ -428,13 +308,17 @@ public class Print implements Visitor{
 
     public void prDec(Dec d, int i) {
         indent(i);
-        try{
-            d.accept(this);
-        } catch (Exception c){
+        if (d instanceof FunctionDec) {
+            prDec((FunctionDec) d, i);
+        } else if (d instanceof VarDec) {
+            prDec((VarDec) d, i);
+        } else if (d instanceof TypeDec) {
+            prDec((TypeDec) d, i);
+        } else {
             throw new Error("Print.prDec");
         }
     }
-    
+
     void prTy(NameTy t, int i) {
         say("NameTy(");
         say(t.name.toString());
@@ -456,9 +340,13 @@ public class Print implements Visitor{
     void prTy(Ty t, int i) {
         if (t != null) {
             indent(i);
-            try{
-             t.accept(this);
-            } catch (Exception c) {
+            if (t instanceof NameTy) {
+                prTy((NameTy) t, i);
+            } else if (t instanceof RecordTy) {
+                prTy((RecordTy) t, i);
+            } else if (t instanceof ArrayTy) {
+                prTy((ArrayTy) t, i);
+            } else {
                 throw new Error("Print.prTy");
             }
         }
