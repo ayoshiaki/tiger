@@ -91,17 +91,17 @@ public class Print implements Visitor{
 
     @Override
     public void visit(LetExp e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prExp(e, d);
     }
 
     @Override
     public void visit(NameTy e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prTy(e, i);
     }
 
     @Override
     public void visit(NilExp e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prExp(e, d);
     }
 
     @Override
