@@ -136,22 +136,22 @@ public class Print implements Visitor{
 
     @Override
     public void visit(SubscriptVar e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prVar(e, d);
     }
 
     @Override
     public void visit(TypeDec e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prDec(e, i);
     }
 
     @Override
     public void visit(WhileExp e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prExp(e, d);
     }
 
     @Override
     public void visit(Ty t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        t.accept(this);
     }
     
     java.io.PrintStream out;
