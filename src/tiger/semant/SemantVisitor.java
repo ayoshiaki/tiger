@@ -37,6 +37,7 @@ import tiger.absyn.Visitor;
 import tiger.absyn.WhileExp;
 import tiger.mips.MipsFrame;
 import tiger.symbol.Symbol;
+import tiger.symbol.Table;
 import tiger.temp.Label;
 import tiger.translate.Access;
 import tiger.translate.AccessList;
@@ -111,10 +112,12 @@ public class SemantVisitor implements Visitor {
     }
 
     private void putTypeFields(RECORD f, AccessList a) {
+        Table tVenv = new Table();
         if (f == null) {
             return;
         }
-        env.venv.put(f.fieldName, new VarEntry(a.head, f.fieldType));
+        tVenv.put(f.fieldName, new VarEntry(a.head, f.fieldType));
+        env.setVenv(tVenv);
         putTypeFields(f.tail, a.tail);
     }
 
@@ -127,6 +130,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(VarDec e) {
+        Table tVenv = new Table();
         e.init.accept(this);
         ExpTy init = getExpTy();
         Type type;
@@ -144,8 +148,8 @@ public class SemantVisitor implements Visitor {
         }
         tiger.translate.Access access = getLevel().allocLocal(e.escape);
         e.entry = new VarEntry(access, type);
-
-        env.venv.put(e.name, e.entry);
+        tVenv.put(e.name, e.entry);
+        env.setVenv(tVenv);
         expTy = new ExpTy(getTranslate().VarDec(access, init.getExp()), VOID);
     }
 
@@ -156,7 +160,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(ArrayExp e) {
-        NAME name = (NAME) env.tenv.get(e.typ);
+        NAME name = (NAME) env.getTenv().get(e.typ);
         e.size.accept(this);
 
         ExpTy size = getExpTy();
@@ -183,7 +187,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(ArrayTy t) {
-        NAME name = (NAME) env.tenv.get(t.typ);
+        NAME name = (NAME) env.getTenv().get(t.typ);
         if (name != null) {
             ty = new ARRAY(name);
             return;
