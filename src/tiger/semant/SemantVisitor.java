@@ -425,7 +425,8 @@ public class SemantVisitor implements Visitor {
             ty = VOID;
             return;
         }
-        NAME name = (NAME) env.tenv.get(t.name);
+        NAME name = (NAME) env.getTenv().get(t.name);
+        //NAME name = (NAME) env.tenv.get(t.name);
         if (name != null) {
             ty = name;
             return;
@@ -512,7 +513,8 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(RecordExp e) {
-        NAME name = (NAME) env.tenv.get(e.typ);
+        NAME name = (NAME) env.getTenv().get(e.typ);
+        //NAME name = (NAME) env.tenv.get(e.typ);
         if (name != null) {
             Type actual = name.actual();
             if (actual.isType(Type.RECORD)) {
@@ -532,7 +534,8 @@ public class SemantVisitor implements Visitor {
         if (f == null) {
             return null;
         }
-        NAME name = (NAME) env.tenv.get(f.typ);
+        NAME name = (NAME) env.getTenv().get(f.typ);
+        //NAME name = (NAME) env.tenv.get(f.typ);
         if (name == null) {
             error(f.pos, "undeclared type: " + f.typ);
         }
@@ -566,7 +569,8 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(SimpleVar v) {
-        Entry x = (Entry) env.venv.get(v.name);
+        Entry x = (Entry) env.getVenv().get(v.name);
+        //Entry x = (Entry) env.venv.get(v.name);
         if (x != null && x.getEntryType() == Entry.VARENTRY) {
             VarEntry ent = (VarEntry) x;
             expTy = new ExpTy(getTranslate().SimpleVar(x.getAccess(), getLevel()), ent.getTy());
@@ -606,13 +610,16 @@ public class SemantVisitor implements Visitor {
         // Using a local hashtable, check if there are two types 
         // with the same name in the same (consecutive) batch 
         // of mutually recursive types. See test38.tig!
+        Table tVenv = new Table();
         HashMap hash = new HashMap();
         for (TypeDec type = d; type != null; type = type.next) {
             if (hash.put(type.name, type.name) != null) {
                 error(type.pos, "type redeclared");
             }
             type.entry = new NAME(type.name);
-            env.tenv.put(type.name, type.entry);
+            tVenv.put(type.name, type.entry);
+            env.setVenv(tVenv);
+            //env.tenv.put(type.name, type.entry);
         }
 
         // 2nd pass - handles the type bodies
