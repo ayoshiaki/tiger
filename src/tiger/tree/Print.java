@@ -194,4 +194,103 @@ public class Print implements Visitor {
             throw new Error("Print.prStm");
         }
     }
+   
+    void prExp(BINOP e, int d) {
+        indent(d);
+        say("BINOP(");
+        switch (e.binop) {
+            case BINOP.PLUS:
+                say("PLUS");
+                break;
+            case BINOP.MINUS:
+                say("MINUS");
+                break;
+            case BINOP.MUL:
+                say("MUL");
+                break;
+            case BINOP.DIV:
+                say("DIV");
+                break;
+            case BINOP.AND:
+                say("AND");
+                break;
+            case BINOP.OR:
+                say("OR");
+                break;
+            case BINOP.LSHIFT:
+                say("LSHIFT");
+                break;
+            case BINOP.RSHIFT:
+                say("RSHIFT");
+                break;
+            case BINOP.ARSHIFT:
+                say("ARSHIFT");
+                break;
+            case BINOP.XOR:
+                say("XOR");
+                break;
+            default:
+                throw new Error("Print.prExp.BINOP");
+        }
+        sayln(",");
+        prExp(e.left, d + 1);
+        sayln(",");
+        prExp(e.right, d + 1);
+        say(")");
+    }
+
+    void prExp(MEM e, int d) {
+        indent(d);
+        sayln("MEM(");
+        prExp(e.exp, d + 1);
+        say(")");
+    }
+
+    void prExp(TEMP e, int d) {
+        indent(d);
+        say("TEMP " + e.temp.num);
+        //  say(tmap.tempMap(e.temp));
+    }
+
+    void prExp(ESEQ e, int d) {
+        indent(d);
+        sayln("ESEQ(");
+        prStm(e.stm, d + 1);
+        sayln(",");
+        prExp(e.exp, d + 1);
+        say(")");
+
+    }
+
+    void prExp(NAME e, int d) {
+        indent(d);
+        say("NAME ");
+        say(e.label.toString());
+    }
+
+    void prExp(CONST e, int d) {
+        indent(d);
+        say("CONST ");
+        say(String.valueOf(e.value));
+    }
+
+    void prExp(CALL e, int d) {
+        indent(d);
+        sayln("CALL(");
+        prExp(e.func, d + 1);
+        for (ExpList a = e.args; a != null; a = a.tail) {
+            sayln(",");
+            prExp(a.head, d + 2);
+        }
+        say(")");
+    }
+
+    void prExp(Exp e, int d) {
+        try {
+            e.accept(this, d);
+        } catch(Exception ex) {
+            throw new Error("Print.prExp");
+        }
+    }
 }
+
