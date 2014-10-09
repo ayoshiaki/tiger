@@ -8,4 +8,9 @@ public class MEM extends Exp {
   public Exp build(ExpList kids) {
     return new MEM(kids.head);
   }
+
+    @Override
+    public void accept(Visitor v, int d) {
+        v.visit(this, d);
+    }
 }

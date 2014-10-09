@@ -4,6 +4,7 @@ import tiger.temp.Label;
 import tiger.tree.Exp;
 import tiger.tree.ExpList;
 import tiger.tree.Stm;
+import tiger.tree.Visitor;
 
 
 class RelCx extends tiger.translate.Cx {
@@ -27,6 +28,11 @@ class RelCx extends tiger.translate.Cx {
 
     @Override
     public Exp build(ExpList kids) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void accept(Visitor v, int d) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
