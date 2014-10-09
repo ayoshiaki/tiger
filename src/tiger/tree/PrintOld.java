@@ -3,14 +3,19 @@ package tiger.tree;
 import tiger.temp.DefaultMap;
 import tiger.temp.TempMap;
 
-public class Print{
+public class PrintOld {
 
   java.io.PrintWriter out;
   TempMap tmap;
 
-  public Print(java.io.PrintWriter o, TempMap t) {out=o; tmap=t;}
+  public PrintOld(java.io.PrintWriter o, TempMap t) {
+      out=o; 
+      tmap=t;
+  }
 
-  public Print(java.io.PrintWriter o) {out=o; tmap=new DefaultMap();}
+  public PrintOld(java.io.PrintWriter o) {
+      out=o; tmap=new DefaultMap();
+  }
 
   void indent(int d) {
       for(int i=0; i<d; i++) 
