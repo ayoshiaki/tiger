@@ -40,10 +40,10 @@ TypeDec l = null;
 
 functiondec
 returns [
-Dec d;
+Dec d = null;
 ]
 locals [
-FunctionDec l;
+FunctionDec l = null;
 ]
 :    {NameTy nt = null;}
      (FUNCTION ID LPAREN tyfields RPAREN (COLON typeid { nt = new NameTy(new Position($COLON.line, $COLON.pos), Symbol.symbol($typeid.text));})? EQ exp 
@@ -81,40 +81,40 @@ DecList d = null;
     
 exp
 returns 
-[Exp e;]
+[Exp e = null;]
 : andexp {$e = $andexp.e;} (OR ar=andexp  {$e = new IfExp(new Position($start.getLine(), $start.getCharPositionInLine()),$e,new IntExp(new Position($start.getLine(), $start.getCharPositionInLine()),1), $ar.e);} )* 
 ;
    
  	
 andexp	
 returns 
-[ Exp e;]
+[ Exp e=null;]
 :	cl=compexp {$e = $compexp.e;} (AND cr=compexp {$e = new IfExp(new Position($start.getLine(), $start.getCharPositionInLine()),$e,$cr.e,new IntExp(new Position($start.getLine(), $start.getCharPositionInLine()),0));}  )*;
 compexp	
 returns 
-[Exp e;]
+[Exp e=null;]
 locals
-[int op;]
+[int op=null;]
 :	sumexp {$e = $sumexp.e;}((GE {$op = OpExp.GE;}|LE{$op=OpExp.LE;}|EQ{$op=OpExp.EQ;}|NEQ{$op=OpExp.NE;}|LT{$op=OpExp.LT;}|GT{$op=OpExp.GT;}) r=sumexp {$e = new OpExp(new Position($start.getLine(), $start.getCharPositionInLine()), $e, $op, $r.e);})*;
 sumexp	
 returns
-[Exp e;]
+[Exp e=null;]
 locals
-[int op;]
+[int op=null;]
 :	mulexp {$e = $mulexp.e;} ((PLUS {$op = OpExp.PLUS;}|MINUS {$op= OpExp.MINUS;} ) r=mulexp {$e = new OpExp(new Position($start.getLine(), $start.getCharPositionInLine()), $e, $op, $r.e);})*
 ;
 mulexp 
 returns
-[Exp e;]
+[Exp e = null;]
 locals
-[int op;]
+[int op = null;]
  :  atom {$e = $atom.e;} ((TIMES{$op = OpExp.MUL;}|DIVIDE{$op = OpExp.DIV;}) r=atom {$e = new OpExp(new Position($start.getLine(), $start.getCharPositionInLine()), $e, $op, $r.e);})*;
 
 
 atom	
 
 returns [
-Exp e;
+Exp e = null;
 ]   
 
 locals [
@@ -160,7 +160,7 @@ returns [
 SeqExp e = null;
 ]
 locals [
-ExpList f;
+ExpList f = null;
 ]
 : 	(exp { ExpList l = new ExpList($exp.e, null); $f = l;} (SEMICOLON exp {l.tail = new ExpList($exp.e, null); l = l.tail;})*)? {$e = new SeqExp(new Position($start.getLine(), $start.getCharPositionInLine()), $f);} 
 	; 

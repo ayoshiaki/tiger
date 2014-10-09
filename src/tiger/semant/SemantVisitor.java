@@ -37,6 +37,7 @@ import tiger.absyn.Visitor;
 import tiger.absyn.WhileExp;
 import tiger.mips.MipsFrame;
 import tiger.symbol.Symbol;
+import tiger.symbol.Table;
 import tiger.temp.Label;
 import tiger.translate.Access;
 import tiger.translate.AccessList;
@@ -111,10 +112,13 @@ public class SemantVisitor implements Visitor {
     }
 
     private void putTypeFields(RECORD f, AccessList a) {
+        Table tVenv = new Table();
         if (f == null) {
             return;
         }
-        env.venv.put(f.fieldName, new VarEntry(a.head, f.fieldType));
+        tVenv.put(f.fieldName, new VarEntry(a.head, f.fieldType));
+        env.setVenv(tVenv);
+        //env.venv.put(f.fieldName, new VarEntry(a.head, f.fieldType));
         putTypeFields(f.tail, a.tail);
     }
 
@@ -127,6 +131,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(VarDec e) {
+        Table tVenv = new Table();
         e.init.accept(this);
         ExpTy init = getExpTy();
         Type type;
@@ -144,8 +149,9 @@ public class SemantVisitor implements Visitor {
         }
         tiger.translate.Access access = getLevel().allocLocal(e.escape);
         e.entry = new VarEntry(access, type);
-
-        env.venv.put(e.name, e.entry);
+        tVenv.put(e.name, e.entry);
+        env.setVenv(tVenv);
+        //env.venv.put(e.name, e.entry);
         expTy = new ExpTy(getTranslate().VarDec(access, init.getExp()), VOID);
     }
 
@@ -156,7 +162,8 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(ArrayExp e) {
-        NAME name = (NAME) env.tenv.get(e.typ);
+        NAME name = (NAME) env.getTenv().get(e.typ);
+        //NAME name = (NAME) env.tenv.get(e.typ);
         e.size.accept(this);
 
         ExpTy size = getExpTy();
@@ -183,7 +190,8 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(ArrayTy t) {
-        NAME name = (NAME) env.tenv.get(t.typ);
+        NAME name = (NAME) env.getTenv().get(t.typ);
+        //NAME name = (NAME) env.tenv.get(t.typ);
         if (name != null) {
             ty = new ARRAY(name);
             return;
@@ -231,8 +239,8 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(CallExp e) {
-                  
-        Entry x = (Entry) env.venv.get(e.func);
+        Entry x = (Entry) env.getVenv().get(e.func);
+        //Entry x = (Entry) env.venv.get(e.func);
         if (x.getEntryType() == Entry.FUNENTRY) {
             FunEntry f = (FunEntry) x;
             tiger.translate.ExpList args = visit(e.getPosition(), f.getFormals(), e.args);
@@ -280,21 +288,28 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(ForExp e) {
+        Table tVenv = new Table();
         e.var.init.accept(this);
         ExpTy lo = getExpTy();
         checkInt(getExpTy(), e.var.pos);
         e.hi.accept(this);
         ExpTy hi = getExpTy();
         checkInt(getExpTy(), e.hi.pos);
-        env.venv.beginScope();
+        tVenv.beginScope();
+        env.setVenv(tVenv);
+        //env.venv.beginScope();
         Access access = level.allocLocal(e.var.escape);
 
         e.var.entry = new LoopVarEntry(access, INT);
-        env.venv.put(e.var.name, e.var.entry);
+        tVenv.put(e.var.name, e.var.entry);
+        env.setVenv(tVenv);
+        //env.venv.put(e.var.name, e.var.entry);
         LoopSemantVisitor loop = new LoopSemantVisitor(env, getTranslate(), getLevel());
         e.body.accept(loop);
         ExpTy body = loop.getExpTy();
-        env.venv.endScope();
+        tVenv.endScope();
+        env.setVenv(tVenv);
+        //env.venv.endScope();
         if (!body.getTy().coerceTo(VOID)) {
             error(e.body.pos, "result type mismatch");
         }
@@ -307,7 +322,8 @@ public class SemantVisitor implements Visitor {
         if (f == null) {
             return null;
         }
-        NAME name = (NAME) env.tenv.get(f.typ);
+        NAME name = (NAME) env.getTenv().get(f.typ);
+        //NAME name = (NAME) env.tenv.get(f.typ);
         if (name == null) {
             error(f.pos, "undeclared type: " + f.typ);
         }
@@ -327,6 +343,7 @@ public class SemantVisitor implements Visitor {
     @Override
     public void visit(FunctionDec d) {
         // 1st pass - handles the function headers
+        Table tVenv = new Table();
         HashMap hash = new HashMap();
         for (FunctionDec f = d; f != null; f = f.next) {
             if (hash.put(f.name, f.name) != null) {
@@ -341,11 +358,15 @@ public class SemantVisitor implements Visitor {
             }
             Level newLevel = new Level(level, new Label(f.name), escapes(f.params));
             f.entry = new FunEntry(newLevel, fields, type);
-            env.venv.put(f.name, f.entry);
+            tVenv.put(f.name, f.entry);
+            env.setVenv(tVenv);
+            //env.venv.put(f.name, f.entry);
         }
         // 2nd pass - handles the function bodies
         for (FunctionDec f = d; f != null; f = f.next) {
-            env.venv.beginScope();
+            tVenv.beginScope();
+            env.setVenv(tVenv);
+            //env.venv.beginScope();
             putTypeFields(f.entry.getFormals(), f.entry.getLevel().formals);
             SemantVisitor fun = new SemantVisitor(env, getTranslate(), f.entry.getLevel());
             ExpTy body;
@@ -358,7 +379,9 @@ public class SemantVisitor implements Visitor {
                 error(f.body.pos, "result type mismatch");
             }
             translate.procEntryExit(f.entry.getLevel(), body.getExp());
-            env.venv.endScope();
+            tVenv.endScope();
+            env.setVenv(tVenv);
+            //env.venv.endScope();
         }
         expTy = new ExpTy(translate.FunctionDec(), VOID);
     }
@@ -390,8 +413,14 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(LetExp e) {
-        env.venv.beginScope();
-        env.tenv.beginScope();
+        Table tVenv = new Table();
+        Table tTenv = new Table();
+        tVenv.beginScope();
+        env.setVenv(tTenv);
+        tTenv.beginScope();
+        env.setTenv(tTenv);
+        //env.venv.beginScope();
+        //env.tenv.beginScope();
         tiger.translate.ExpList head = new tiger.translate.ExpList(null, null), prev = head;
 
         for (DecList d = e.decs; d != null; d = d.tail) {
@@ -399,18 +428,23 @@ public class SemantVisitor implements Visitor {
             prev = prev.tail = new tiger.translate.ExpList(expTy.getExp(), null);
         }
         e.body.accept(this);
-        env.venv.endScope();
-        env.tenv.endScope();
+        tVenv.endScope();
+        env.setVenv(tTenv);
+        tTenv.endScope();
+        env.setTenv(tTenv);
+        //env.venv.endScope();
+        //env.tenv.endScope();
         setExpTy(new ExpTy(getTranslate().LetExp(head.tail, expTy.getExp()), getExpTy().getTy()));
     }
-
+    
     @Override
     public void visit(NameTy t) {
         if (t == null) {
             ty = VOID;
             return;
         }
-        NAME name = (NAME) env.tenv.get(t.name);
+        NAME name = (NAME) env.getTenv().get(t.name);
+        //NAME name = (NAME) env.tenv.get(t.name);
         if (name != null) {
             ty = name;
             return;
@@ -497,7 +531,8 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(RecordExp e) {
-        NAME name = (NAME) env.tenv.get(e.typ);
+        NAME name = (NAME) env.getTenv().get(e.typ);
+        //NAME name = (NAME) env.tenv.get(e.typ);
         if (name != null) {
             Type actual = name.actual();
             if (actual.isType(Type.RECORD)) {
@@ -517,7 +552,8 @@ public class SemantVisitor implements Visitor {
         if (f == null) {
             return null;
         }
-        NAME name = (NAME) env.tenv.get(f.typ);
+        NAME name = (NAME) env.getTenv().get(f.typ);
+        //NAME name = (NAME) env.tenv.get(f.typ);
         if (name == null) {
             error(f.pos, "undeclared type: " + f.typ);
         }
@@ -551,7 +587,8 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(SimpleVar v) {
-        Entry x = (Entry) env.venv.get(v.name);
+        Entry x = (Entry) env.getVenv().get(v.name);
+        //Entry x = (Entry) env.venv.get(v.name);
         if (x != null && x.getEntryType() == Entry.VARENTRY) {
             VarEntry ent = (VarEntry) x;
             expTy = new ExpTy(getTranslate().SimpleVar(x.getAccess(), getLevel()), ent.getTy());
@@ -591,13 +628,16 @@ public class SemantVisitor implements Visitor {
         // Using a local hashtable, check if there are two types 
         // with the same name in the same (consecutive) batch 
         // of mutually recursive types. See test38.tig!
+        Table tVenv = new Table();
         HashMap hash = new HashMap();
         for (TypeDec type = d; type != null; type = type.next) {
             if (hash.put(type.name, type.name) != null) {
                 error(type.pos, "type redeclared");
             }
             type.entry = new NAME(type.name);
-            env.tenv.put(type.name, type.entry);
+            tVenv.put(type.name, type.entry);
+            env.setVenv(tVenv);
+            //env.tenv.put(type.name, type.entry);
         }
 
         // 2nd pass - handles the type bodies
