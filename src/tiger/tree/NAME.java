@@ -9,4 +9,11 @@ public class NAME extends Exp {
   public ExpList kids() {return null;}
   @Override
   public Exp build(ExpList kids) {return this;}
+  
+  @Override
+  public void accept(Visitor v, int d) {
+        v.visit(this, d);
+  }
+  
+  
 }
