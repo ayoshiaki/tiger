@@ -3,7 +3,7 @@ package tiger.tree;
 import tiger.temp.DefaultMap;
 import tiger.temp.TempMap;
 
-public class Print {
+public class Print{
 
   java.io.PrintWriter out;
   TempMap tmap;
