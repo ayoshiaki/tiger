@@ -15,7 +15,7 @@ public class Print implements Visitor {
 
     @Override
     public void visit(CALL var, int d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         prExp(var, d);
     }
 
     @Override
@@ -30,12 +30,12 @@ public class Print implements Visitor {
 
     @Override
     public void visit(ESEQ var, int d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prExp(var, d);
     }
 
     @Override
     public void visit(EXPR var, int d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prStm(var, d);
     }
 
     @Override
