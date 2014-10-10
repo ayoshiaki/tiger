@@ -20,12 +20,12 @@ public class Print implements Visitor {
 
     @Override
     public void visit(CJUMP var, int d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prStm(var, d);
     }
 
     @Override
     public void visit(CONST var, int d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prExp(var, d);
     }
 
     @Override
@@ -292,5 +292,26 @@ public class Print implements Visitor {
             throw new Error("Print.prExp");
         }
     }
-}
+
+    public void prStm(Stm s)
+    {
+        prStm(s, 0);
+        sayln("");
+    }
+
+    public void prExp(Exp e)
+    {
+        prExp(e, 0);
+        sayln("");
+    }
+
+    public void prStmList(StmList stms)
+    {
+        for (StmList l = stms; l != null; l = l.tail)
+        {
+            prStm(l.head);
+        }
+    }
+    
+    }
 
