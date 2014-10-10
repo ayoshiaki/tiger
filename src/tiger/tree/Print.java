@@ -55,17 +55,17 @@ public class Print implements Visitor {
 
     @Override
     public void visit(MEM var, int d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prExp(var,d);
     }
 
     @Override
     public void visit(MOVE var, int d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prStm(var,d);
     }
 
     @Override
     public void visit(NAME var, int d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       prExp(var,d);
     }
 
     @Override
