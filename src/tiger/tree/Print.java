@@ -86,7 +86,7 @@ public class Print implements Visitor {
 
     @Override
     public void visit(UEXP var) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        var.accept(this);
     }
 
     public Print(java.io.PrintWriter o, TempMap t) {
