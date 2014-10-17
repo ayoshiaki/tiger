@@ -125,7 +125,7 @@ public class Tiger {
                 Exp tree = parser.tree;
                 
                 Print p = new Print(System.err);
-                p.prExp(tree, 0);
+                p.prExp(tree);
                 
                 
                 java.io.PrintWriter out = new java.io.PrintWriter(
