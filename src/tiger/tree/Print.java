@@ -5,86 +5,87 @@ import tiger.temp.TempMap;
 
 public class Print implements Visitor {
 
+    int d = 0;
     java.io.PrintWriter out;
     TempMap tmap;
 
     @Override
-    public void visit(BINOP var, int d) {
-        prExp(var, d);
+    public void visit(BINOP var) {
+        prExp(var);
     }
 
     @Override
-    public void visit(CALL var, int d) {
-         prExp(var, d);
+    public void visit(CALL var) {
+         prExp(var);
     }
 
     @Override
-    public void visit(CJUMP var, int d) {
-        prStm(var, d);
+    public void visit(CJUMP var) {
+        prStm(var);
     }
 
     @Override
-    public void visit(CONST var, int d) {
-        prExp(var, d);
+    public void visit(CONST var) {
+        prExp(var);
     }
 
     @Override
-    public void visit(ESEQ var, int d) {
-        prExp(var, d);
+    public void visit(ESEQ var) {
+        prExp(var);
     }
 
     @Override
-    public void visit(EXPR var, int d) {
-        prStm(var, d);
+    public void visit(EXPR var) {
+        prStm(var);
     }
 
     @Override
-    public void visit(Exp var, int d) {
-        var.accept(this, d);
+    public void visit(Exp var) {
+        var.accept(this);
     }
 
     @Override
-    public void visit(JUMP var, int d) {
-        prStm(var, d);
+    public void visit(JUMP var) {
+        prStm(var);
     }
 
     @Override
-    public void visit(LABEL var, int d) {
-        prStm(var, d);
+    public void visit(LABEL var) {
+        prStm(var);
     }
 
     @Override
-    public void visit(MEM var, int d) {
-        prExp(var,d);
+    public void visit(MEM var) {
+        prExp(var);
     }
 
     @Override
-    public void visit(MOVE var, int d) {
-        prStm(var,d);
+    public void visit(MOVE var) {
+        prStm(var);
     }
 
     @Override
-    public void visit(NAME var, int d) {
-       prExp(var,d);
+    public void visit(NAME var) {
+       prExp(var);
     }
 
     @Override
-    public void visit(SEQ var, int d) {
-        prStm(var,d);
+    public void visit(SEQ var) {
+        prStm(var);
     }
 
     @Override
-    public void visit(Stm var, int d) {
-        var.accept(this,d);
+    public void visit(Stm var) {
+        var.accept(this);
     }
 
     @Override
-    public void visit(TEMP var, int d) {
-        prExp(var,d);
+    public void visit(TEMP var) {
+        prExp(var);
     }
 
     @Override
-    public void visit(UEXP var, int d) {
+    public void visit(UEXP var) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -112,29 +113,32 @@ public class Print implements Visitor {
         out.println(s);
     }
 
-    void prStm(SEQ s, int d) {
+    void prStm(SEQ s) {
         indent(d);
         sayln("SEQ(");
-        prStm(s.left, d + 1);
+        prStm(s.left, d += 1);
+        d-=1;
         sayln(",");
-        prStm(s.right, d + 1);
+        prStm(s.right, d += 1);
+        d-=1;
         say(")");
     }
 
-    void prStm(LABEL s, int d) {
+    void prStm(LABEL s) {
         indent(d);
         say("LABEL ");
         say(s.label.toString());
     }
 
-    void prStm(JUMP s, int d) {
+    void prStm(JUMP s) {
         indent(d);
         sayln("JUMP(");
-        prExp(s.exp, d + 1);
+        prExp(s.exp, d += 1);
+        d-=1;
         say(")");
     }
 
-    void prStm(CJUMP s, int d) {
+    void prStm(CJUMP s) {
         indent(d);
         say("CJUMP(");
         switch (s.relop) {
@@ -160,42 +164,48 @@ public class Print implements Visitor {
                 throw new Error("Print.prStm.CJUMP");
         }
         sayln(",");
-        prExp(s.left, d + 1);
+        prExp(s.left, d += 1);
+        d-=1;
         sayln(",");
-        prExp(s.right, d + 1);
+        prExp(s.right, d += 1);
+        d-=1;
         sayln(",");
-        indent(d + 1);
+        indent(d += 1);
+        d-=1;
         say(s.iftrue.toString());
         say(",");
         say(s.iffalse.toString());
         say(")");
     }
 
-    void prStm(MOVE s, int d) {
+    void prStm(MOVE s) {
         indent(d);
         sayln("MOVE(");
-        prExp(s.dst, d + 1);
+        prExp(s.dst, d += 1);
+        d-=1;
         sayln(",");
-        prExp(s.src, d + 1);
+        prExp(s.src, d += 1);
+        d-=1;
         say(")");
     }
 
-    void prStm(EXPR s, int d) {
+    void prStm(EXPR s) {
         indent(d);
         sayln("EXP(");
-        prExp(s.exp, d + 1);
+        prExp(s.exp, d += 1);
+        d-=1;
         say(")");
     }
     
     void prStm(Stm s, int d) {
         try {
-            s.accept(this, d);
+            s.accept(this);
         } catch (Exception e) {
             throw new Error("Print.prStm");
         }
     }
    
-    void prExp(BINOP e, int d) {
+    void prExp(BINOP e) {
         indent(d);
         say("BINOP(");
         switch (e.binop) {
@@ -233,61 +243,68 @@ public class Print implements Visitor {
                 throw new Error("Print.prExp.BINOP");
         }
         sayln(",");
-        prExp(e.left, d + 1);
+        prExp(e.left, d += 1);
+        d-=1;
         sayln(",");
-        prExp(e.right, d + 1);
+        prExp(e.right, d += 1);
+        d-=1;
         say(")");
     }
 
-    void prExp(MEM e, int d) {
+    void prExp(MEM e) {
         indent(d);
         sayln("MEM(");
-        prExp(e.exp, d + 1);
+        prExp(e.exp, d += 1);
+        d-=1;
         say(")");
     }
 
-    void prExp(TEMP e, int d) {
+    void prExp(TEMP e) {
         indent(d);
         say("TEMP " + e.temp.num);
         //  say(tmap.tempMap(e.temp));
     }
 
-    void prExp(ESEQ e, int d) {
+    void prExp(ESEQ e) {
         indent(d);
         sayln("ESEQ(");
-        prStm(e.stm, d + 1);
+        prStm(e.stm, d += 1);
+        d-=1;
         sayln(",");
-        prExp(e.exp, d + 1);
+        prExp(e.exp, d += 1);
+        d-=1;
         say(")");
 
     }
 
-    void prExp(NAME e, int d) {
+    void prExp(NAME e) {
         indent(d);
         say("NAME ");
         say(e.label.toString());
     }
 
-    void prExp(CONST e, int d) {
+    void prExp(CONST e) {
         indent(d);
         say("CONST ");
         say(String.valueOf(e.value));
     }
 
-    void prExp(CALL e, int d) {
+    void prExp(CALL e) {
         indent(d);
         sayln("CALL(");
-        prExp(e.func, d + 1);
+        prExp(e.func, d += 1);
+        d-=1;
         for (ExpList a = e.args; a != null; a = a.tail) {
             sayln(",");
-            prExp(a.head, d + 2);
+            prExp(a.head, d += 2);
+            d-=2;
         }
         say(")");
     }
 
     void prExp(Exp e, int d) {
         try {
-            e.accept(this, d);
+            e.accept(this);
         } catch(Exception ex) {
             throw new Error("Print.prExp");
         }
