@@ -7,7 +7,7 @@ public class SEQ extends Stm {
   public Stm build(ExpList kids) {throw new Error("build() not applicable to SEQ");}
 
     @Override
-    public void accept(Visitor v, int d) {
-        v.visit(this, d);
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }
