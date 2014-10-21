@@ -10,8 +10,8 @@ import tiger.types.VOID;
 
 public class Env {
 
-    private Table venv;
-    private Table tenv;
+    public Table venv;
+    public Table tenv;
     private static final VOID VOID = SemantVisitor.VOID;
 
     private static RECORD RECORD(Symbol n, Type t, RECORD x) {
