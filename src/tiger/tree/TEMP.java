@@ -9,4 +9,9 @@ public class TEMP extends Exp {
   public ExpList kids() {return null;}
   @Override
   public Exp build(ExpList kids) {return this;}
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }

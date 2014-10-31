@@ -10,5 +10,10 @@ public class CALL extends Exp {
   public Exp build(ExpList kids) {
     return new CALL(kids.head,kids.tail);
   }
+
+    @Override
+    public void accept(Visitor v) {
+         v.visit(this);
+    }
   
 }

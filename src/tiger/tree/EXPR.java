@@ -9,5 +9,10 @@ public class EXPR extends Stm {
   public Stm build(ExpList kids) {
     return new EXPR(kids.head);
   }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }
 
