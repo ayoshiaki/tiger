@@ -3,6 +3,7 @@ package tiger.parser;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import tiger.absyn.Exp;
@@ -106,20 +107,21 @@ public class Tiger {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+   public static void compileCode(String fileTig) {
         try {
-            String src = args[0];
+            String src = fileTig;
             if (src.endsWith(".tig")) {
-                if (args.length > 1) {
+                if (fileTig.length() > 1) {
                     System.out.println("***Compiling: " + src);
                 }
                 String dst = src.substring(0, src.lastIndexOf(".tig")) + ".s";
-                TigerLexer lex = new TigerLexer(new ANTLRFileStream(args[0], "UTF8"));
+                TigerLexer lex = new TigerLexer(new ANTLRFileStream(fileTig, "UTF8"));
 
                 CommonTokenStream tokens = new CommonTokenStream(lex);
                 TigerParser parser = new TigerParser(tokens);
                 parser.prog();
                 
+              
                 SemantVisitor semantic = new SemantVisitor();
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
@@ -138,6 +140,7 @@ public class Tiger {
                         out.println(((DataFrag) f).data);
                     }
                 }
+                JOptionPane.showMessageDialog(null, "Aquivo compilado com sucesso!!!", "Criação do Arquivo .s", JOptionPane.INFORMATION_MESSAGE);
                 out.close();
                 
             } else {
