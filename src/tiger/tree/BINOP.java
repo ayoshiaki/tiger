@@ -16,7 +16,7 @@ public class BINOP extends Exp {
   }
 
     @Override
-    public void accept(Visitor v, int d) {
-        v.visit(this, d);
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }

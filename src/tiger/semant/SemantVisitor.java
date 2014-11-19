@@ -540,13 +540,15 @@ public class SemantVisitor implements Visitor {
     public void visit(SeqExp e) {
         Type type = VOID;
         tiger.translate.ExpList head = new tiger.translate.ExpList(null, null), prev = head;
-        for (ExpList exp = e.list; exp != null; exp = exp.tail) {
-            exp.head.accept(this);
+        for (ExpList ex = e.list; ex != null; ex = ex.tail) {
+            ex.head.accept(this);
             ExpTy et = getExpTy();
             type = et.getTy();
-            prev = prev.tail = new tiger.translate.ExpList(et.getExp(), null);
+            prev.head=et.getExp();
+            prev=new tiger.translate.ExpList(null,prev);
         }
-        expTy = new ExpTy(getTranslate().SeqExp(head.tail), type);
+    
+        expTy = new ExpTy(getTranslate().SeqExp(prev.tail), type);
     }
 
     @Override

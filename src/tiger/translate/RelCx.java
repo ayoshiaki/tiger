@@ -32,7 +32,7 @@ class RelCx extends tiger.translate.Cx {
     }
 
     @Override
-    public void accept(Visitor v, int d) {
+    public void accept(Visitor v) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

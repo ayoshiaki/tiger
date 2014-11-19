@@ -10,7 +10,7 @@ public class ESEQ extends Exp {
   public Exp build(ExpList kids) {throw new Error("build() not applicable to ESEQ");}
 
     @Override
-    public void accept(Visitor v, int d) {
-        v.visit(this, d);
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }
