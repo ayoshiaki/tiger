@@ -117,7 +117,8 @@ public class SemantVisitor implements Visitor {
         if (f == null) {
             return;
         }
-        env.venv.put(f.fieldName, new VarEntry(a.head, f.fieldType));
+        tVenv.put(f.fieldName, new VarEntry(a.head, f.fieldType));
+        env.setVenv(tVenv);
         putTypeFields(f.tail, a.tail);
     }
 
@@ -147,8 +148,8 @@ public class SemantVisitor implements Visitor {
         }
         tiger.translate.Access access = getLevel().allocLocal(e.escape);
         e.entry = new VarEntry(access, type);
-
-        env.venv.put(e.name, e.entry);
+        tVenv.put(e.name, e.entry);
+        env.setVenv(tVenv);
         expTy = new ExpTy(getTranslate().VarDec(access, init.getExp()), VOID);
     }
 
@@ -159,7 +160,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(ArrayExp e) {
-        NAME name = (NAME) env.tenv.get(e.typ);
+        NAME name = (NAME) env.getTenv().get(e.typ);
         e.size.accept(this);
 
         ExpTy size = getExpTy();
@@ -186,7 +187,7 @@ public class SemantVisitor implements Visitor {
 
     @Override
     public void visit(ArrayTy t) {
-        NAME name = (NAME) env.tenv.get(t.typ);
+        NAME name = (NAME) env.getTenv().get(t.typ);
         if (name != null) {
             ty = new ARRAY(name);
             return;
@@ -235,7 +236,7 @@ public class SemantVisitor implements Visitor {
     @Override
     public void visit(CallExp e) {
                   
-        Entry x = (Entry) env.venv.get(e.func);
+        Entry x = (Entry) env.getVenv().get(e.func);
         if (x.getEntryType() == Entry.FUNENTRY) {
             FunEntry f = (FunEntry) x;
             tiger.translate.ExpList args = visit(e.getPosition(), f.getFormals(), e.args);
@@ -289,15 +290,18 @@ public class SemantVisitor implements Visitor {
         e.hi.accept(this);
         ExpTy hi = getExpTy();
         checkInt(getExpTy(), e.hi.pos);
-        env.venv.beginScope();
+        tVenv.beginScope();
+        env.setVenv(tVenv);
         Access access = level.allocLocal(e.var.escape);
 
         e.var.entry = new LoopVarEntry(access, INT);
-        env.venv.put(e.var.name, e.var.entry);
+        tVenv.put(e.var.name, e.var.entry);
+        env.setVenv(tVenv);
         LoopSemantVisitor loop = new LoopSemantVisitor(env, getTranslate(), getLevel());
         e.body.accept(loop);
         ExpTy body = loop.getExpTy();
-        env.venv.endScope();
+        tVenv.endScope();
+        env.setVenv(tVenv);
         if (!body.getTy().coerceTo(VOID)) {
             error(e.body.pos, "result type mismatch");
         }
