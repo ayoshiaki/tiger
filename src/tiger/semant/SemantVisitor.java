@@ -37,6 +37,7 @@ import tiger.absyn.Visitor;
 import tiger.absyn.WhileExp;
 import tiger.mips.MipsFrame;
 import tiger.symbol.Symbol;
+import tiger.symbol.Table;
 import tiger.temp.Label;
 import tiger.translate.Access;
 import tiger.translate.AccessList;
@@ -59,6 +60,8 @@ public class SemantVisitor implements Visitor {
     private Translate translate;
     private ExpTy expTy;
     private Env env;
+    Table tVenv = new Table();
+    Table tTenv = new Table();
     private Type ty;
     private Exp exp;
     public static final VOID VOID = new VOID();
