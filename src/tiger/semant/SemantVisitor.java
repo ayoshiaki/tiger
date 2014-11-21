@@ -123,9 +123,11 @@ public class SemantVisitor implements Visitor {
     }
 
     public Frag transProg(Exp exp) {
-        level = new Level(getLevel(), new Label(Symbol.symbol("t_main")), null);
+        Label l = new Label(Symbol.symbol("t_main"));
+        level = new Level(getLevel(), l, null);
         exp.accept(this);
         getTranslate().procEntryExit(getLevel(), expTy.getExp());
+        l.setCount(0);
         return getTranslate().getResult();
     }
 
