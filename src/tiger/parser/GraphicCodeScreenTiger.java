@@ -100,9 +100,9 @@ public class GraphicCodeScreenTiger extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        FileWriter arq = null; 
-       String path = new java.io.File("").getAbsolutePath()+"\\test";
+       String path = new java.io.File("").getAbsolutePath()+File.separator+"test";
        String fileName = ArqName.getText();
-       String definitivePath = path+"\\"+fileName+".tig";
+       String definitivePath = path+File.separator+fileName+".tig";
         try {
             arq = new FileWriter(definitivePath);
         } catch (IOException ex) {
