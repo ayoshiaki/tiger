@@ -14,4 +14,9 @@ public class BINOP extends Exp {
   public Exp build(ExpList kids) {
     return new BINOP(binop,kids.head,kids.tail.head);
   }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }

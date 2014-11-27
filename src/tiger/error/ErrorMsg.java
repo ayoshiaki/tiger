@@ -1,4 +1,6 @@
-package error;
+package tiger.error;
+
+import javax.swing.JOptionPane;
 
 public class ErrorMsg {
   private LineList linePos = new LineList(-1,null);
