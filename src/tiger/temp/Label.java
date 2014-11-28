@@ -39,4 +39,7 @@ public class Label  {
    public Label(Symbol s) {
 	this(s.toString());
    }
+   public static void setCount(int i){
+       count=i;
+   }
 }
