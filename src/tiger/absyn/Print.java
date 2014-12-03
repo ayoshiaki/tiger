@@ -90,6 +90,11 @@ public class Print implements Visitor{
     }
 
     @Override
+    public void visit(FloatExp e) {
+        prExp(e);
+    }
+    
+    @Override
     public void visit(LetExp e) {
         prExp(e);
     }
