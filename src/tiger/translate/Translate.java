@@ -157,6 +157,11 @@ public class Translate {
     public tiger.translate.Exp IntExp(int value) {
         return new Ex(CONST(value));
     }
+    
+    public tiger.translate.Exp FloatExp(float value) {
+        return new Ex(CONSTFLOAT(value));
+    }
+    
     private java.util.HashMap strings = new java.util.HashMap();
 
     public tiger.translate.Exp StringExp(String lit) {
