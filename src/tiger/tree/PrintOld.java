@@ -3,98 +3,17 @@ package tiger.tree;
 import tiger.temp.DefaultMap;
 import tiger.temp.TempMap;
 
-public class Print implements Visitor {
+public class PrintOld {
 
-    int d = 0;
     java.io.PrintWriter out;
     TempMap tmap;
 
-    @Override
-    public void visit(BINOP var) {
-        prExp(var);
-    }
-
-    @Override
-    public void visit(CALL var) {
-         prExp(var);
-    }
-
-    @Override
-    public void visit(CJUMP var) {
-        prStm(var);
-    }
-
-    @Override
-    public void visit(CONST var) {
-        prExp(var);
-    }
-
-    @Override
-    public void visit(ESEQ var) {
-        prExp(var);
-    }
-
-    @Override
-    public void visit(EXPR var) {
-        prStm(var);
-    }
-
-    @Override
-    public void visit(Exp var) {
-        var.accept(this);
-    }
-
-    @Override
-    public void visit(JUMP var) {
-        prStm(var);
-    }
-
-    @Override
-    public void visit(LABEL var) {
-        prStm(var);
-    }
-
-    @Override
-    public void visit(MEM var) {
-        prExp(var);
-    }
-
-    @Override
-    public void visit(MOVE var) {
-        prStm(var);
-    }
-
-    @Override
-    public void visit(NAME var) {
-       prExp(var);
-    }
-
-    @Override
-    public void visit(SEQ var) {
-        prStm(var);
-    }
-
-    @Override
-    public void visit(Stm var) {
-        var.accept(this);
-    }
-
-    @Override
-    public void visit(TEMP var) {
-        prExp(var);
-    }
-
-    @Override
-    public void visit(UEXP var) {
-        var.accept(this);
-    }
-
-    public Print(java.io.PrintWriter o, TempMap t) {
+    public PrintOld(java.io.PrintWriter o, TempMap t) {
         out = o;
         tmap = t;
     }
 
-    public Print(java.io.PrintWriter o) {
+    public PrintOld(java.io.PrintWriter o) {
         out = o;
         tmap = new DefaultMap();
     }
@@ -113,32 +32,29 @@ public class Print implements Visitor {
         out.println(s);
     }
 
-    void prStm(SEQ s) {
+    void prStm(SEQ s, int d) {
         indent(d);
         sayln("SEQ(");
-        prStm(s.left, d += 1);
-        d-=1;
+        prStm(s.left, d + 1);
         sayln(",");
-        prStm(s.right, d += 1);
-        d-=1;
+        prStm(s.right, d + 1);
         say(")");
     }
 
-    void prStm(LABEL s) {
+    void prStm(LABEL s, int d) {
         indent(d);
         say("LABEL ");
         say(s.label.toString());
     }
 
-    void prStm(JUMP s) {
+    void prStm(JUMP s, int d) {
         indent(d);
         sayln("JUMP(");
-        prExp(s.exp, d += 1);
-        d-=1;
+        prExp(s.exp, d + 1);
         say(")");
     }
 
-    void prStm(CJUMP s) {
+    void prStm(CJUMP s, int d) {
         indent(d);
         say("CJUMP(");
         switch (s.relop) {
@@ -164,48 +80,52 @@ public class Print implements Visitor {
                 throw new Error("Print.prStm.CJUMP");
         }
         sayln(",");
-        prExp(s.left, d += 1);
-        d-=1;
+        prExp(s.left, d + 1);
         sayln(",");
-        prExp(s.right, d += 1);
-        d-=1;
+        prExp(s.right, d + 1);
         sayln(",");
-        indent(d += 1);
-        d-=1;
+        indent(d + 1);
         say(s.iftrue.toString());
         say(",");
         say(s.iffalse.toString());
         say(")");
     }
 
-    void prStm(MOVE s) {
+    void prStm(MOVE s, int d) {
         indent(d);
         sayln("MOVE(");
-        prExp(s.dst, d += 1);
-        d-=1;
+        prExp(s.dst, d + 1);
         sayln(",");
-        prExp(s.src, d += 1);
-        d-=1;
+        prExp(s.src, d + 1);
         say(")");
     }
 
-    void prStm(EXPR s) {
+    void prStm(EXPR s, int d) {
         indent(d);
         sayln("EXP(");
-        prExp(s.exp, d += 1);
-        d-=1;
+        prExp(s.exp, d + 1);
         say(")");
     }
-    
+
     void prStm(Stm s, int d) {
-        try {
-            s.accept(this);
-        } catch (Exception e) {
+        if (s instanceof SEQ) {
+            prStm((SEQ) s, d);
+        } else if (s instanceof LABEL) {
+            prStm((LABEL) s, d);
+        } else if (s instanceof JUMP) {
+            prStm((JUMP) s, d);
+        } else if (s instanceof CJUMP) {
+            prStm((CJUMP) s, d);
+        } else if (s instanceof MOVE) {
+            prStm((MOVE) s, d);
+        } else if (s instanceof EXPR) {
+            prStm((EXPR) s, d);
+        } else {
             throw new Error("Print.prStm");
         }
     }
-   
-    void prExp(BINOP e) {
+
+    void prExp(BINOP e, int d) {
         indent(d);
         say("BINOP(");
         switch (e.binop) {
@@ -243,92 +163,92 @@ public class Print implements Visitor {
                 throw new Error("Print.prExp.BINOP");
         }
         sayln(",");
-        prExp(e.left, d += 1);
-        d-=1;
+        prExp(e.left, d + 1);
         sayln(",");
-        prExp(e.right, d += 1);
-        d-=1;
+        prExp(e.right, d + 1);
         say(")");
     }
 
-    void prExp(MEM e) {
+    void prExp(MEM e, int d) {
         indent(d);
         sayln("MEM(");
-        prExp(e.exp, d += 1);
-        d-=1;
+        prExp(e.exp, d + 1);
         say(")");
     }
 
-    void prExp(TEMP e) {
+    void prExp(TEMP e, int d) {
         indent(d);
         say("TEMP " + e.temp.num);
         //  say(tmap.tempMap(e.temp));
     }
 
-    void prExp(ESEQ e) {
+    void prExp(ESEQ e, int d) {
         indent(d);
         sayln("ESEQ(");
-        prStm(e.stm, d += 1);
-        d-=1;
+        prStm(e.stm, d + 1);
         sayln(",");
-        prExp(e.exp, d += 1);
-        d-=1;
+        prExp(e.exp, d + 1);
         say(")");
 
     }
 
-    void prExp(NAME e) {
+    void prExp(NAME e, int d) {
         indent(d);
         say("NAME ");
         say(e.label.toString());
     }
 
-    void prExp(CONST e) {
+    void prExp(CONST e, int d) {
+
         indent(d);
         say("CONST ");
         say(String.valueOf(e.value));
     }
 
-    void prExp(CALL e) {
+    void prExp(CALL e, int d) {
         indent(d);
         sayln("CALL(");
-        prExp(e.func, d += 1);
-        d-=1;
+        prExp(e.func, d + 1);
         for (ExpList a = e.args; a != null; a = a.tail) {
             sayln(",");
-            prExp(a.head, d += 2);
-            d-=2;
+            prExp(a.head, d + 2);
         }
         say(")");
     }
 
     void prExp(Exp e, int d) {
-        try {
-            e.accept(this);
-        } catch(Exception ex) {
+        if (e instanceof BINOP) {
+            prExp((BINOP) e, d);
+        } else if (e instanceof MEM) {
+            prExp((MEM) e, d);
+        } else if (e instanceof TEMP) {
+            prExp((TEMP) e, d);
+        } else if (e instanceof ESEQ) {
+            prExp((ESEQ) e, d);
+        } else if (e instanceof NAME) {
+            prExp((NAME) e, d);
+        } else if (e instanceof CONST) {
+            prExp((CONST) e, d);
+        } else if (e instanceof CALL) {
+            prExp((CALL) e, d);
+        } else {
             throw new Error("Print.prExp");
         }
     }
 
-    public void prStm(Stm s)
-    {
+    public void prStm(Stm s) {
         prStm(s, 0);
         sayln("");
     }
 
-    public void prExp(Exp e)
-    {
+    public void prExp(Exp e) {
         prExp(e, 0);
         sayln("");
     }
 
-    public void prStmList(StmList stms)
-    {
-        for (StmList l = stms; l != null; l = l.tail)
-        {
+    public void prStmList(StmList stms) {
+        for (StmList l = stms; l != null; l = l.tail) {
             prStm(l.head);
         }
     }
-    
-    }
-
+}

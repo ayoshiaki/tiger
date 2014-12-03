@@ -14,4 +14,9 @@ public class MOVE extends Stm {
 	   return new MOVE(new MEM(kids.head), kids.tail.head);
 	else return new MOVE(dst, kids.head);
   }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }

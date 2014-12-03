@@ -1,7 +1,159 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package tiger.absyn;
 
-public class Print {
+/**
+ *
+ * @author Daniel
+ */
+public class Print implements Visitor{
+    
+    int d=0;
+    int i=0;
+    
+    @Override
+    public void visit(Absyn e) {
+        e.accept(this);
+    }
 
+    @Override
+    public void visit(Exp e) {
+        e.accept(this);
+    }
+
+    @Override
+    public void visit(Dec d) {
+        d.accept(this);
+    }
+
+    @Override
+    public void visit(VarDec e) {
+        prDec(e);
+    }
+
+    @Override
+    public void visit(VarExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(ArrayExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(ArrayTy e) {
+        prTy(e); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void visit(AssignExp e) {
+        prExp(e); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void visit(BreakExp e) {
+        prExp(e); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void visit(CallExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(FieldVar e) {
+        prVar(e);
+    }
+
+    @Override
+    public void visit(ForExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(FunctionDec e) {
+     prDec(e);
+    }
+
+    @Override
+    public void visit(IfExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(IntExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(LetExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(NameTy e) {
+        prTy(e);
+    }
+
+    @Override
+    public void visit(NilExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(OpExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(RecordExp e) {
+       prExp(e);
+    }
+
+    @Override
+    public void visit(RecordTy e) {
+        prTy(e);
+    }
+
+    @Override
+    public void visit(SeqExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(SimpleVar e) {
+        prVar(e, d);
+    }
+
+    @Override
+    public void visit(StringExp e) {
+       prExp(e); 
+    }
+
+    @Override
+    public void visit(SubscriptVar e) {
+        prVar(e);
+    }
+
+    @Override
+    public void visit(TypeDec e) {
+        prDec(e);
+    }
+
+    @Override
+    public void visit(WhileExp e) {
+        prExp(e);
+    }
+
+    @Override
+    public void visit(Ty t) {
+        t.accept(this);
+    }
+    
     java.io.PrintStream out;
 
     public Print(java.io.PrintStream o) {
@@ -32,47 +184,51 @@ public class Print {
         say(s);
         say("\n");
     }
-
+    
     void prVar(SimpleVar v, int d) {
         say("SimpleVar(");
         say(v.name.toString());
         say(")");
     }
 
-    void prVar(FieldVar v, int d) {
+    void prVar(FieldVar v) {
         sayln("FieldVar(");
-        prVar(v.var, d + 1);
+        d += 1;
+        prVar(v.var);
+        d -= 1;
         sayln(",");
-        indent(d + 1);
+        indent(d += 1);
+        d -= 1;
         say(v.field.toString());
         say(")");
     }
 
-    void prVar(SubscriptVar v, int d) {
+    void prVar(SubscriptVar v) {
         sayln("SubscriptVar(");
-        prVar(v.var, d + 1);
+        d += 1;
+        prVar(v.var);
+        d -= 1;
         sayln(",");
-        prExp(v.index, d + 1);
+        d += 1;
+        prExp(v.index);
+        d -= 1;
         say(")");
     }
 
     /* Print A_var types. Indent d spaces. */
-    void prVar(Var v, int d) {
+    void prVar(Var v) {
         indent(d);
-        if (v instanceof SimpleVar) {
-            prVar((SimpleVar) v, d);
-        } else if (v instanceof FieldVar) {
-            prVar((FieldVar) v, d);
-        } else if (v instanceof SubscriptVar) {
-            prVar((SubscriptVar) v, d);
-        } else {
+        try{
+            v.accept(this);
+        }catch(Exception c){
             throw new Error("Print.prVar");
         }
     }
-
-    void prExp(OpExp e, int d) {
+    
+    void prExp(OpExp e) {
         sayln("OpExp(");
-        indent(d + 1);
+        indent(d += 1);
+        d -= 1;
         switch (e.oper) {
             case OpExp.PLUS:
                 say("PLUS");
@@ -108,305 +264,317 @@ public class Print {
                 throw new Error("Print.prExp.OpExp");
         }
         sayln(",");
-        prExp(e.left, d + 1);
+        d += 1;
+        prExp(e.left);
+        d -= 1;
         sayln(",");
-        prExp(e.right, d + 1);
+        d += 1;
+        prExp(e.right);
+        d -= 1;
         say(")");
     }
 
-    void prExp(VarExp e, int d) {
+    void prExp(VarExp e) {
         sayln("varExp(");
-        prVar(e.var, d + 1);
+        prVar(e.var);
         say(")");
     }
 
-    void prExp(NilExp e, int d) {
+    void prExp(NilExp e) {
         say("NilExp()");
     }
 
-    void prExp(IntExp e, int d) {
+    void prExp(IntExp e) {
         say("IntExp(");
         say(e.value);
         say(")");
     }
 
-    void prExp(StringExp e, int d) {
+    void prExp(StringExp e) {
         say("StringExp(");
         say(e.value);
         say(")");
     }
 
-    void prExp(CallExp e, int d) {
+    void prExp(CallExp e) {
         say("CallExp(");
         say(e.func.toString());
         sayln(",");
-        prExplist(e.args, d + 1);
+        prExplist(e.args, d += 1);
+        d -= 1;
         say(")");
     }
 
-    void prExp(RecordExp e, int d) {
+    void prExp(RecordExp e) {
         say("RecordExp(");
         say(e.typ.toString());
         sayln(",");
-        prFieldExpList(e.fields, d + 1);
+        prFieldExpList(e.fields, d += 1);
+        d -= 1;
         say(")");
     }
 
-    void prExp(SeqExp e, int d) {
+    void prExp(SeqExp e) {
         sayln("SeqExp(");
-        prExplist(e.list, d + 1);
+        prExplist(e.list, d += 1);
+        d -= 1;
         say(")");
     }
 
-    void prExp(AssignExp e, int d) {
+    void prExp(AssignExp e) {
         sayln("AssignExp(");
-        prVar(e.var, d + 1);
+        d += 1;
+        prVar(e.var);
+        d -= 1;
         sayln(",");
-        prExp(e.exp, d + 1);
+        d += 1;
+        prExp(e.exp);
+        d -= 1;
         say(")");
     }
 
-    void prExp(IfExp e, int d) {
+    void prExp(IfExp e) {
         sayln("IfExp(");
-        prExp(e.test, d + 1);
+        d += 1;
+        prExp(e.test);
+        d -= 1;
         sayln(",");
-        prExp(e.thenclause, d + 1);
+        d += 1;
+        prExp(e.thenclause);
+        d -= 1;
         if (e.elseclause != null) { /* else is optional */
             sayln(",");
-            prExp(e.elseclause, d + 1);
+            prExp(e.elseclause);
+            d -= 1;
         }
         say(")");
     }
 
-    void prExp(WhileExp e, int d) {
+    void prExp(WhileExp e) {
         sayln("WhileExp(");
-        prExp(e.test, d + 1);
+        d += 1;
+        prExp(e.test);
+        d -= 1;
         sayln(",");
-        prExp(e.body, d + 1);
+        d += 1;
+        prExp(e.body);
+        d -= 1;
         sayln(")");
     }
 
-    void prExp(ForExp e, int d) {
+    void prExp(ForExp e) {
         sayln("ForExp(");
         indent(d + 1);
-        prDec(e.var, d + 1);
+        prDec(e.var);
+        d -= 1;
         sayln(",");
-        prExp(e.hi, d + 1);
+        d += 1;
+        prExp(e.hi);
+        d -= 1;
         sayln(",");
-        prExp(e.body, d + 1);
+        d += 1;
+        prExp(e.body);
+        d -= 1;
         say(")");
     }
 
-    void prExp(BreakExp e, int d) {
+    void prExp(BreakExp e) {
         say("BreakExp()");
     }
 
-    void prExp(LetExp e, int d) {
+    void prExp(LetExp e) {
         say("LetExp(");
         sayln("");
-        prDecList(e.decs, d + 1);
+        prDecList(e.decs, d += 1);
+        d -= 1;
         sayln(",");
-        prExp(e.body, d + 1);
+        d += 1;
+        prExp(e.body);
+        d -= 1;
         say(")");
     }
 
-    void prExp(ArrayExp e, int d) {
+    void prExp(ArrayExp e) {
         say("ArrayExp(");
         say(e.typ.toString());
         sayln(",");
-        prExp(e.size, d + 1);
+        d += 1;
+        prExp(e.size);
+        d -= 1;
         sayln(",");
-        prExp(e.init, d + 1);
+        d += 1;
+        prExp(e.init);
+        d -= 1;
         say(")");
     }
 
     /* Print Exp class types. Indent d spaces. */
-    public void prExp(Exp e, int d) {
+    public void prExp(Exp e) {
         indent(d);
-        if (e instanceof OpExp) {
-            prExp((OpExp) e, d);
-        } else if (e instanceof VarExp) {
-            prExp((VarExp) e, d);
-        } else if (e instanceof NilExp) {
-            prExp((NilExp) e, d);
-        } else if (e instanceof IntExp) {
-            prExp((IntExp) e, d);
-        } else if (e instanceof StringExp) {
-            prExp((StringExp) e, d);
-        } else if (e instanceof CallExp) {
-            prExp((CallExp) e, d);
-        } else if (e instanceof RecordExp) {
-            prExp((RecordExp) e, d);
-        } else if (e instanceof SeqExp) {
-            prExp((SeqExp) e, d);
-        } else if (e instanceof AssignExp) {
-            prExp((AssignExp) e, d);
-        } else if (e instanceof IfExp) {
-            prExp((IfExp) e, d);
-        } else if (e instanceof WhileExp) {
-            prExp((WhileExp) e, d);
-        } else if (e instanceof ForExp) {
-            prExp((ForExp) e, d);
-        } else if (e instanceof BreakExp) {
-            prExp((BreakExp) e, d);
-        } else if (e instanceof LetExp) {
-            prExp((LetExp) e, d);
-        } else if (e instanceof ArrayExp) {
-            prExp((ArrayExp) e, d);
-        } else {
+        try{ 
+        e.accept(this);
+        }catch (Exception c){
             throw new Error("Print.prExp");
         }
     }
-
-    void prDec(FunctionDec d, int i) {
+    
+    void prDec(FunctionDec d) {
         say("FunctionDec(");
         if (d != null) {
             sayln(d.name.toString());
-            prFieldlist(d.params, i + 1);
+            prFieldlist(d.params, this.d += 1);
+            this.d -= 1;
             sayln(",");
             if (d.result != null) {
-                indent(i + 1);
+                indent(this.d += 1);
+                this.d -= 1;
                 sayln(d.result.name.toString());
             }
-            prExp(d.body, i + 1);
+            prExp(d.body);
             sayln(",");
-            indent(i + 1);
-            prDec(d.next, i + 1);
+            indent(this.d += 1);
+            this.d -= 1;
+            prDec(d.next);
+            this.d -= 1;
         }
         say(")");
     }
 
-    void prDec(VarDec d, int i) {
+    void prDec(VarDec d) {
         say("VarDec(");
         say(d.name.toString());
         sayln(",");
         if (d.typ != null) {
-            indent(i + 1);
+            indent(this.d += 1);
+            this.d -= 1;
             say(d.typ.name.toString());
             sayln(",");
         }
-        prExp(d.init, i + 1);
+        prExp(d.init);
         sayln(",");
-        indent(i + 1);
+        indent(this.d += 1);
+        this.d -= 1;
         say(d.escape);
         say(")");
     }
 
-    void prDec(TypeDec d, int i) {
+    void prDec(TypeDec d) {
         if (d != null) {
             say("TypeDec(");
             say(d.name.toString());
             sayln(",");
-            prTy(d.ty, i + 1);
+            prTy(d.ty);
+            this.d -= 1;
             if (d.next != null) {
                 say(",");
-                prDec(d.next, i + 1);
+                prDec(d.next);
+                this.d -= 1;
             }
             say(")");
         }
     }
 
-    public void prDec(Dec d, int i) {
-        indent(i);
-        if (d instanceof FunctionDec) {
-            prDec((FunctionDec) d, i);
-        } else if (d instanceof VarDec) {
-            prDec((VarDec) d, i);
-        } else if (d instanceof TypeDec) {
-            prDec((TypeDec) d, i);
-        } else {
+    public void prDec(Dec d) {
+        indent(this.d);
+        try{
+            d.accept(this);
+        } catch (Exception c){
             throw new Error("Print.prDec");
         }
     }
-
-    void prTy(NameTy t, int i) {
+    
+    void prTy(NameTy t) {
         say("NameTy(");
         say(t.name.toString());
         say(")");
     }
 
-    void prTy(RecordTy t, int i) {
+    void prTy(RecordTy t) {
         sayln("RecordTy(");
-        prFieldlist(t.fields, i + 1);
+        prFieldlist(t.fields, d += 1);
+        d -= 1;
         say(")");
     }
 
-    void prTy(ArrayTy t, int i) {
+    void prTy(ArrayTy t) {
         say("ArrayTy(");
         say(t.typ.toString());
         say(")");
     }
 
-    void prTy(Ty t, int i) {
+    void prTy(Ty t) {
         if (t != null) {
-            indent(i);
-            if (t instanceof NameTy) {
-                prTy((NameTy) t, i);
-            } else if (t instanceof RecordTy) {
-                prTy((RecordTy) t, i);
-            } else if (t instanceof ArrayTy) {
-                prTy((ArrayTy) t, i);
-            } else {
+            indent(d);
+            try{
+             t.accept(this);
+            } catch (Exception c) {
                 throw new Error("Print.prTy");
             }
         }
     }
 
     void prFieldlist(FieldList f, int d) {
-        indent(d);
+        indent(this.d);
         say("Fieldlist(");
         if (f != null) {
             sayln("");
-            indent(d + 1);
+            indent(this.d += 1);
+            this.d -= 1;
             say(f.name.toString());
             sayln("");
-            indent(d + 1);
+            indent(this.d += 1);
+            this.d -= 1;
             say(f.typ.toString());
             sayln(",");
-            indent(d + 1);
+            indent(this.d += 1);
+            this.d -= 1;
             say(f.escape);
             sayln(",");
-            prFieldlist(f.tail, d + 1);
+            prFieldlist(f.tail, this.d += 1);
+            this.d -= 1;
         }
         say(")");
     }
 
     void prExplist(ExpList e, int d) {
-        indent(d);
+        indent(this.d);
         say("ExpList(");
         if (e != null) {
             sayln("");
-            prExp(e.head, d + 1);
+            prExp(e.head);
             if (e.tail != null) {
                 sayln(",");
-                prExplist(e.tail, d + 1);
+                prExplist(e.tail, this.d += 1);
+                this.d -= 1;
             }
         }
         say(")");
     }
 
     void prDecList(DecList v, int d) {
-        indent(d);
+        indent(this.d);
         say("DecList(");
         if (v != null) {
             sayln("");
-            prDec(v.head, d + 1);
+            prDec(v.head);
             sayln(",");
-            prDecList(v.tail, d + 1);
+            prDecList(v.tail, this.d += 1);
+            this.d -= 1;
         }
         say(")");
     }
 
     void prFieldExpList(FieldExpList f, int d) {
-        indent(d);
+        indent(this.d);
         say("FieldExpList(");
         if (f != null) {
             sayln("");
             say(f.name.toString());
             sayln(",");
-            prExp(f.init, d + 1);
+            prExp(f.init);
             sayln(",");
-            prFieldExpList(f.tail, d + 1);
+            prFieldExpList(f.tail, this.d += 1);
+            this.d -= 1;
         }
         say(")");
     }

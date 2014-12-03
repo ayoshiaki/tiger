@@ -13,6 +13,7 @@ import tiger.tree.Stm;
 import tiger.tree.StmList;
 import tiger.tree.TEMP;
 import tiger.tree.NAME;
+import tiger.tree.Visitor;
 
 class MoveCall extends Stm {
   TEMP dst;
@@ -23,6 +24,11 @@ class MoveCall extends Stm {
   public Stm build(ExpList kids) {
 	return new MOVE(dst, src.build(kids));
   }
+
+    @Override
+    public void accept(Visitor v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
   
 }   
   
@@ -33,6 +39,11 @@ class ExpCall extends Stm {
   public Stm build(ExpList kids) {
 	return new EXPR(call.build(kids));
   }
+
+    @Override
+    public void accept(Visitor v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }   
   
 class StmExpList {

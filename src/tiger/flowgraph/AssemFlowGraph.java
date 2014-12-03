@@ -36,7 +36,7 @@ public class AssemFlowGraph extends FlowGraph {
 		// Add all instructions as nodes
 		for (InstrList p = instrs; p != null; p = p.tail) {
 			Node n = new Node(this);
-			ht.put(n, p.head);
+                  	ht.put(n, p.head);
 			if (p.head instanceof LABEL)
 				l2n.put(((LABEL) p.head).label, n);
 		}
@@ -55,5 +55,7 @@ public class AssemFlowGraph extends FlowGraph {
 				}
 			}
 		}
+               
+                
 	}
 }

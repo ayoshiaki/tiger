@@ -8,4 +8,9 @@ public class UEXP extends Stm {
   public Stm build(ExpList kids) {
     return new UEXP(kids.head);
   }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }

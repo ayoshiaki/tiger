@@ -16,4 +16,9 @@ public class JUMP extends Stm {
   public Stm build(ExpList kids) {
     return new JUMP(kids.head,targets);
   }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }
