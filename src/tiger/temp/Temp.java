@@ -3,7 +3,9 @@ package tiger.temp;
 public class Temp {
 	private static int count;
 	public int num;
-
+        public static void setCount(int c) {
+            count = c;
+        }
 	public boolean compareTo(Temp e2)
 	{
 		if (this.num<e2.num)
