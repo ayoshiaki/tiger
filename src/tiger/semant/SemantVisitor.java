@@ -126,7 +126,6 @@ public class SemantVisitor implements Visitor {
         level = new Level(getLevel(), l, null);
         exp.accept(this);
         getTranslate().procEntryExit(getLevel(), expTy.getExp());
-        l.setCount(0);
         return getTranslate().getResult();
     }
 
@@ -431,7 +430,6 @@ public class SemantVisitor implements Visitor {
     @Override
     public void visit(OpExp e) {
         e.left.accept(this);
-
         ExpTy left = getExpTy();
         e.right.accept(this);
         ExpTy right = getExpTy();
