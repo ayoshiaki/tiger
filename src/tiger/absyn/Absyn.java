@@ -6,7 +6,9 @@ abstract public class Absyn {
 
     /**
      * @return the pos
+     * testando commit
      */
+     
     public Position getPosition() {
         return pos;
     }
