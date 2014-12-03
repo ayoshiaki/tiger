@@ -9,6 +9,7 @@ import tiger.tree.BINOP;
 import tiger.tree.CALL;
 import tiger.tree.CJUMP;
 import tiger.tree.CONST;
+import tiger.tree.CONSTFLOAT;
 import tiger.tree.ESEQ;
 import tiger.tree.EXPR;
 import tiger.tree.JUMP;
