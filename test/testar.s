@@ -21,14 +21,6 @@ addi $t1,$0,1
 move $a0,$t1
 la $t0,printi
 jal printi
-addi $t1,$0,2
-move $a0,$t1
-la $t0,printi
-jal printi
-addi $t1,$0,3
-move $a0,$t1
-la $t0,printi
-jal printi
 j L0
 L0:
 

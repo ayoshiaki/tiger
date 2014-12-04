@@ -8,6 +8,10 @@ import javax.swing.JOptionPane;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
+public static ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();    
+public static void setAi1(String s){
+    ai1.setText(s);
+}
     GraphicCodeScreenTigerNovo g = new GraphicCodeScreenTigerNovo();
     int var;
 
@@ -172,7 +176,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
+        //ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
         jDesktopPane1.add(ai1);
         ai1.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed

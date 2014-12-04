@@ -1,6 +1,7 @@
 package tiger.parser;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -52,19 +53,27 @@ public class Tiger {
         return first;
     }
 
+    // classe emitproc alterada, redirecionei a saida do print para a printwriter, dps eh soh jogar no frame de texto
     static void emitProc(java.io.PrintWriter out, ProcFrag f) {
 
-        java.io.PrintWriter debug
-                = new java.io.PrintWriter(System.err);
+        java.io.PrintWriter debug  = new java.io.PrintWriter(System.err);
+        
         //out;
+        StringWriter inter_b=new StringWriter();
+        java.io.PrintWriter p_inter_b = new java.io.PrintWriter(inter_b);
+        
         TempMap tempmap = new CombineMap(f.frame,
                 new DefaultMap());
         tiger.tree.Print print = new tiger.tree.Print(debug, tempmap);
         debug.println("PROCEDURE " + f.frame.name);
         InstrList instrs = null;
         if (f.body != null) {
-            debug.println("# Before canonicalization: ");
+            p_inter_b.println("# Before canonicalization: ");
+            print.printOut(p_inter_b);
             print.prStm(f.body);
+            //System.out.println(inter_b);
+            tiger.parser.FormPrincipal.setAi1(inter_b.toString());
+            print.printOut(debug);
             debug.println("# After canonicalization: ");
             StmList stms = Canon.linearize(f.body);
             print.prStmList(stms);
@@ -81,7 +90,7 @@ public class Tiger {
             debug.println(p.head.assem);
             debug.flush();
         }
-
+        
 
         RegAlloc reg = new RegAlloc(f.frame, instrs, System.err, false);
 
