@@ -18,6 +18,8 @@ public interface Visitor {
      
      public void visit(CONST var);
      
+     public void visit(CONSTFLOAT var);
+     
      public void visit(ESEQ var);
      
      public void visit(EXPR var);

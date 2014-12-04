@@ -39,6 +39,8 @@ public interface Visitor {
     public void visit(IfExp e);
 
     public void visit(IntExp e);
+    
+    public void visit(FloatExp e);
 
     public void visit(LetExp e);
 

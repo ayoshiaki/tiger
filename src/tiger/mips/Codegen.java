@@ -3,7 +3,6 @@ package tiger.mips;
 import tiger.assem.Instr;
 import tiger.assem.InstrList;
 import tiger.assem.OPER;
-import tiger.tree.Exp;
 import tiger.temp.Label;
 import tiger.temp.LabelList;
 import tiger.temp.Temp;
@@ -13,7 +12,9 @@ import tiger.tree.BINOP;
 import tiger.tree.CALL;
 import tiger.tree.CJUMP;
 import tiger.tree.CONST;
+import tiger.tree.CONSTFLOAT;
 import tiger.tree.EXPR;
+import tiger.tree.Exp;
 import tiger.tree.ExpList;
 import tiger.tree.JUMP;
 import tiger.tree.LABEL;
@@ -204,6 +205,8 @@ public class Codegen {
     Temp munchExp(Exp s) {
         if (s instanceof CONST) {
             return munchExp((CONST) s);
+        }else if(s instanceof CONSTFLOAT) {
+            return munchExp((CONSTFLOAT) s);
         } else if (s instanceof NAME) {
             return munchExp((NAME) s);
         } else if (s instanceof TEMP) {
@@ -220,6 +223,12 @@ public class Codegen {
     }
 
     Temp munchExp(CONST e) {
+        Temp r = new Temp();
+        emit(OPER("addi `d0,$0," + e.value, L(r), null));
+        return r;
+    }
+    
+    Temp munchExp(CONSTFLOAT e) {
         Temp r = new Temp();
         emit(OPER("addi `d0,$0," + e.value, L(r), null));
         return r;
