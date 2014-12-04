@@ -1,25 +1,21 @@
 package tiger.parser;
 
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
-
 public class FormPrincipal extends javax.swing.JFrame {
-    
-        GraphicCodeScreenTigerNovo g = new GraphicCodeScreenTigerNovo();
-  
-        int var;
+
+    GraphicCodeScreenTigerNovo g = new GraphicCodeScreenTigerNovo();
+    int var;
+
     public FormPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
     }
-    
- 
-    
+
     public void setJInternalFrame(JInternalFrame jif) {
         jDesktopPane1.add(jif);
     }
@@ -29,7 +25,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem3 = new javax.swing.JMenuItem();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDesktopPane1 = new Fundo("img/img.jpg");
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -45,6 +41,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jDesktopPane1.setMaximumSize(new java.awt.Dimension(1280, 768));
+        jDesktopPane1.setName("Tiger v2.0"); // NOI18N
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -145,15 +144,19 @@ public class FormPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public FormPrincipal(Fundo jDesktopPane1) {
+        this.jDesktopPane1 = jDesktopPane1;
+    }
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         System.exit(0);
@@ -165,39 +168,39 @@ public class FormPrincipal extends javax.swing.JFrame {
         g.setVisible(true);
         var = g.getCont();
         jMenu1.setEnabled(false);
-      
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
+        ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
         jDesktopPane1.add(ai1);
-       ai1.setVisible(true);
+        ai1.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
         jDesktopPane1.add(ai2);
-       ai2.setVisible(true);
+        ai2.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       ArvoreSintatica as = new ArvoreSintatica();
-       jDesktopPane1.add(as);
-       as.setVisible(true);
+        ArvoreSintatica as = new ArvoreSintatica();
+        jDesktopPane1.add(as);
+        as.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         BasicBlocks bb = new BasicBlocks();
-       jDesktopPane1.add(bb);
-       bb.setVisible(true);
+        jDesktopPane1.add(bb);
+        bb.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         Instrucoes in = new Instrucoes();
-       jDesktopPane1.add(in);
-       in.setVisible(true);
+        jDesktopPane1.add(in);
+        in.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
-     
+
     /**
      * @param args the command line arguments
      */
@@ -205,7 +208,7 @@ ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -232,9 +235,8 @@ ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private Fundo jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -248,6 +250,4 @@ ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
-
-   
 }

@@ -165,6 +165,12 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="jDesktopPane1">
+      <Properties>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[1280, 768]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Tiger v2.0" noResource="true"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
