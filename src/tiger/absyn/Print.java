@@ -294,6 +294,12 @@ public class Print implements Visitor{
         say(e.value);
         say(")");
     }
+    
+    void prExp(FloatExp e) {
+        say("FloatExp(");
+        say(String.valueOf(e.value));
+        say(")");
+    }
 
     void prExp(StringExp e) {
         say("StringExp(");

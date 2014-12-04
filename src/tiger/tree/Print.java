@@ -294,6 +294,13 @@ public class Print implements Visitor {
         say(String.valueOf(e.value));
     }
 
+    void prExp(CONSTFLOAT e) {
+        indent(d);
+        say("CONSTFLOAT ");
+        say(String.valueOf(e.value));
+    }
+    
+    
     void prExp(CALL e) {
         indent(d);
         sayln("CALL(");
