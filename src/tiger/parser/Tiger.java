@@ -18,6 +18,7 @@ import tiger.regalloc.RegAlloc;
 import tiger.semant.SemantVisitor;
 import tiger.temp.CombineMap;
 import tiger.temp.DefaultMap;
+import tiger.temp.Temp;
 import tiger.temp.TempMap;
 import tiger.translate.DataFrag;
 import tiger.translate.Frag;
@@ -53,8 +54,8 @@ public class Tiger {
 
     static void emitProc(java.io.PrintWriter out, ProcFrag f) {
 
-        java.io.PrintWriter debug =
-                new java.io.PrintWriter(System.err);
+        java.io.PrintWriter debug
+                = new java.io.PrintWriter(System.err);
         //out;
         TempMap tempmap = new CombineMap(f.frame,
                 new DefaultMap());
@@ -69,37 +70,29 @@ public class Tiger {
             print.prStmList(stms);
             debug.println("# Basic Blocks: ");
             BasicBlocks b = new BasicBlocks(stms);
-            for (StmListList l = b.blocks; l != null; l = l.tail) {
-                debug.println("#");
-                print.prStmList(l.head);
-            }
-            print.prStm(new LABEL(b.done));
             debug.println("# Trace Scheduled: ");
             StmList traced = (new TraceSchedule(b)).stms;
             print.prStmList(traced);
             instrs = codegen(f.frame, traced);
         }
-     
+
         debug.println("# Instructions: ");
         for (InstrList p = instrs; p != null; p = p.tail) {
             debug.println(p.head.assem);
             debug.flush();
         }
-        //out.println(".end  " + f.frame.name);
-        debug.flush();
-        
-        
-      RegAlloc reg = new RegAlloc(f.frame, instrs,
-                System.err, false);
-        
+
+
+        RegAlloc reg = new RegAlloc(f.frame, instrs, System.err, false);
+
         out.println(f.frame.pre());
         for (InstrList p = instrs; p != null; p = p.tail) {
             out.println(p.head.format(reg));
             out.flush();
         }
-         out.println(f.frame.post());
-          out.println(".end " + f.frame.name);
-      
+        out.println(f.frame.post());
+        out.println(".end " + f.frame.name);
+
         out.flush();
 
     }
@@ -107,7 +100,7 @@ public class Tiger {
     /**
      * @param args the command line arguments
      */
-   public static void compileCode(String fileTig) {
+    public static void compileCode(String fileTig) {
         try {
             String src = fileTig;
             if (src.endsWith(".tig")) {
@@ -120,21 +113,21 @@ public class Tiger {
                 CommonTokenStream tokens = new CommonTokenStream(lex);
                 TigerParser parser = new TigerParser(tokens);
                 parser.prog();
-                
-              
+
+                Temp.setCount(0);
+
                 SemantVisitor semantic = new SemantVisitor();
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
-                
+
                 Print p = new Print(System.err);
                 p.prExp(tree);
-                
-                
+
                 java.io.PrintWriter out = new java.io.PrintWriter(
                         new java.io.FileOutputStream(dst));
                 for (Frag f = frags; f != null; f = f.next) {
                     if (f instanceof ProcFrag) {
-                  
+
                         emitProc(out, (ProcFrag) f);
                     } else if (f instanceof DataFrag) {
                         out.println(((DataFrag) f).data);
@@ -142,7 +135,7 @@ public class Tiger {
                 }
                 JOptionPane.showMessageDialog(null, "Aquivo compilado com sucesso!!!", "Criação do Arquivo .s", JOptionPane.INFORMATION_MESSAGE);
                 out.close();
-                
+
             } else {
                 System.err.println("File extension is not \".tig\": ignoring "
                         + src);
