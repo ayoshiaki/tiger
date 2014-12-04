@@ -51,6 +51,10 @@ public class Translate {
         return frags;
     }
 
+        private static tiger.tree.Exp CONSTFLOAT(float value) {
+        return new CONSTFLOAT(value);
+    }
+    
     private static tiger.tree.Exp CONST(int value) {
         return new CONST(value);
     }
