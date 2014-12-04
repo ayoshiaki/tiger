@@ -20,15 +20,18 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author satto
+ * @author galerinha do print
  */
-public class GraphicCodeScreenTigerNovo extends javax.swing.JFrame {
+public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NewJFrame
      */
+    private int cont;     
     public GraphicCodeScreenTigerNovo() {
         initComponents();
+        this.setClosable(true);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -126,8 +129,15 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+   public int getCont() {
+        return cont;
+    }
 
+    public void setCont(int cont) {
+        this.cont = cont;
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        cont =1;
         FileWriter arq = null; 
        String path = new java.io.File("").getAbsolutePath()+File.separator+"test";
        String fileName = arqName.getText();
@@ -147,6 +157,10 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, fileName +".tig criado com sucesso", "Criação do Arquivo .tig", JOptionPane.INFORMATION_MESSAGE);
         Tiger.compileCode(definitivePath);
+        if(cont ==1){
+        verificaStatus(false);
+        }
+        JOptionPane.showMessageDialog(null,"Há problemas nos registradores e labels.Para compilar reabra a aplicação ", "Controle de Execução", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -161,7 +175,12 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JFrame {
             CodeTextTiger.setCaretPosition(0);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+ 
+    private void verificaStatus(boolean par) {
+      jButton1.setEnabled(par);
+      jButton2.setEnabled(par);
+    }
+    
     public String pegaTextoArquivo(File arquivo) {
         if (arquivo != null && arquivo.exists()) {
             try {
@@ -187,37 +206,7 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GraphicCodeScreenTigerNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GraphicCodeScreenTigerNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GraphicCodeScreenTigerNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GraphicCodeScreenTigerNovo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GraphicCodeScreenTigerNovo().setVisible(true);
-            }
-        });
-    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,4 +219,6 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+  
 }
