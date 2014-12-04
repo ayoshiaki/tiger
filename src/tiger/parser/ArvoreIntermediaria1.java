@@ -16,6 +16,9 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
     public ArvoreIntermediaria1() {
         initComponents();
     }
+    public void setText(String text){
+        textField.setText(text);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,17 +31,17 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textField = new javax.swing.JTextArea();
 
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
         jLabel1.setText("ÁRVORE intermediária (Antes da Canonização)");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textField.setEditable(false);
+        textField.setColumns(20);
+        textField.setRows(5);
+        jScrollPane1.setViewportView(textField);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,6 +71,6 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea textField;
     // End of variables declaration//GEN-END:variables
 }
