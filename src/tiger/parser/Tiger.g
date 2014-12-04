@@ -125,6 +125,7 @@ ExpList expList = null;
     /* literals */
 
     NIL {$e = new NilExp(new Position($NIL.line, $NIL.pos));}
+   |FLOAT {$e = new FloatExp(new Position($FLOAT.line, $FLOAT.pos), Float.parseFloat($FLOAT.text)); }
    |INT {$e = new IntExp(new Position($INT.line, $INT.pos), Integer.parseInt($INT.text)); }
    |STRING {$e = new StringExp(new Position($STRING.line, $STRING.pos), $STRING.text); }
    |ID          {$e = new VarExp(new Position($ID.line, $ID.pos), new SimpleVar(new Position($ID.line, $ID.pos), Symbol.symbol($ID.text)));}  
@@ -184,6 +185,7 @@ FOR: 'for';
 TO: 'to';
 IN: 'in';
 END: 'end';
+FLOAT: '.' ('0'..'9')+ | ('0'..'9')+ '.' ('0'..'9')+ ;
 DOT: '.';
 IF: 'if';
 WHILE: 'while';
