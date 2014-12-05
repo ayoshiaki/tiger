@@ -1,30 +1,29 @@
 package tiger.parser;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
-public static ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
-public static ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
-public static BasicBlocks bb = new BasicBlocks();
-public static Instrucoes in = new Instrucoes();
+    private static String ai1Text;
+    private static String ai2Text;
+    private static String bbText;
+    private static String inText;
 
-public static void setAi1(String s){
-    ai1.setText(s);
-}
-public static void setAi2(String s){
-    ai2.setText(s);
-}
-public static void setBb(String s){
-    bb.setText(s);
-}
-public static void setIn(String s){
-    in.setText(s);
-}
+    public static void setAi1(String s) {
+        ai1Text = s;
+    }
+
+    public static void setAi2(String s) {
+        ai2Text = s;
+    }
+
+    public static void setBb(String s) {
+        bbText = s;
+    }
+
+    public static void setIn(String s) {
+        inText = s;
+    }
 
     GraphicCodeScreenTigerNovo g = new GraphicCodeScreenTigerNovo();
     int var;
@@ -43,18 +42,18 @@ public static void setIn(String s){
     private void initComponents() {
 
         jMenuItem3 = new javax.swing.JMenuItem();
-        jDesktopPane1 = new Fundo("img/img.jpg");
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -87,20 +86,6 @@ public static void setIn(String s){
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Opções");
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/door_out.png"))); // NOI18N
-        jMenuItem2.setText("Sair");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem2);
-
-        jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Visualizar");
 
@@ -156,6 +141,20 @@ public static void setIn(String s){
 
         jMenuBar1.add(jMenu3);
 
+        jMenu2.setText("Opções");
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/door_out.png"))); // NOI18N
+        jMenuItem2.setText("Sair");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,41 +181,44 @@ public static void setIn(String s){
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         g.setCont(0);
-        jDesktopPane1.add(g);
         g.setVisible(true);
+        jDesktopPane1.add(g);
         var = g.getCont();
         jMenu1.setEnabled(false);
-
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        //ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
-        jDesktopPane1.add(ai1);
+        ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
+        ai1.setText(ai1Text);
         ai1.setVisible(true);
+        jDesktopPane1.add(ai1);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        //ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
-        jDesktopPane1.add(ai2);
+        ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
+        ai2.setText(ai2Text);
         ai2.setVisible(true);
+        jDesktopPane1.add(ai2);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         ArvoreSintatica as = new ArvoreSintatica();
-        jDesktopPane1.add(as);
         as.setVisible(true);
+        jDesktopPane1.add(as);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-      //  BasicBlocks bb = new BasicBlocks();
-        jDesktopPane1.add(bb);
+        BasicBlocks bb = new BasicBlocks();
+        bb.setText(bbText);
         bb.setVisible(true);
+        jDesktopPane1.add(bb);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        
-        jDesktopPane1.add(in);
+        Instrucoes in = new Instrucoes();
+        in.setText(inText);
         in.setVisible(true);
+        jDesktopPane1.add(in);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
@@ -254,7 +256,7 @@ public static void setIn(String s){
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Fundo jDesktopPane1;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
