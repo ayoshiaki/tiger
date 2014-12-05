@@ -1,6 +1,8 @@
 package tiger.parser;
 
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +63,8 @@ public class Tiger {
         //out;
         StringWriter inter_b=new StringWriter();
         java.io.PrintWriter p_inter_b = new java.io.PrintWriter(inter_b);
-        
+        StringWriter instruc=new StringWriter();
+        java.io.PrintWriter p_instruc = new java.io.PrintWriter(instruc);
         TempMap tempmap = new CombineMap(f.frame,
                 new DefaultMap());
         tiger.tree.Print print = new tiger.tree.Print(debug, tempmap);
@@ -85,13 +88,13 @@ public class Tiger {
             instrs = codegen(f.frame, traced);
         }
 
-        debug.println("# Instructions: ");
+        p_instruc.println("# Instructions: ");
         for (InstrList p = instrs; p != null; p = p.tail) {
-            debug.println(p.head.assem);
-            debug.flush();
+            p_instruc.println(p.head.assem);
+            p_instruc.flush();
         }
+        System.out.println(instruc);
         
-
         RegAlloc reg = new RegAlloc(f.frame, instrs, System.err, false);
 
         out.println(f.frame.pre());
@@ -128,8 +131,9 @@ public class Tiger {
                 SemantVisitor semantic = new SemantVisitor();
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
-
-                Print p = new Print(System.err);
+                StringWriter arvabs=new StringWriter();
+                PrintWriter p_arvabs = new PrintWriter(arvabs);
+                Print p = new Print(p_arvabs);
                 p.prExp(tree);
 
                 java.io.PrintWriter out = new java.io.PrintWriter(
