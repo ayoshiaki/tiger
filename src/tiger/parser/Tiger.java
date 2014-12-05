@@ -150,7 +150,7 @@ public class Tiger {
                 PrintWriter p_arvabs = new PrintWriter(arvabs);
                 Print p = new Print(p_arvabs);
                 p.prExp(tree);
-                System.out.println(arvabs);
+                
                 java.io.PrintWriter out = new java.io.PrintWriter(
                         new java.io.FileOutputStream(dst));
                 for (Frag f = frags; f != null; f = f.next) {
