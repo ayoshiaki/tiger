@@ -29,6 +29,7 @@ import tiger.tree.StmList;
 
 /**
  *
+ * 
  *
  * @author yoshiaki
  */
@@ -59,9 +60,16 @@ public class Tiger {
         java.io.PrintWriter debug  = new java.io.PrintWriter(System.err);
         
         //out;
+        //intermediária antes canonização
         StringWriter inter_b=new StringWriter();
         java.io.PrintWriter p_inter_b = new java.io.PrintWriter(inter_b);
-        
+        //interface depois da canonização
+        StringWriter inter_a=new StringWriter();
+        java.io.PrintWriter p_inter_a = new java.io.PrintWriter(inter_a);
+        //basic blocks
+        StringWriter basic_b=new StringWriter();
+        java.io.PrintWriter p_basic_b = new java.io.PrintWriter(basic_b);
+       
         TempMap tempmap = new CombineMap(f.frame,
                 new DefaultMap());
         tiger.tree.Print print = new tiger.tree.Print(debug, tempmap);
@@ -74,16 +82,22 @@ public class Tiger {
             //System.out.println(inter_b);
             tiger.parser.FormPrincipal.setAi1(inter_b.toString());
             print.printOut(debug);
-            debug.println("# After canonicalization: ");
+            p_inter_a.println("# After canonicalization: ");
+            print.printOut(p_inter_a);
             StmList stms = Canon.linearize(f.body);
-            print.prStmList(stms);
-            debug.println("# Basic Blocks: ");
+            print.prStm(f.body);
+            tiger.parser.FormPrincipal.setAi2(inter_a.toString());
+           // print.printOut(debug);
+            
+            p_basic_b.println("# Basic Blocks: ");
             BasicBlocks b = new BasicBlocks(stms);
-            debug.println("# Trace Scheduled: ");
+            p_basic_b.println("# Trace Scheduled: ");
+            print.printOut(p_basic_b);
             StmList traced = (new TraceSchedule(b)).stms;
             print.prStmList(traced);
             instrs = codegen(f.frame, traced);
-        }
+            
+              tiger.parser.FormPrincipal.setBb(basic_b.toString());        }
 
         debug.println("# Instructions: ");
         for (InstrList p = instrs; p != null; p = p.tail) {
