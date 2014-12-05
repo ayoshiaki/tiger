@@ -11,15 +11,19 @@ public class FormPrincipal extends javax.swing.JFrame {
 public static ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
 public static ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
 public static BasicBlocks bb = new BasicBlocks();
+public static Instrucoes in = new Instrucoes();
+
 public static void setAi1(String s){
     ai1.setText(s);
 }
 public static void setAi2(String s){
     ai2.setText(s);
 }
-
 public static void setBb(String s){
     bb.setText(s);
+}
+public static void setIn(String s){
+    in.setText(s);
 }
 
     GraphicCodeScreenTigerNovo g = new GraphicCodeScreenTigerNovo();
@@ -210,7 +214,7 @@ public static void setBb(String s){
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        Instrucoes in = new Instrucoes();
+        
         jDesktopPane1.add(in);
         in.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
