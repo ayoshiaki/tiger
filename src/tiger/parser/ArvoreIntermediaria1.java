@@ -5,6 +5,7 @@
 package tiger.parser;
 
 import java.awt.Font;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -12,14 +13,17 @@ import java.awt.Font;
  */
 public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
 
+    private int cont = 15;
+
     /**
      * Creates new form ArvoreIntermediaria1
      */
- 
+
     public ArvoreIntermediaria1() {
         initComponents();
     }
-    public void setText(String text){
+
+    public void setText(String text) {
         textField.setText(text);
     }
 
@@ -103,11 +107,17 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        if (cont > 14) {
+            cont -= 5;
+            textField.setFont(new Font("", Font.PLAIN, cont));
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        if (cont < 40) {
+            cont += 5;
+            textField.setFont(new Font("", Font.PLAIN, cont));
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
