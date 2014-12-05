@@ -8,10 +8,24 @@ import javax.swing.JOptionPane;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
-public static ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();    
+public static ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
+public static ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
+public static BasicBlocks bb = new BasicBlocks();
+public static Instrucoes in = new Instrucoes();
+
 public static void setAi1(String s){
     ai1.setText(s);
 }
+public static void setAi2(String s){
+    ai2.setText(s);
+}
+public static void setBb(String s){
+    bb.setText(s);
+}
+public static void setIn(String s){
+    in.setText(s);
+}
+
     GraphicCodeScreenTigerNovo g = new GraphicCodeScreenTigerNovo();
     int var;
 
@@ -182,7 +196,7 @@ public static void setAi1(String s){
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
+        //ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
         jDesktopPane1.add(ai2);
         ai2.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
@@ -194,13 +208,13 @@ public static void setAi1(String s){
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        BasicBlocks bb = new BasicBlocks();
+      //  BasicBlocks bb = new BasicBlocks();
         jDesktopPane1.add(bb);
         bb.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        Instrucoes in = new Instrucoes();
+        
         jDesktopPane1.add(in);
         in.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed

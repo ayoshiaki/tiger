@@ -31,6 +31,7 @@ import tiger.tree.StmList;
 
 /**
  *
+ * 
  *
  * @author yoshiaki
  */
@@ -61,10 +62,18 @@ public class Tiger {
         java.io.PrintWriter debug  = new java.io.PrintWriter(System.err);
         
         //out;
+        //intermediária antes canonização
         StringWriter inter_b=new StringWriter();
         java.io.PrintWriter p_inter_b = new java.io.PrintWriter(inter_b);
         StringWriter instruc=new StringWriter();
         java.io.PrintWriter p_instruc = new java.io.PrintWriter(instruc);
+        //interface depois da canonização
+        StringWriter inter_a=new StringWriter();
+        java.io.PrintWriter p_inter_a = new java.io.PrintWriter(inter_a);
+        //basic blocks
+        StringWriter basic_b=new StringWriter();
+        java.io.PrintWriter p_basic_b = new java.io.PrintWriter(basic_b);
+
         TempMap tempmap = new CombineMap(f.frame,
                 new DefaultMap());
         tiger.tree.Print print = new tiger.tree.Print(debug, tempmap);
@@ -77,15 +86,21 @@ public class Tiger {
             //System.out.println(inter_b);
             tiger.parser.FormPrincipal.setAi1(inter_b.toString());
             print.printOut(debug);
-            debug.println("# After canonicalization: ");
+            p_inter_a.println("# After canonicalization: ");
+            print.printOut(p_inter_a);
             StmList stms = Canon.linearize(f.body);
-            print.prStmList(stms);
-            debug.println("# Basic Blocks: ");
+            print.prStm(f.body);
+            tiger.parser.FormPrincipal.setAi2(inter_a.toString());
+           // print.printOut(debug);
+            p_basic_b.println("# Basic Blocks: ");
             BasicBlocks b = new BasicBlocks(stms);
-            debug.println("# Trace Scheduled: ");
+            p_basic_b.println("# Trace Scheduled: ");
+            print.printOut(p_basic_b);
             StmList traced = (new TraceSchedule(b)).stms;
             print.prStmList(traced);
             instrs = codegen(f.frame, traced);
+            
+              tiger.parser.FormPrincipal.setBb(basic_b.toString());        
         }
 
         p_instruc.println("# Instructions: ");
@@ -93,7 +108,7 @@ public class Tiger {
             p_instruc.println(p.head.assem);
             p_instruc.flush();
         }
-        System.out.println(instruc);
+        tiger.parser.FormPrincipal.setIn(instruc.toString());
         
         RegAlloc reg = new RegAlloc(f.frame, instrs, System.err, false);
 
@@ -135,7 +150,7 @@ public class Tiger {
                 PrintWriter p_arvabs = new PrintWriter(arvabs);
                 Print p = new Print(p_arvabs);
                 p.prExp(tree);
-
+                System.out.println(arvabs);
                 java.io.PrintWriter out = new java.io.PrintWriter(
                         new java.io.FileOutputStream(dst));
                 for (Frag f = frags; f != null; f = f.next) {
