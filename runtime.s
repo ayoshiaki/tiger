@@ -1,4 +1,4 @@
-.data             
+﻿.data             
          .align   0        
 str_er:  .asciiz " ERROR: abnormal termination\n" 
                            
@@ -45,7 +45,15 @@ Lstrc3:
 printi:                    
          li $v0, 1         
          syscall           
-         j $ra             
+         j $ra  
+
+       .text             
+       .globl printfloat   
+  
+printfloat:                    
+         li $v0, 2         
+         syscall           
+         j $ra                    
                            
          .text             
          .globl exit       
