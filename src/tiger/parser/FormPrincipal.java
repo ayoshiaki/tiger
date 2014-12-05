@@ -29,6 +29,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     int var;
 
     public FormPrincipal() {
+        jDesktopPane1 = (Fundo)jDesktopPane1;
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
     }
@@ -42,7 +43,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem3 = new javax.swing.JMenuItem();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jDesktopPane1 = new Fundo("img/img.jpg");
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -60,17 +61,18 @@ public class FormPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jDesktopPane1.setMaximumSize(new java.awt.Dimension(1280, 768));
+        jDesktopPane1.setMinimumSize(new java.awt.Dimension(860, 640));
         jDesktopPane1.setName("Tiger v2.0"); // NOI18N
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 860, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");

@@ -29,6 +29,7 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
      * Creates new form NewJFrame
      */
     private int cont;     
+    private int tamFonte = 15;
     public GraphicCodeScreenTigerNovo() {
         initComponents();
         this.setClosable(true);
@@ -207,16 +208,16 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (cont < 40) {
-            cont += 5;
-            CodeTextTiger.setFont(new Font("", Font.PLAIN, cont));
+        if (tamFonte < 40) {
+            tamFonte += 5;
+            CodeTextTiger.setFont(new Font("", Font.PLAIN, tamFonte));
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (cont > 14) {
-            cont -= 5;
-            CodeTextTiger.setFont(new Font("", Font.PLAIN, cont));
+        if (tamFonte > 14) {
+            tamFonte -= 5;
+            CodeTextTiger.setFont(new Font("", Font.PLAIN, tamFonte));
         }
     }//GEN-LAST:event_jButton4ActionPerformed
  
