@@ -12,7 +12,12 @@ import java.awt.Font;
 import java.awt.TextField;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
@@ -176,7 +181,27 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
             catch(IOException de){
                 System.err.println(de.getMessage());
             }
-    
+                    
+        }
+        else
+        {
+            Scanner ler = new Scanner(System.in);
+       JFileChooser save = new JFileChooser();
+       String caminho=null;
+       if(save.showSaveDialog(null)==0)
+       {
+           File arquivo = save.getSelectedFile();
+           caminho=arquivo.getPath();
+           FileWriter arq;
+                try {
+                    arq = new FileWriter(caminho+".txt");
+                    PrintWriter gravarArq = new PrintWriter(arq);
+                    gravarArq.printf(textField.getText());
+                    arq.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ArvoreIntermediaria1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+       }
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
