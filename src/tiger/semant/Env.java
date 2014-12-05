@@ -35,15 +35,18 @@ public class Env {
         tenv = new Table();
         // initialize tenv and venv with predefined identifiers
         NAME INT = new NAME(sym("int"));
+        NAME FLOAT = new NAME(sym("float"));
         INT.bind(SemantVisitor.INT);
+        FLOAT.bind(SemantVisitor.FLOAT);
         tenv.put(sym("int"), INT);
-
+        tenv.put(sym("float"), FLOAT);
         NAME STRING = new NAME(sym("string"));
         STRING.bind(SemantVisitor.STRING);
         tenv.put(sym("string"), STRING);
         
         
         venv.put(sym("printi"), FunEntry(RECORD(sym("i"), INT), VOID));
+        venv.put(sym("printfloat"), FunEntry(RECORD(sym("f"), FLOAT), VOID));
         venv.put(sym("print"), FunEntry(RECORD(sym("s"), STRING), VOID));
         venv.put(sym("flush"), FunEntry(null, VOID));
         venv.put(sym("getchar"), FunEntry(null, STRING));
