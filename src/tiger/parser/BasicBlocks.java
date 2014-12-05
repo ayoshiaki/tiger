@@ -12,14 +12,17 @@ import java.awt.Font;
  */
 public class BasicBlocks extends javax.swing.JInternalFrame {
 
+    private int cont = 15;
+
     /**
      * Creates new form BasicBlocks
      */
-    
+
     public BasicBlocks() {
         initComponents();
     }
-       public void setText(String text){
+
+    public void setText(String text) {
         jTextArea1.setText(text);
     }
 
@@ -101,11 +104,17 @@ public class BasicBlocks extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-   
+        if (cont < 40) {
+            cont += 5;
+            jTextArea1.setFont(new Font("", Font.PLAIN, cont));
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      
+        if (cont > 14) {
+            cont -= 5;
+            jTextArea1.setFont(new Font("", Font.PLAIN, cont));
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
