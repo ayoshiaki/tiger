@@ -48,7 +48,8 @@ printi:
          j $ra  
 
        .text             
-       .globl printfloat     
+       .globl printfloat   
+  
 printfloat:                    
          li $v0, 2         
          syscall           
