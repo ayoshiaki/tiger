@@ -41,7 +41,7 @@
                   <KeyStroke key="Shift+A"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icones/bullet_add.png"/>
+                  <Image iconType="3" name="/Icones/add.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#xc1;rvore Sint&#xe1;tica Abstrata"/>
               </Properties>
@@ -55,7 +55,7 @@
                   <KeyStroke key="Shift+I"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icones/bullet_add.png"/>
+                  <Image iconType="3" name="/Icones/add.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#xc1;rvore Intermedi&#xe1;ria(Antes da canoniza&#xe7;&#xe3;o)"/>
               </Properties>
@@ -69,7 +69,7 @@
                   <KeyStroke key="Shift+D"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icones/bullet_add.png"/>
+                  <Image iconType="3" name="/Icones/add.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#xc1;rvore Intermedi&#xe1;ria(Depois da canoniza&#xe7;&#xe3;o)"/>
               </Properties>
@@ -83,7 +83,7 @@
                   <KeyStroke key="Shift+B"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icones/bullet_add.png"/>
+                  <Image iconType="3" name="/Icones/add.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Basic Blocks"/>
               </Properties>
@@ -97,7 +97,7 @@
                   <KeyStroke key="Shift+S"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icones/bullet_add.png"/>
+                  <Image iconType="3" name="/Icones/add.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Instru&#xe7;&#xf5;es"/>
               </Properties>
@@ -135,12 +135,6 @@
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="maximizedBounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
       <Rectangle value="[0, 0, 1980, 1080]"/>
-    </Property>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1980, 1080]"/>
-    </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1200, 715]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
