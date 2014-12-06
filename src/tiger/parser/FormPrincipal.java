@@ -75,13 +75,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximizedBounds(new java.awt.Rectangle(0, 0, 1200, 715));
-        setMaximumSize(new java.awt.Dimension(1200, 715));
+        setMaximizedBounds(new java.awt.Rectangle(0, 0, 1980, 1080));
+        setMaximumSize(new java.awt.Dimension(1980, 1080));
         setPreferredSize(new java.awt.Dimension(1200, 715));
-        setResizable(false);
 
-        jDesktopPane1.setMaximumSize(new java.awt.Dimension(1200, 715));
-        jDesktopPane1.setMinimumSize(new java.awt.Dimension(1200, 715));
+        jDesktopPane1.setMaximumSize(new java.awt.Dimension(1980, 1080));
         jDesktopPane1.setName("Tiger v2.0"); // NOI18N
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(1200, 715));
 
@@ -89,11 +87,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1022, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 667, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -184,11 +182,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 667, Short.MAX_VALUE)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 667, Short.MAX_VALUE)
         );
 
         pack();
