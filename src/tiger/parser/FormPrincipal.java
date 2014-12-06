@@ -1,6 +1,10 @@
 package tiger.parser;
 
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
@@ -25,6 +29,18 @@ public class FormPrincipal extends javax.swing.JFrame {
         inText = s;
     }
 
+    public void minimizarTodosInternalFrames(){
+        int i;
+        JInternalFrame frames[] = jDesktopPane1.getAllFrames();
+        for(i=0; i<frames.length; i++){
+            try {
+                frames[i].setIcon(true);
+            } catch (PropertyVetoException ex) {
+                JOptionPane.showMessageDialog(null, ex, "Erro de minimização!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
     GraphicCodeScreenTigerNovo g = new GraphicCodeScreenTigerNovo();
     int var;
 
@@ -184,6 +200,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         g.setCont(0);
         g.setVisible(true);
+        minimizarTodosInternalFrames();
         jDesktopPane1.add(g);
         var = g.getCont();
         jMenu1.setEnabled(false);
@@ -193,6 +210,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         ArvoreIntermediaria1 ai1 = new ArvoreIntermediaria1();
         ai1.setText(ai1Text);
         ai1.setVisible(true);
+        minimizarTodosInternalFrames();
         jDesktopPane1.add(ai1);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -200,12 +218,14 @@ public class FormPrincipal extends javax.swing.JFrame {
         ArvoreIntermediaria2 ai2 = new ArvoreIntermediaria2();
         ai2.setText(ai2Text);
         ai2.setVisible(true);
+        minimizarTodosInternalFrames();
         jDesktopPane1.add(ai2);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         ArvoreSintatica as = new ArvoreSintatica();
         as.setVisible(true);
+        minimizarTodosInternalFrames();
         jDesktopPane1.add(as);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
@@ -213,6 +233,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         BasicBlocks bb = new BasicBlocks();
         bb.setText(bbText);
         bb.setVisible(true);
+        minimizarTodosInternalFrames();
         jDesktopPane1.add(bb);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
@@ -220,6 +241,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         Instrucoes in = new Instrucoes();
         in.setText(inText);
         in.setVisible(true);
+        minimizarTodosInternalFrames();
         jDesktopPane1.add(in);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
