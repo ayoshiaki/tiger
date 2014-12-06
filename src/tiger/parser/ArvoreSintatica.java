@@ -48,6 +48,7 @@ public class ArvoreSintatica extends javax.swing.JInternalFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setText("Método não implementado.....Outra equipe postará a resolução em breve");
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
