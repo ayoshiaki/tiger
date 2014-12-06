@@ -1,6 +1,9 @@
 package tiger.parser;
 
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,6 +21,7 @@ import tiger.regalloc.RegAlloc;
 import tiger.semant.SemantVisitor;
 import tiger.temp.CombineMap;
 import tiger.temp.DefaultMap;
+import tiger.temp.Temp;
 import tiger.temp.TempMap;
 import tiger.translate.DataFrag;
 import tiger.translate.Frag;
@@ -27,6 +31,7 @@ import tiger.tree.StmList;
 
 /**
  *
+ * 
  *
  * @author yoshiaki
  */
@@ -51,55 +56,70 @@ public class Tiger {
         return first;
     }
 
+    // classe emitproc alterada, redirecionei a saida do print para a printwriter, dps eh soh jogar no frame de texto
     static void emitProc(java.io.PrintWriter out, ProcFrag f) {
 
-        java.io.PrintWriter debug =
-                new java.io.PrintWriter(System.err);
+        java.io.PrintWriter debug  = new java.io.PrintWriter(System.err);
+        
         //out;
+        //intermediária antes canonização
+        StringWriter inter_b=new StringWriter();
+        java.io.PrintWriter p_inter_b = new java.io.PrintWriter(inter_b);
+        StringWriter instruc=new StringWriter();
+        java.io.PrintWriter p_instruc = new java.io.PrintWriter(instruc);
+        //interface depois da canonização
+        StringWriter inter_a=new StringWriter();
+        java.io.PrintWriter p_inter_a = new java.io.PrintWriter(inter_a);
+        //basic blocks
+        StringWriter basic_b=new StringWriter();
+        java.io.PrintWriter p_basic_b = new java.io.PrintWriter(basic_b);
+
         TempMap tempmap = new CombineMap(f.frame,
                 new DefaultMap());
         tiger.tree.Print print = new tiger.tree.Print(debug, tempmap);
         debug.println("PROCEDURE " + f.frame.name);
         InstrList instrs = null;
         if (f.body != null) {
-            debug.println("# Before canonicalization: ");
+            p_inter_b.println("# Before canonicalization: ");
+            print.printOut(p_inter_b);
             print.prStm(f.body);
-            debug.println("# After canonicalization: ");
+            //System.out.println(inter_b);
+            tiger.parser.FormPrincipal.setAi1(inter_b.toString());
+            print.printOut(debug);
+            p_inter_a.println("# After canonicalization: ");
+            print.printOut(p_inter_a);
             StmList stms = Canon.linearize(f.body);
-            print.prStmList(stms);
-            debug.println("# Basic Blocks: ");
+            print.prStm(f.body);
+            tiger.parser.FormPrincipal.setAi2(inter_a.toString());
+           // print.printOut(debug);
+            p_basic_b.println("# Basic Blocks: ");
             BasicBlocks b = new BasicBlocks(stms);
-            for (StmListList l = b.blocks; l != null; l = l.tail) {
-                debug.println("#");
-                print.prStmList(l.head);
-            }
-            print.prStm(new LABEL(b.done));
-            debug.println("# Trace Scheduled: ");
+            p_basic_b.println("# Trace Scheduled: ");
+            print.printOut(p_basic_b);
             StmList traced = (new TraceSchedule(b)).stms;
             print.prStmList(traced);
             instrs = codegen(f.frame, traced);
+            
+              tiger.parser.FormPrincipal.setBb(basic_b.toString());        
         }
-     
-        debug.println("# Instructions: ");
+
+        p_instruc.println("# Instructions: ");
         for (InstrList p = instrs; p != null; p = p.tail) {
-            debug.println(p.head.assem);
-            debug.flush();
+            p_instruc.println(p.head.assem);
+            p_instruc.flush();
         }
-        //out.println(".end  " + f.frame.name);
-        debug.flush();
+        tiger.parser.FormPrincipal.setIn(instruc.toString());
         
-        
-      RegAlloc reg = new RegAlloc(f.frame, instrs,
-                System.err, false);
-        
+        RegAlloc reg = new RegAlloc(f.frame, instrs, System.err, false);
+
         out.println(f.frame.pre());
         for (InstrList p = instrs; p != null; p = p.tail) {
             out.println(p.head.format(reg));
             out.flush();
         }
-         out.println(f.frame.post());
-          out.println(".end " + f.frame.name);
-      
+        out.println(f.frame.post());
+        out.println(".end " + f.frame.name);
+
         out.flush();
 
     }
@@ -107,7 +127,7 @@ public class Tiger {
     /**
      * @param args the command line arguments
      */
-   public static void compileCode(String fileTig) {
+    public static void compileCode(String fileTig) {
         try {
             String src = fileTig;
             if (src.endsWith(".tig")) {
@@ -120,21 +140,22 @@ public class Tiger {
                 CommonTokenStream tokens = new CommonTokenStream(lex);
                 TigerParser parser = new TigerParser(tokens);
                 parser.prog();
-                
-              
+
+                Temp.setCount(0);
+
                 SemantVisitor semantic = new SemantVisitor();
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
-                
-                Print p = new Print(System.err);
+                StringWriter arvabs=new StringWriter();
+                PrintWriter p_arvabs = new PrintWriter(arvabs);
+                Print p = new Print(p_arvabs);
                 p.prExp(tree);
-                
                 
                 java.io.PrintWriter out = new java.io.PrintWriter(
                         new java.io.FileOutputStream(dst));
                 for (Frag f = frags; f != null; f = f.next) {
                     if (f instanceof ProcFrag) {
-                  
+
                         emitProc(out, (ProcFrag) f);
                     } else if (f instanceof DataFrag) {
                         out.println(((DataFrag) f).data);
@@ -142,7 +163,7 @@ public class Tiger {
                 }
                 JOptionPane.showMessageDialog(null, "Aquivo compilado com sucesso!!!", "Criação do Arquivo .s", JOptionPane.INFORMATION_MESSAGE);
                 out.close();
-                
+
             } else {
                 System.err.println("File extension is not \".tig\": ignoring "
                         + src);

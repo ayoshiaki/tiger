@@ -124,7 +124,8 @@ public class Codegen {
                 emit(new OPER("beq $t3,$t4,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.NE:
-                emit(new OPER("bne $t3,$t4,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
+                TempList l = L(temp_esq, L(temp_dir, null));
+                emit(new OPER("bne `d0,`d1,L0", l, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
                 break;
             case CJUMP.LT:
                 emit(new OPER("bltz $t3,L0", null, null, new LabelList(label_aux, new LabelList(s.iftrue, new LabelList(s.iffalse, null)))));
