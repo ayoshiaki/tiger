@@ -1,6 +1,4 @@
 package tiger.semant;
-//import tiger.absyn.FloatExp;
-//import tiger.types.FLOAT;
 import java.util.HashMap;
 import tiger.absyn.Absyn;
 import tiger.absyn.ArrayExp;
@@ -394,10 +392,7 @@ public class SemantVisitor implements Visitor {
     public void visit(IntExp e) {
         setExpTy(new ExpTy(getTranslate().IntExp(e.value), INT));
     }
-    /*@Override
-    public void visit(FloatExp e) {
-        setExpTy(new ExpTy(getTranslate().FloatExp(e.value), FLOAT));
-    }*/
+   
 
     @Override
     public void visit(LetExp e) {
