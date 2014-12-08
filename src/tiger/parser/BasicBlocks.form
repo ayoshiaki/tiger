@@ -54,9 +54,7 @@
                           <Component id="jButton1" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButton2" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="136" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace pref="189" max="32767" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jComboBox1" min="-2" pref="110" max="-2" attributes="0"/>
@@ -77,15 +75,12 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="480" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="jToggleButton1" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jButton3" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButton1" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="jButton2" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="jToggleButton1" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="jComboBox1" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -183,17 +178,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Exportar"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icones/chart_line.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Gerar &#xc1;rvore"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
