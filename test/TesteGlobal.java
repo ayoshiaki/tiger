@@ -52,6 +52,8 @@ public class TesteGlobal {
         TigerLexer lex;
       
         try {
+            lex = new TigerLexer(new ANTLRFileStream("test/test20.tig","UTF8"));
+            CommonTokenStream tokens= new CommonTokenStream(lex);
 
         } catch (IOException ex) {
             Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
