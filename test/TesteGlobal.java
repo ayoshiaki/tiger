@@ -67,13 +67,16 @@ public class TesteGlobal {
     
     //testes sintaticos
     @Test
-    public void test13(){
+    public void testeSintatico(){
         TigerLexer lex;
         
         try {
             lex = new TigerLexer(new ANTLRFileStream("test/sintatico.tig","UTF8"));
             CommonTokenStream tokens= new CommonTokenStream(lex);
-            
+            TigerParser parser= new TigerParser(tokens);
+            parser.prog();
+            System.err.println("Quantidade de erros sintaticos no teste: "+ parser.getNumberOfSyntaxErrors());
+            assertTrue(parser.getNumberOfSyntaxErrors()>=1);
         } catch (IOException ex) {
             Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
         }
