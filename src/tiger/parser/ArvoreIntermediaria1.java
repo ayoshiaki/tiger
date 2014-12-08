@@ -20,6 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
+import tiger.graphictree.CreateGraphicTree;
+import tiger.graphictree.OpenDialog;
 
 /**
  *
@@ -28,13 +30,16 @@ import javax.swing.JTextArea;
 public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
 
     private int cont = 15;
+    private CreateGraphicTree cgt = null;
+    private OpenDialog od = null;
 
     /**
      * Creates new form ArvoreIntermediaria1
      */
-
     public ArvoreIntermediaria1() {
         initComponents();
+        cgt = new CreateGraphicTree();
+        od = new OpenDialog();
     }
 
     public void setText(String text) {
@@ -198,52 +203,48 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-        if(jComboBox1.getSelectedIndex()==0){
-            Document document = new Document(); 
+        if (jComboBox1.getSelectedIndex() == 0) {
+            Document document = new Document();
             try {
-                   JFileChooser saveFile = new JFileChooser();
-                   if(saveFile.showSaveDialog(null)==0){
+                JFileChooser saveFile = new JFileChooser();
+                if (saveFile.showSaveDialog(null) == 0) {
 
-                        File arquivo = saveFile.getSelectedFile();
-                        System.out.println(arquivo.getPath());
-                        PdfWriter.getInstance(document, new FileOutputStream(arquivo.getPath()+".pdf"));
-                        document.open();
-                        document.add(new Paragraph(textField.getText())); 
-                        document.close();
-                   }
-            } 
-            catch(DocumentException de) { 
-                System.err.println(de.getMessage()); 
-            }
-            catch(IOException de){
+                    File arquivo = saveFile.getSelectedFile();
+                    System.out.println(arquivo.getPath());
+                    PdfWriter.getInstance(document, new FileOutputStream(arquivo.getPath() + ".pdf"));
+                    document.open();
+                    document.add(new Paragraph(textField.getText()));
+                    document.close();
+                }
+            } catch (DocumentException de) {
+                System.err.println(de.getMessage());
+            } catch (IOException de) {
                 System.err.println(de.getMessage());
             }
-                    
-        }
-        else
-        {
+
+        } else {
             Scanner ler = new Scanner(System.in);
-       JFileChooser save = new JFileChooser();
-       String caminho=null;
-       if(save.showSaveDialog(null)==0)
-       {
-           File arquivo = save.getSelectedFile();
-           caminho=arquivo.getPath();
-           FileWriter arq;
+            JFileChooser save = new JFileChooser();
+            String caminho = null;
+            if (save.showSaveDialog(null) == 0) {
+                File arquivo = save.getSelectedFile();
+                caminho = arquivo.getPath();
+                FileWriter arq;
                 try {
-                    arq = new FileWriter(caminho+".txt");
+                    arq = new FileWriter(caminho + ".txt");
                     PrintWriter gravarArq = new PrintWriter(arq);
                     gravarArq.printf(textField.getText());
                     arq.close();
                 } catch (IOException ex) {
                     Logger.getLogger(ArvoreIntermediaria1.class.getName()).log(Level.SEVERE, null, ex);
                 }
-       }
+            }
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+
+        od.showInDialog(cgt.createGraphicTreePane(cgt.createString(textField.getText())));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
