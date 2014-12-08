@@ -126,6 +126,7 @@ public class SemantVisitor implements Visitor {
     
     private void error(Position pos, String msg) {
         System.err.println(msg + ": " + pos);
+        numberOfSemanticErrors++;
     }
 
     private void putTypeFields(RECORD f, AccessList a) {
