@@ -58,7 +58,8 @@ public class TesteGlobal {
             parser.prog();
             SemantVisitor visitor = new SemantVisitor ();
             Frag frag = visitor.transProg(parser.tree);
-
+            System.err.println("Quantidade de erros semanticos no test20: "+ visitor.getNumberOfSemanticErrors());
+            assertTrue(visitor.getNumberOfSemanticErrors()>=1);
         } catch (IOException ex) {
             Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
         }
