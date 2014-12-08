@@ -177,4 +177,20 @@ public class Teste extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+
+        if(!arq){
+            definitivePath = CodeTextTiger.getText();
+        }
+        
+        TesteProg ts = new TesteProg(definitivePath, arq);
+        int semantico = ts.getNumberOfSemanticError();
+        int sintatico = ts.getNumberOfSyntaxError();
+        
+        erroSemantico.setText("Erros semânticos: "+semantico);
+        erroSintatico.setText("Erros sintáticos: "+sintatico);
+        
+        
+    }
 }
