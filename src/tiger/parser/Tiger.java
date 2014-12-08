@@ -128,6 +128,7 @@ public class Tiger {
      * @param args the command line arguments
      */
     public static void compileCode(String fileTig) {
+      
         try {
             String src = fileTig;
             if (src.endsWith(".tig")) {
@@ -137,22 +138,24 @@ public class Tiger {
                 String dst = src.substring(0, src.lastIndexOf(".tig")) + ".s";
                 TigerLexer lex = new TigerLexer(new ANTLRFileStream(fileTig, "UTF8"));
 
+            
+                
                 CommonTokenStream tokens = new CommonTokenStream(lex);
                 TigerParser parser = new TigerParser(tokens);
                 parser.prog();
-
+            
                 Temp.setCount(0);
 
                 SemantVisitor semantic = new SemantVisitor();
+                  System.err.println("\n\n");
+                System.err.println("------------------");
+                System.err.println("Árvore Sintática Abstrata");
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
                 /*StringWriter arvabs=new StringWriter();
                 PrintWriter p_arvabs = new PrintWriter(arvabs);
                 Print p = new Print(p_arvabs);
                 p.prExp(tree);*/
-                System.err.println("\n\n");
-                System.err.println("------------------");
-                System.err.println("Árvore Sintática Abstrata");
                  Print p = new Print(System.err);
                 p.prExp(tree);
                 System.err.println("\n------------------");
