@@ -133,9 +133,9 @@ public class Teste extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>
 
-    private void arqNameActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    private void arqNameActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                       
+    }
 
     public String pegaTextoArquivo(File arquivo) {
         if (arquivo != null && arquivo.exists()) {
@@ -157,14 +157,14 @@ public class Teste extends javax.swing.JInternalFrame {
         }
         return "";
     }
-    
+
     private String definitivePath = "";
     private boolean arq = false;
-    
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         arq = true;
         JFileChooser janelaArquivos = new JFileChooser(new java.io.File("").getAbsolutePath() + File.separator + "test");
-        
+
         if (janelaArquivos.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File arquivoEscolhido = janelaArquivos.getSelectedFile();
             definitivePath = arquivoEscolhido.getAbsolutePath();
@@ -177,20 +177,66 @@ public class Teste extends javax.swing.JInternalFrame {
         }
 
     }
-    
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 
-        if(!arq){
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        if (!arq) {
             definitivePath = CodeTextTiger.getText();
         }
-        
+
         TesteProg ts = new TesteProg(definitivePath, arq);
         int semantico = ts.getNumberOfSemanticError();
         int sintatico = ts.getNumberOfSyntaxError();
-        
-        erroSemantico.setText("Erros semânticos: "+semantico);
-        erroSintatico.setText("Erros sintáticos: "+sintatico);
-        
-        
+
+        erroSemantico.setText("Erros semânticos: " + semantico);
+        erroSintatico.setText("Erros sintáticos: " + sintatico);
+
     }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Teste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Teste().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JTextPane CodeTextTiger;
+    private javax.swing.JTextField arqName;
+    private javax.swing.JLabel erroSemantico;
+    private javax.swing.JLabel erroSintatico;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    // End of variables declaration                   
 }
