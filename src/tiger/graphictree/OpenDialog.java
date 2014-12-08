@@ -108,4 +108,81 @@ public class OpenDialog {
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
+    
+    private static void generatePNGFile(JComponent viewer, JDialog dialog) {
+        BufferedImage bi = new BufferedImage(viewer.getSize().width,
+                viewer.getSize().height,
+                BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bi.createGraphics();
+        viewer.paint(g);
+        g.dispose();
+
+        try {
+            File suggestedFile = generateNonExistingPngFile();
+            JFileChooser fileChooser = new JFileChooserConfirmOverwrite();
+            fileChooser.setCurrentDirectory(suggestedFile.getParentFile());
+            fileChooser.setSelectedFile(suggestedFile);
+            FileFilter pngFilter = new FileFilter() {
+
+                @Override
+                public boolean accept(File pathname) {
+                    if (pathname.isFile()) {
+                        return pathname.getName().toLowerCase().endsWith(".png");
+                    }
+
+                    return true;
+                }
+
+                @Override
+                public String getDescription() {
+                    return "PNG Files (*.png)";
+                }
+            };
+
+            fileChooser.addChoosableFileFilter(pngFilter);
+            fileChooser.setFileFilter(pngFilter);
+
+            int returnValue = fileChooser.showSaveDialog(dialog);
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File pngFile = fileChooser.getSelectedFile();
+                ImageIO.write(bi, "png", pngFile);
+
+                try {
+                    // Try to open the parent folder using the OS' native file manager.
+                    Desktop.getDesktop().open(pngFile.getParentFile());
+                } catch (Exception ex) {
+                    // We could not launch the file manager: just show a popup that we
+                    // succeeded in saving the PNG file.
+                    JOptionPane.showMessageDialog(dialog, "Saved PNG to: "
+                            + pngFile.getAbsolutePath());
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(dialog,
+                    "Could not export to PNG: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+
+    private static File generateNonExistingPngFile() {
+
+        final String parent = ".";
+        final String name = "arvore_grafica";
+        final String extension = ".png";
+
+        File pngFile = new File(parent, name + extension);
+
+        int counter = 1;
+
+        // Keep looping until we create a File that does not yet exist.
+        while (pngFile.exists()) {
+            pngFile = new File(parent, name + "_" + counter + extension);
+            counter++;
+        }
+
+        return pngFile;
+    }    
 }
