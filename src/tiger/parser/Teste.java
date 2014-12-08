@@ -133,4 +133,48 @@ public class Teste extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>
 
+    private void arqNameActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        // TODO add your handling code here:
+    }                                       
+
+    public String pegaTextoArquivo(File arquivo) {
+        if (arquivo != null && arquivo.exists()) {
+            try {
+                FileReader leitorArquivo = new FileReader(arquivo);
+                BufferedReader leitorBuferizado = new BufferedReader(
+                        leitorArquivo);
+                String textoArquivo = "";
+                String linhaArquivo = null;
+                while ((linhaArquivo = leitorBuferizado.readLine()) != null) {
+                    textoArquivo += linhaArquivo + "\n";
+                }
+                leitorBuferizado.close();
+                return textoArquivo;
+            } catch (Exception e) {
+                System.out.println("Arquivo nao pode ser lido!");
+                e.printStackTrace();
+            }
+        }
+        return "";
+    }
+    
+    private String definitivePath = "";
+    private boolean arq = false;
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        arq = true;
+        JFileChooser janelaArquivos = new JFileChooser(new java.io.File("").getAbsolutePath() + File.separator + "test");
+        
+        if (janelaArquivos.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File arquivoEscolhido = janelaArquivos.getSelectedFile();
+            definitivePath = arquivoEscolhido.getAbsolutePath();
+            String textoArquivo = pegaTextoArquivo(arquivoEscolhido);
+            CodeTextTiger.setText(textoArquivo);
+            String nomeArquivo = arquivoEscolhido.getName();
+            String fileName = nomeArquivo.substring(0, nomeArquivo.lastIndexOf("."));
+            arqName.setText(fileName);
+            CodeTextTiger.setCaretPosition(0);
+        }
+
+    }
 }
