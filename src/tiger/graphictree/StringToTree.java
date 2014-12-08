@@ -5,8 +5,10 @@
  */
 package tiger.graphictree;
 
+import java.awt.FontMetrics;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import org.abego.treelayout.demo.TextInBox;
 
 /**
@@ -32,6 +34,13 @@ public class StringToTree {
         return graphicTree;
     }
 
+    private TextInBox newNode(String nome) {
+        JLabel label = new JLabel();
+        label.setText(nome);
+        FontMetrics tamanho =label.getFontMetrics(label.getFont());   
+        return new TextInBox(nome, tamanho.stringWidth(nome)+8, 20);
+    }    
+    
     private void pushNode(TextInBox node) {
         if (!node.text.equals("")) {
             nodes.add(node);
