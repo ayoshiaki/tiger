@@ -1,4 +1,6 @@
 package tiger.semant;
+import tiger.absyn.FloatExp;
+import tiger.types.FLOAT;
 import java.util.HashMap;
 import tiger.absyn.Absyn;
 import tiger.absyn.ArrayExp;
@@ -67,12 +69,12 @@ public class SemantVisitor implements Visitor {
     static final INT INT = new INT();
     static final STRING STRING = new STRING();
     static final NIL NIL = new NIL();
-//    static final FLOAT FLOAT = new FLOAT();
+    static final FLOAT FLOAT = new FLOAT();
 
    private tiger.translate.Exp checkComparable(ExpTy et, Position pos) {
         Type a = et.getTy().actual();
         if (!(a instanceof INT
-          //      || a instanceof FLOAT
+                || a instanceof FLOAT
                 || a instanceof STRING
                 || a instanceof NIL
                 || a instanceof RECORD
@@ -85,7 +87,7 @@ public class SemantVisitor implements Visitor {
     private tiger.translate.Exp checkOrderable(ExpTy et, Position pos) {
         Type a = et.getTy().actual();
         if (!(a instanceof INT
-            //    || a instanceof FLOAT
+                || a instanceof FLOAT
                 || a instanceof STRING)) {
             error(pos, "integer, float or string required");
         }
@@ -392,7 +394,10 @@ public class SemantVisitor implements Visitor {
     public void visit(IntExp e) {
         setExpTy(new ExpTy(getTranslate().IntExp(e.value), INT));
     }
-   
+    @Override
+    public void visit(FloatExp e) {
+        setExpTy(new ExpTy(getTranslate().FloatExp(e.value), FLOAT));
+    }
 
     @Override
     public void visit(LetExp e) {

@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author galerinha do print
+ * @author satto/mollon
  */
 public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
 

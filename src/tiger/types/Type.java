@@ -6,7 +6,7 @@ import tiger.semant.ExpTy;
 
 public abstract class Type {
 
-    public static int ARRAY = 1, INT = 2, NAME = 3, NIL = 4, RECORD = 5, VOID = 6, STRING = 7;
+    public static int ARRAY = 1, INT = 2, NAME = 3, NIL = 4, RECORD = 5, VOID = 6, STRING = 7, FLOAT = 8;
 
     public Type actual() {
         return this;

@@ -116,14 +116,14 @@ public class GraphicCodeScreenTiger extends javax.swing.JFrame {
             Logger.getLogger(GraphicCodeScreenTiger.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        JOptionPane.showMessageDialog(null, fileName +".tig criado com sucesso", "Criação do Arquivo .tig", JOptionPane.INFORMATION_MESSAGE);
-        Tiger.compileCode(definitivePath);
+        //JOptionPane.showMessageDialog(null, fileName +".tig criado com sucesso", "Criação do Arquivo .tig", JOptionPane.INFORMATION_MESSAGE);
+        //Tiger.compileCode(definitivePath);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ArqName;
