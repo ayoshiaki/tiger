@@ -649,6 +649,7 @@ public class SemantVisitor implements Visitor {
         checkInt(test, e.test.pos);
         LoopSemantVisitor loop = new LoopSemantVisitor(env, getTranslate(), getLevel());
         e.body.accept(loop);
+        numberOfSemanticErrors += loop.getNumberOfSemanticErrors();
         ExpTy body = loop.getExpTy();
 
         if (!body.getTy().coerceTo(VOID)) {
