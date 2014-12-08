@@ -61,7 +61,7 @@ public class TigerParser extends Parser {
 	public ATN getATN() { return _ATN; }
 
 
-	Exp tree = null;
+	public Exp tree = null;
 
 	public TigerParser(TokenStream input) {
 		super(input);
