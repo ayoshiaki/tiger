@@ -146,10 +146,17 @@ public class Tiger {
                 SemantVisitor semantic = new SemantVisitor();
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
-                StringWriter arvabs=new StringWriter();
+                /*StringWriter arvabs=new StringWriter();
                 PrintWriter p_arvabs = new PrintWriter(arvabs);
                 Print p = new Print(p_arvabs);
+                p.prExp(tree);*/
+                System.err.println("\n\n");
+                System.err.println("------------------");
+                System.err.println("Árvore Sintática Abstrata");
+                 Print p = new Print(System.err);
                 p.prExp(tree);
+                System.err.println("\n------------------");
+                System.err.println("\n\n");
                 
                 java.io.PrintWriter out = new java.io.PrintWriter(
                         new java.io.FileOutputStream(dst));
