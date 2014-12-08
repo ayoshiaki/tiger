@@ -1,5 +1,6 @@
 package tiger.tree;
 
+import java.io.PrintWriter;
 import tiger.temp.DefaultMap;
 import tiger.temp.TempMap;
 
@@ -340,6 +341,10 @@ public class Print implements Visitor {
         {
             prStm(l.head);
         }
+    }
+
+    public void printOut(PrintWriter o) {
+        out = o;
     }
     
     }

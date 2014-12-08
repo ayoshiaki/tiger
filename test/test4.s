@@ -14,15 +14,15 @@ sw $s6,-32+t_main_framesize($sp)
 sw $s7,-36+t_main_framesize($sp)
 sw $s8,-40+t_main_framesize($sp)
 
-L1:
+L4:
 addu $t0,$sp,t_main_framesize
 sw $a0,0($t0)
-addi $t1,$0,1
+addi $t1,$0,10
 move $a0,$t1
-la $t0,printi
-jal printi
-j L0
-L0:
+la $t0,t_main.nfactor
+jal t_main.nfactor
+j L3
+L3:
 
 lw $ra,-4+t_main_framesize($sp)
 lw $s0,-8+t_main_framesize($sp)

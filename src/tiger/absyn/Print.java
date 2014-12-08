@@ -159,9 +159,9 @@ public class Print implements Visitor{
         t.accept(this);
     }
     
-    java.io.PrintStream out;
+    java.io.PrintWriter out;
 
-    public Print(java.io.PrintStream o) {
+    public Print(java.io.PrintWriter o) {
         out = o;
     }
 
