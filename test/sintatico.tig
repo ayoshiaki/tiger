@@ -1,0 +1,2 @@
+/* error : sintatic error */
+while(10 > 5) do 5+
