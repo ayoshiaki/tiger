@@ -18,6 +18,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import tiger.graphictree.CreateGraphicTree;
+import tiger.graphictree.OpenDialog;
 
 /**
  *
@@ -25,12 +27,16 @@ import javax.swing.JFileChooser;
  */
 public class ArvoreIntermediaria2 extends javax.swing.JInternalFrame {
  private int cont= 15;
+ private CreateGraphicTree cgt = null;
+ private OpenDialog od = null;
     /**
      * Creates new form ArvoreIntermediaria2
      */
    
     public ArvoreIntermediaria2() {
         initComponents();
+        cgt = new CreateGraphicTree();
+        od = new OpenDialog();
     }
 
     
@@ -236,7 +242,7 @@ if (cont > 14) {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        od.showInDialog(cgt.createGraphicTreePane(cgt.createString(jTextArea1.getText())));
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
