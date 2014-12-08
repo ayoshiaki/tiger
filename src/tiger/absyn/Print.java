@@ -5,6 +5,9 @@
  */
 package tiger.absyn;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
+
 /**
  *
  * @author Daniel
@@ -13,7 +16,10 @@ public class Print implements Visitor{
     
     int d=0;
     int i=0;
-    
+
+   
+  
+  
     @Override
     public void visit(Absyn e) {
         e.accept(this);
@@ -159,10 +165,14 @@ public class Print implements Visitor{
         t.accept(this);
     }
     
-    java.io.PrintWriter out;
-
+    java.io.PrintWriter out2;
+    java.io.PrintStream out;
     public Print(java.io.PrintWriter o) {
-        out = o;
+        out2 = o;
+    }
+    
+     public Print(java.io.PrintStream o) {
+       out = o;
     }
 
     void indent(int d) {
