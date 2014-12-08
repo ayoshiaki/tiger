@@ -20,6 +20,11 @@ sw $a0,0($t0)
 addu $t1,$sp,t_main_framesize
 addi $t0,$0,1.1
 sw $t0,-4($t1)
+addu $t0,$sp,t_main_framesize
+lw $t1,-4($t0)
+move $a0,$t1
+la $t0,printfloat
+jal printfloat
 j L0
 L0:
 
