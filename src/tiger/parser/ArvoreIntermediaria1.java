@@ -63,8 +63,10 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("TigerIDE");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setToolTipText("");
 
         jLabel1.setFont(new java.awt.Font("Perpetua Titling MT", 1, 24)); // NOI18N
         jLabel1.setText("ÁRVORE INTERMEDIÁRIA (Antes da Canonização)");

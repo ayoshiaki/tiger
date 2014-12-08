@@ -133,6 +133,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="TigerIDE"/>
     <Property name="maximizedBounds" type="java.awt.Rectangle" editor="org.netbeans.beaninfo.editors.RectangleEditor">
       <Rectangle value="[0, 0, 1980, 1080]"/>
     </Property>
@@ -162,7 +163,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jDesktopPane1" alignment="0" pref="667" max="32767" attributes="0"/>
+          <Component id="jDesktopPane1" alignment="1" pref="667" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>

@@ -53,6 +53,7 @@ private int cont = 15;
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("TigerIDE");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
