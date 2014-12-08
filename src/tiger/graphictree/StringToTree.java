@@ -21,6 +21,39 @@ public class StringToTree {
     private GraphicTree graphicTree = null;
     private boolean flagLeafNodeRelation = false;
 
+    public GraphicTree stringToTree(String stringTree) {
+        this.stringTree = stringTree;
+        relations = new ArrayList<Relation>();
+        nodes = new ArrayList<TextInBox>();
+
+        createRelations();
+        createGraphicTree();
+
+        return graphicTree;
+    }
+
+    private void pushNode(TextInBox node) {
+        if (!node.text.equals("")) {
+            nodes.add(node);
+        }
+    }
+
+    private TextInBox popNode() {
+        return nodes.remove(nodes.size() - 1);
+    }
+
+    private void addLeafNodeRelation() {
+        Relation relation = new Relation();
+        List<TextInBox> filhos = new ArrayList<TextInBox>();
+        TextInBox filho = popNode();
+        filhos.add(0, filho);
+        TextInBox pai = popNode();
+        pushNode(pai);
+        relation.setPai(pai);
+        relation.setFilhos(filhos);
+        relations.add(0, relation);
+    }
+    
     private void addRelation() {
         Relation relation = new Relation();
         List<TextInBox> filhos = new ArrayList<TextInBox>();
@@ -88,5 +121,21 @@ public class StringToTree {
             }
         }
     }
+    
+    private void createGraphicTree() {
+        graphicTree = new GraphicTree(relations.get(0).getPai());
 
+        int numRelations = relations.size();
+        int counter = 0;
+
+        for (counter = 0; counter < numRelations; counter++) {
+            Relation relation = relations.get(counter);
+            int numFilhos = relation.getFilhos().size();
+            int counter2 = 0;
+            for (counter2 = 0; counter2 < numFilhos; counter2++) {
+                //System.out.println(relation.getPai().text + ", " + relation.getFilhos().get(counter2).text);
+                graphicTree.addChild(relation.getPai(), relation.getFilhos().get(counter2));
+            }
+        }
+    }
 }
