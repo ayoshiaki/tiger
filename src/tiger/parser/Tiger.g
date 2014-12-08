@@ -7,7 +7,7 @@ import tiger.absyn.*;
 }
 
 @members{
-Exp tree = null;
+public Exp tree = null;
 }
 
 prog: exp  {tree = $exp.e;}

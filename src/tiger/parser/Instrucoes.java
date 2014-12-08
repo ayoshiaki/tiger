@@ -53,6 +53,7 @@ private int cont = 15;
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("TigerIDE");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -66,7 +67,8 @@ private int cont = 15;
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton2.setText("A++");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/font_add.png"))); // NOI18N
+        jButton2.setText("+");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -74,7 +76,8 @@ private int cont = 15;
         });
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton1.setText("A --");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/font_delete.png"))); // NOI18N
+        jButton1.setText("-");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -88,6 +91,7 @@ private int cont = 15;
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PDF", "TXT" }));
 
         jToggleButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/disk.png"))); // NOI18N
         jToggleButton1.setText("OK");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

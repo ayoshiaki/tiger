@@ -9,6 +9,7 @@ import tiger.tree.BINOP;
 import tiger.tree.CALL;
 import tiger.tree.CJUMP;
 import tiger.tree.CONST;
+import tiger.tree.CONSTFLOAT;
 import tiger.tree.ESEQ;
 import tiger.tree.EXPR;
 import tiger.tree.JUMP;
@@ -50,6 +51,10 @@ public class Translate {
         return frags;
     }
 
+        private static tiger.tree.Exp CONSTFLOAT(float value) {
+        return new CONSTFLOAT(value);
+    }
+    
     private static tiger.tree.Exp CONST(int value) {
         return new CONST(value);
     }
@@ -156,6 +161,11 @@ public class Translate {
     public tiger.translate.Exp IntExp(int value) {
         return new Ex(CONST(value));
     }
+    
+    public tiger.translate.Exp FloatExp(float value) {
+        return new Ex(CONSTFLOAT(value));
+    }
+    
     private java.util.HashMap strings = new java.util.HashMap();
 
     public tiger.translate.Exp StringExp(String lit) {

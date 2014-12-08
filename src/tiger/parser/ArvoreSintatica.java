@@ -39,6 +39,7 @@ public class ArvoreSintatica extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("TigerIDE");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -48,10 +49,12 @@ public class ArvoreSintatica extends javax.swing.JInternalFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setText("Método não implementado.....Outra equipe postará a resolução em breve");
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton1.setText("A --");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/font_delete.png"))); // NOI18N
+        jButton1.setText("-");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -59,7 +62,8 @@ public class ArvoreSintatica extends javax.swing.JInternalFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton2.setText("A++");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/font_add.png"))); // NOI18N
+        jButton2.setText("+");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

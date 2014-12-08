@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author galerinha do print
+ * @author satto/mollon
  */
 public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
 
@@ -58,6 +58,7 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconifiable(true);
+        setTitle("TigerIDE");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Interface Gráfica Tiger", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 18))); // NOI18N
 
@@ -70,6 +71,7 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         jLabel2.setText("Digite o código abaixo");
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/control_play_blue.png"))); // NOI18N
         jButton1.setText("Compilar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +80,7 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/folder_explore.png"))); // NOI18N
         jButton2.setText("Abrir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +89,8 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton3.setText("A++");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/font_add.png"))); // NOI18N
+        jButton3.setText("+");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -94,7 +98,8 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton4.setText("A--");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/font_delete.png"))); // NOI18N
+        jButton4.setText("-");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -118,11 +123,8 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(0, 0, 0)))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,7 +193,7 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         if(cont ==1){
         verificaStatus(false);
         }
-        JOptionPane.showMessageDialog(null,"Há problemas nos registradores e labels.Para compilar reabra a aplicação ", "Controle de Execução", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null,"Há problemas nos registradores e labels.Para compilar novamente reabra a aplicação ", "Controle de Execução", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
