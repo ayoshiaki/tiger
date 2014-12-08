@@ -56,6 +56,8 @@ public class TesteGlobal {
             CommonTokenStream tokens= new CommonTokenStream(lex);
             TigerParser parser= new TigerParser(tokens);
             parser.prog();
+            SemantVisitor visitor = new SemantVisitor ();
+            Frag frag = visitor.transProg(parser.tree);
 
         } catch (IOException ex) {
             Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
