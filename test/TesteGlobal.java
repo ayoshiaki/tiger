@@ -65,4 +65,17 @@ public class TesteGlobal {
         }
     }
     
+    //testes sintaticos
+    @Test
+    public void test13(){
+        TigerLexer lex;
+        
+        try {
+            lex = new TigerLexer(new ANTLRFileStream("test/sintatico.tig","UTF8"));
+            
+        } catch (IOException ex) {
+            Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
