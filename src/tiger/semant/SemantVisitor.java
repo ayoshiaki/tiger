@@ -37,6 +37,7 @@ import tiger.absyn.VarExp;
 import tiger.absyn.Visitor;
 import tiger.absyn.WhileExp;
 import tiger.mips.MipsFrame;
+import tiger.parser.TigerParser;
 import tiger.symbol.Symbol;
 import tiger.symbol.Table;
 import tiger.temp.Label;
@@ -70,6 +71,8 @@ public class SemantVisitor implements Visitor {
     static final STRING STRING = new STRING();
     static final NIL NIL = new NIL();
     static final FLOAT FLOAT = new FLOAT();
+    TigerParser SemantErrors = null;
+    private int numberOfSemanticErrors;
 
    private tiger.translate.Exp checkComparable(ExpTy et, Position pos) {
         Type a = et.getTy().actual();
@@ -113,8 +116,17 @@ public class SemantVisitor implements Visitor {
         this.env = env;
     }
 
+    public int getNumberOfSemanticErrors() {
+        return numberOfSemanticErrors;
+    }
+
+    public void setNumberOfSemanticErrors(int numberOfSemanticErrors) {
+        this.numberOfSemanticErrors = numberOfSemanticErrors;
+    }
+    
     private void error(Position pos, String msg) {
         System.err.println(msg + ": " + pos);
+        numberOfSemanticErrors++;
     }
 
     private void putTypeFields(RECORD f, AccessList a) {
@@ -300,6 +312,7 @@ public class SemantVisitor implements Visitor {
         env.getVenv().put(e.var.name, e.var.entry);
         LoopSemantVisitor loop = new LoopSemantVisitor(env, getTranslate(), getLevel());
         e.body.accept(loop);
+        numberOfSemanticErrors += loop.getNumberOfSemanticErrors();
         ExpTy body = loop.getExpTy();
         env.getVenv().endScope();
         if (!body.getTy().coerceTo(VOID)) {
@@ -637,6 +650,7 @@ public class SemantVisitor implements Visitor {
         checkInt(test, e.test.pos);
         LoopSemantVisitor loop = new LoopSemantVisitor(env, getTranslate(), getLevel());
         e.body.accept(loop);
+        numberOfSemanticErrors += loop.getNumberOfSemanticErrors();
         ExpTy body = loop.getExpTy();
 
         if (!body.getTy().coerceTo(VOID)) {
