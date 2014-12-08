@@ -124,6 +124,19 @@ public class GraphicCodeScreenTiger extends javax.swing.JFrame {
      * @param args the command line arguments
      */
 
+<<<<<<< HEAD
+=======
+        /* Create and display the form */
+        //String definitivePath = "";
+        //Tiger.compileCode(definitivePath);
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GraphicCodeScreenTiger().setVisible(true);
+            }
+        });
+    }
+>>>>>>> upstream/master
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ArqName;
