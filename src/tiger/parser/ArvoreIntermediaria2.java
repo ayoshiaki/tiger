@@ -58,6 +58,7 @@ public class ArvoreIntermediaria2 extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("TigerIDE");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(750, 640));
@@ -71,6 +72,7 @@ public class ArvoreIntermediaria2 extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         jToggleButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/disk.png"))); // NOI18N
         jToggleButton1.setText("OK");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +87,8 @@ public class ArvoreIntermediaria2 extends javax.swing.JInternalFrame {
         jLabel2.setText("Exportar");
 
         jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton1.setText("A++");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/font_add.png"))); // NOI18N
+        jButton1.setText("+");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -93,7 +96,8 @@ public class ArvoreIntermediaria2 extends javax.swing.JInternalFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton2.setText("A --");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icones/font_delete.png"))); // NOI18N
+        jButton2.setText("-");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

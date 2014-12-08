@@ -90,6 +90,11 @@ public class Print implements Visitor{
     }
 
     @Override
+    public void visit(FloatExp e) {
+        prExp(e);
+    }
+    
+    @Override
     public void visit(LetExp e) {
         prExp(e);
     }
@@ -287,6 +292,12 @@ public class Print implements Visitor{
     void prExp(IntExp e) {
         say("IntExp(");
         say(e.value);
+        say(")");
+    }
+    
+    void prExp(FloatExp e) {
+        say("FloatExp(");
+        say(String.valueOf(e.value));
         say(")");
     }
 

@@ -31,6 +31,11 @@ public class Print implements Visitor {
     }
 
     @Override
+    public void visit(CONSTFLOAT var) {
+        prExp(var);
+    }
+    
+    @Override
     public void visit(ESEQ var) {
         prExp(var);
     }
@@ -290,6 +295,13 @@ public class Print implements Visitor {
         say(String.valueOf(e.value));
     }
 
+    void prExp(CONSTFLOAT e) {
+        indent(d);
+        say("CONSTFLOAT ");
+        say(String.valueOf(e.value));
+    }
+    
+    
     void prExp(CALL e) {
         indent(d);
         sayln("CALL(");
