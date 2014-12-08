@@ -5,10 +5,16 @@
  */
 package tiger.graphictree;
 
+import org.abego.treelayout.demo.TextInBox;
+import org.abego.treelayout.util.DefaultTreeForTreeLayout;
+
 /**
  *
- * @author Daniel
+ * @author Lucas
  */
-public class GraphicTree {
+public class GraphicTree extends DefaultTreeForTreeLayout {
     
+    public GraphicTree(TextInBox root) {
+        super(root);
+    }
 }
