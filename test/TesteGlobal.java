@@ -75,7 +75,7 @@ public class TesteGlobal {
             CommonTokenStream tokens= new CommonTokenStream(lex);
             TigerParser parser= new TigerParser(tokens);
             parser.prog();
-            
+            System.err.println("Quantidade de erros sintaticos no teste: "+ parser.getNumberOfSyntaxErrors());
         } catch (IOException ex) {
             Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
         }
