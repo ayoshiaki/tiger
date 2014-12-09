@@ -165,15 +165,11 @@ public class Print implements Visitor{
         t.accept(this);
     }
     
-    java.io.PrintWriter out2;
-    java.io.PrintStream out;
+    java.io.PrintWriter out;
     public Print(java.io.PrintWriter o) {
-        out2 = o;
+        out = o;
     }
     
-     public Print(java.io.PrintStream o) {
-       out = o;
-    }
 
     void indent(int d) {
         for (int i = 0; i < d; i++) {
