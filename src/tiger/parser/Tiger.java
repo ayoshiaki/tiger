@@ -152,7 +152,7 @@ public class Tiger {
                 Exp tree = parser.tree;
                 StringWriter arvabs=new StringWriter();
                 PrintWriter p_arvabs = new PrintWriter(arvabs);
-                 p_arvabs.println("# Árvore Abstrata Sintática ");
+                 p_arvabs.println("# Árvore Abstrata Sintática: ");
                 Print p = new Print(p_arvabs);
                 p.prExp(tree);
                 System.err.println(arvabs);
