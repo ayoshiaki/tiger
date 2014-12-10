@@ -205,7 +205,7 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         if(Tiger.hasSemanticerror()||Tiger.hasSintaticerror()){
             String mensagem;
             mensagem = createErrorMessage(Tiger.hasSemanticerror(),Tiger.hasSintaticerror());
-            JOptionPane.showMessageDialog(null, "Foram detectados erros "+mensagem+" no arquivo, verifique o arquivo "+fileName+"ERROR.tig gerado para mais detalhes", "Erros na compilação", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Foram detectados erros "+mensagem+" no arquivo", "Erros na compilação", JOptionPane.ERROR_MESSAGE);
         }
         if(cont ==1){
         verificaStatus(false);

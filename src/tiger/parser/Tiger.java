@@ -31,11 +31,38 @@ import tiger.tree.StmList;
 
 /**
  *
- * 
+ *
  *
  * @author yoshiaki
  */
 public class Tiger {
+
+    private static boolean sintaticerror = false;
+    private static boolean semanticerror = false;
+
+    protected static void setSintaticerror() {
+        sintaticerror = true;
+    }
+
+    protected static void resetSintaticerror() {
+        sintaticerror = false;
+    }
+
+    protected static void setSemanticerror() {
+        semanticerror = true;
+    }
+
+    protected static void resetSemanticerror() {
+        semanticerror = false;
+    }
+
+    public static boolean hasSintaticerror() {
+        return sintaticerror;
+    }
+
+    public static boolean hasSemanticerror() {
+        return semanticerror;
+    }
 
     static InstrList codegen(Frame f, StmList stms) {
         InstrList first = null, last = null;
@@ -59,19 +86,19 @@ public class Tiger {
     // classe emitproc alterada, redirecionei a saida do print para a printwriter, dps eh soh jogar no frame de texto
     static void emitProc(java.io.PrintWriter out, ProcFrag f) {
 
-        java.io.PrintWriter debug  = new java.io.PrintWriter(System.err);
-        
+        java.io.PrintWriter debug = new java.io.PrintWriter(System.err);
+
         //out;
         //intermediária antes canonização
-        StringWriter inter_b=new StringWriter();
+        StringWriter inter_b = new StringWriter();
         java.io.PrintWriter p_inter_b = new java.io.PrintWriter(inter_b);
-        StringWriter instruc=new StringWriter();
+        StringWriter instruc = new StringWriter();
         java.io.PrintWriter p_instruc = new java.io.PrintWriter(instruc);
         //interface depois da canonização
-        StringWriter inter_a=new StringWriter();
+        StringWriter inter_a = new StringWriter();
         java.io.PrintWriter p_inter_a = new java.io.PrintWriter(inter_a);
         //basic blocks
-        StringWriter basic_b=new StringWriter();
+        StringWriter basic_b = new StringWriter();
         java.io.PrintWriter p_basic_b = new java.io.PrintWriter(basic_b);
 
         TempMap tempmap = new CombineMap(f.frame,
@@ -91,7 +118,7 @@ public class Tiger {
             StmList stms = Canon.linearize(f.body);
             print.prStm(f.body);
             tiger.parser.FormPrincipal.setAi2(inter_a.toString());
-           // print.printOut(debug);
+            // print.printOut(debug);
             p_basic_b.println("# Basic Blocks: ");
             BasicBlocks b = new BasicBlocks(stms);
             p_basic_b.println("# Trace Scheduled: ");
@@ -99,8 +126,8 @@ public class Tiger {
             StmList traced = (new TraceSchedule(b)).stms;
             print.prStmList(traced);
             instrs = codegen(f.frame, traced);
-            
-              tiger.parser.FormPrincipal.setBb(basic_b.toString());        
+
+            tiger.parser.FormPrincipal.setBb(basic_b.toString());
         }
 
         p_instruc.println("# Instructions: ");
@@ -109,7 +136,7 @@ public class Tiger {
             p_instruc.flush();
         }
         tiger.parser.FormPrincipal.setIn(instruc.toString());
-        
+
         RegAlloc reg = new RegAlloc(f.frame, instrs, System.err, false);
 
         out.println(f.frame.pre());
@@ -124,11 +151,19 @@ public class Tiger {
 
     }
 
+    private static String indicateError(String s) {
+        String begin, end;
+        begin = s.substring(0, s.indexOf(".s"));
+        end = s.substring(s.indexOf(".s"));
+        s = begin + "ERROR" + end;
+        return s;
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void compileCode(String fileTig) {
-      
+
         try {
             String src = fileTig;
             if (src.endsWith(".tig")) {
@@ -138,33 +173,39 @@ public class Tiger {
                 String dst = src.substring(0, src.lastIndexOf(".tig")) + ".s";
                 TigerLexer lex = new TigerLexer(new ANTLRFileStream(fileTig, "UTF8"));
 
-            
-                
                 CommonTokenStream tokens = new CommonTokenStream(lex);
                 TigerParser parser = new TigerParser(tokens);
                 parser.prog();
-            
-                Temp.setCount(0);
 
+                Temp.setCount(0);
+                
                 SemantVisitor semantic = new SemantVisitor();
-              
                 Frag frags = semantic.transProg(parser.tree);
+                if (semantic.getNumberOfSemanticErrors() > 0 || parser.getNumberOfSyntaxErrors() > 0) {
+                    if (semantic.getNumberOfSemanticErrors() > 0) {
+                        setSemanticerror();
+                    }
+                    if (parser.getNumberOfSyntaxErrors() > 0) {
+                        setSintaticerror();
+                    }
+                    dst = indicateError(dst);
+                }
                 Exp tree = parser.tree;
-                StringWriter arvabs=new StringWriter();
+                StringWriter arvabs = new StringWriter();
                 PrintWriter p_arvabs = new PrintWriter(arvabs);
-                 p_arvabs.println("# Árvore Abstrata Sintática: ");
+                p_arvabs.println("# Árvore Abstrata Sintática: ");
                 Print p = new Print(p_arvabs);
                 p.prExp(tree);
                 System.err.println(arvabs);
-                 tiger.parser.FormPrincipal.astTxt(arvabs.toString());
-                 // System.err.println("\n\n");
+                tiger.parser.FormPrincipal.astTxt(arvabs.toString());
+                // System.err.println("\n\n");
                 //System.err.println("------------------");
                 //System.err.println("Árvore Sintática Abstrata");
-                 //Print p = new Print(System.err);
+                //Print p = new Print(System.err);
                 //p.prExp(tree);
                 //System.err.println("\n------------------");
                 //System.err.println("\n\n");
-                
+
                 java.io.PrintWriter out = new java.io.PrintWriter(
                         new java.io.FileOutputStream(dst));
                 for (Frag f = frags; f != null; f = f.next) {
