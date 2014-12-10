@@ -12,6 +12,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private static String ai2Text;
     private static String bbText;
     private static String inText;
+    private static String astTxt;
 
     public static void setAi1(String s) {
         ai1Text = s;
@@ -27,6 +28,9 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     public static void setIn(String s) {
         inText = s;
+    }
+     public static void astTxt(String s) {
+        astTxt = s;
     }
 
     public void minimizarTodosInternalFrames(){
@@ -237,6 +241,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         ArvoreSintatica as = new ArvoreSintatica();
+        as.setText(astTxt);
         as.setVisible(true);
         minimizarTodosInternalFrames();
         jDesktopPane1.add(as);
