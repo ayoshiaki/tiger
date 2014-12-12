@@ -169,6 +169,19 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
     public void setCont(int cont) {
         this.cont = cont;
     }
+    
+    private String createErrorMessage(boolean semantic, boolean sintatic){
+        String msg="";
+        if(semantic&&sintatic){
+            msg="semanticos e sintaticos";
+        }else if(semantic&&!sintatic){
+            msg="semanticos";
+        }else if(!semantic&&sintatic){
+            msg="sintaticos";
+        }
+        return msg;
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (arqName.getText().replace(" ", "").length() > 0 && CodeTextTiger.getText().replace(" ", "").length() > 0) {
         cont =1;
@@ -176,21 +189,25 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
        String path = new java.io.File("").getAbsolutePath()+File.separator+"test";
        String fileName = arqName.getText();
        String definitivePath = path+File.separator+fileName+".tig";
-        try {
+       try {
             arq = new FileWriter(definitivePath);
         } catch (IOException ex) {
             Logger.getLogger(GraphicCodeScreenTiger.class.getName()).log(Level.SEVERE, null, ex);
         }
-       PrintWriter gravarArq = new PrintWriter(arq); 
+       PrintWriter gravarArq = new PrintWriter(arq);
        gravarArq.printf(CodeTextTiger.getText());
         try {
             arq.close();
         } catch (IOException ex) {
             Logger.getLogger(GraphicCodeScreenTiger.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         JOptionPane.showMessageDialog(null, fileName +".tig criado com sucesso", "Criação do Arquivo .tig", JOptionPane.INFORMATION_MESSAGE);
         Tiger.compileCode(definitivePath);
+        if(Tiger.hasSemanticerror()||Tiger.hasSintaticerror()){
+            String mensagem;
+            mensagem = createErrorMessage(Tiger.hasSemanticerror(),Tiger.hasSintaticerror());
+            JOptionPane.showMessageDialog(null, "Foram detectados erros "+mensagem+" no arquivo", "Erros na compilação", JOptionPane.ERROR_MESSAGE);
+        }
         if(cont ==1){
         verificaStatus(false);
         }
