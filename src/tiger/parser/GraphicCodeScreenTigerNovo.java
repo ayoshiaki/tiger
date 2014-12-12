@@ -170,6 +170,7 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         this.cont = cont;
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (arqName.getText().replace(" ", "").length() > 0 && CodeTextTiger.getText().replace(" ", "").length() > 0) {
         cont =1;
         FileWriter arq = null; 
        String path = new java.io.File("").getAbsolutePath()+File.separator+"test";
@@ -194,6 +195,12 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         verificaStatus(false);
         }
         JOptionPane.showMessageDialog(null,"Há problemas nos registradores e labels.Para compilar novamente reabra a aplicação ", "Controle de Execução", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if ((arqName.getText().replace(" ", "").length() > 0)){
+            JOptionPane.showMessageDialog(null, "insira algum código", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Dê um nome ao arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
