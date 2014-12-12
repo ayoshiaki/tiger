@@ -1,0 +1,4 @@
+if( 2 = 2 ) then 
+    printi(1) 
+else 
+    printi(0)

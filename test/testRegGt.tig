@@ -1,1 +1,0 @@
-if 3 > 3 then printi(1) else printi(2)

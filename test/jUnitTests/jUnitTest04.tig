@@ -1,0 +1,6 @@
+let
+    var x := 2
+    var y := 5
+in 
+    printi(x+y)
+end

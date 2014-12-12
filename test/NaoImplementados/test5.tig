@@ -1,4 +1,4 @@
-/* define valid recursive types */
+ define valid recursive types */
 let
 /* define a list */
 type intlist = {hd: int, tl: intlist} 
