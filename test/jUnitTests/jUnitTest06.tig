@@ -1,0 +1,9 @@
+let 
+    var x := 2
+    var y := 3
+in
+    if ( x = y ) then
+        printi(1)
+    else
+        printi(0)
+end

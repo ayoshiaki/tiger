@@ -1,4 +1,0 @@
-let var x:=1.1
-in 
-	printfloat(x)
-end

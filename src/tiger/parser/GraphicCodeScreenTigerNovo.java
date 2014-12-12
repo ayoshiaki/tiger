@@ -193,7 +193,9 @@ public class GraphicCodeScreenTigerNovo extends javax.swing.JInternalFrame {
         if(cont ==1){
         verificaStatus(false);
         }
-        JOptionPane.showMessageDialog(null,"Há problemas nos registradores e labels.Para compilar novamente reabra a aplicação ", "Controle de Execução", JOptionPane.INFORMATION_MESSAGE);
+        int resp = JOptionPane.showConfirmDialog(null,"Há problemas nos registradores e labels.Para compilar novamente reabra a aplicação. Deseja fechar a aplicação?", "Controle de Execução", JOptionPane.INFORMATION_MESSAGE);
+        if ( resp == 0 )
+           System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

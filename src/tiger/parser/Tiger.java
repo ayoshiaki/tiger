@@ -147,7 +147,6 @@ public class Tiger {
                 Temp.setCount(0);
 
                 SemantVisitor semantic = new SemantVisitor();
-              
                 Frag frags = semantic.transProg(parser.tree);
                 Exp tree = parser.tree;
                 StringWriter arvabs=new StringWriter();
