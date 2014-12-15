@@ -1,8 +1,6 @@
 package tiger.parser;
 
 import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
@@ -46,7 +44,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
     
     GraphicCodeScreenTigerNovo g = new GraphicCodeScreenTigerNovo();
-    Teste t = new Teste();
+    TesteGramatica t = new TesteGramatica();
     int var;
 
     public FormPrincipal() {
