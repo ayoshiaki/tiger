@@ -68,7 +68,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icones/add.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#xc1;rvore Intermedi&#xe1;ria(Antes da canoniza&#xe7;&#xe3;o)"/>
+                <Property name="text" type="java.lang.String" value="&#xc1;rvore Intermedi&#xe1;ria(Antes da Canonicaliza&#xe7;&#xe3;o)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
@@ -82,7 +82,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Icones/add.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#xc1;rvore Intermedi&#xe1;ria(Depois da canoniza&#xe7;&#xe3;o)"/>
+                <Property name="text" type="java.lang.String" value="&#xc1;rvore Intermedi&#xe1;ria(Depois da Canonicaliza&#xe7;&#xe3;o)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>

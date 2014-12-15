@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="787" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -85,7 +85,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="482" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="484" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
@@ -110,7 +110,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Perpetua Titling MT" size="24" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#xc1;RVORE INTERMEDI&#xc1;RIA (Depois da Canoniza&#xe7;&#xe3;o)"/>
+            <Property name="text" type="java.lang.String" value="&#xc1;RVORE INTERMEDI&#xc1;RIA (Depois da Canonicaliza&#xe7;&#xe3;o)"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
