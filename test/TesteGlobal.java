@@ -47,9 +47,9 @@ public class TesteGlobal {
     public void tearDown() {
     }
 
-    //Testes semanticos 
+
     @Test
-    public void test20(){
+    public void ErrosTestes20_semantico(){
         TigerLexer lex;
       
         try {
@@ -59,16 +59,32 @@ public class TesteGlobal {
             parser.prog();
             SemantVisitor visitor = new SemantVisitor ();
             Frag frag = visitor.transProg(parser.tree);
-            //System.err.println("Quantidade de erros semanticos no test20: "+ visitor.getNumberOfSemanticErrors());
+            //Deveria possuir erros semânticos.
             assertTrue(visitor.getNumberOfSemanticErrors()>=1);
         } catch (IOException ex) {
             Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    //testes sintaticos
     @Test
-    public void testeSintatico(){
+    public void ErrosTestes20_sintatico(){
+        TigerLexer lex;
+      
+        try {
+            lex = new TigerLexer(new ANTLRFileStream("test/ErrosTestes/test20.tig","UTF8"));
+            CommonTokenStream tokens= new CommonTokenStream(lex);
+            TigerParser parser= new TigerParser(tokens);
+            parser.prog();
+            //Não deveria possuir erros sintáticos
+            assertTrue(parser.getNumberOfSyntaxErrors()==0);
+        } catch (IOException ex) {
+            Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //TESTES SINTÁTICOS
+    @Test
+    public void ErrosTestesSintatico(){
         TigerLexer lex;
         
         try {
@@ -242,7 +258,46 @@ public class TesteGlobal {
          } catch (IOException ex) {
              Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
          }
-    }
-    
+                            }
+         
+         /* Teste automático do arquivo test16, o qual possui um erro semantico.
+            Teste para erros sintáticos*/
+     @Test
+    public void ErrosTestes16_sintatico(){
+         TigerLexer lex;
+         try {
+             lex = new TigerLexer(new ANTLRFileStream("test/ErrosTestes/test16.tig", "UTF8"));
+             CommonTokenStream tokens = new CommonTokenStream(lex);
+             TigerParser parser = new TigerParser(tokens);
+             SemantVisitor visitor = new SemantVisitor();
+             parser.prog();
+             
+             //Testa para os erros sintáticos(não deveria acusar erros).
+             boolean resp = (parser.getNumberOfSyntaxErrors() == 0);
+             assertFalse(resp);
+             
+         } catch (IOException ex) {
+             Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
+         }
+                            }
+            /* Teste automático do arquivo test16, o qual possui um erro semântico.
+            Teste para erros semânticos */
+    @Test
+    public void ErrosTestes16_semantico(){
+         TigerLexer lex;
+         try {
+             lex = new TigerLexer(new ANTLRFileStream("test/ErrosTestes/test16.tig", "UTF8"));
+             CommonTokenStream tokens = new CommonTokenStream(lex);
+             TigerParser parser = new TigerParser(tokens);
+             parser.prog();
+             SemantVisitor visitor = new SemantVisitor ();
+             Frag frag = visitor.transProg(parser.tree);
+             //Testa para os erros semânticos(deveria acusar erro).
+             assertTrue(visitor.getNumberOfSemanticErrors()>=1);
+             
+         } catch (IOException ex) {
+             Logger.getLogger(TesteGlobal.class.getName()).log(Level.SEVERE, null, ex);
+         }
+                            }
     
 }
