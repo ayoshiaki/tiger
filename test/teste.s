@@ -17,7 +17,8 @@ sw $s8,-40+t_main_framesize($sp)
 L1:
 addu $t0,$sp,t_main_framesize
 sw $a0,0($t0)
-addi $t0,$0,2
+addi $t0,$0,1
+addi $t0,$t0,1
 add $v0,$t0,$0
 j L0
 L0:

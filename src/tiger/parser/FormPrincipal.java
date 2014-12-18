@@ -1,6 +1,19 @@
 package tiger.parser;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
@@ -73,8 +86,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -172,6 +190,28 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem8);
 
+        jMenu5.setText("Exportar todas as árvores");
+
+        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem11.setText("Para PDF");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem11);
+
+        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem12.setText("Para TXT");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem12);
+
+        jMenu3.add(jMenu5);
+
         jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Opções");
@@ -187,6 +227,19 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("Ajuda");
+
+        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuItem10.setText("Tutorial");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem10);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -271,6 +324,61 @@ public class FormPrincipal extends javax.swing.JFrame {
         //jMenu1.setEnabled(false);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        Tutorial tt = new Tutorial();
+        tt.setVisible(true);
+        minimizarTodosInternalFrames();
+        jDesktopPane1.add(tt);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+    Document document = new Document();
+            try {
+                JFileChooser saveFile = new JFileChooser();
+                if (saveFile.showSaveDialog(null) == 0) {
+
+                    File arquivo = saveFile.getSelectedFile();
+                    System.out.println(arquivo.getPath());
+                    PdfWriter.getInstance(document, new FileOutputStream(arquivo.getPath() + ".pdf"));
+                    document.open();
+                    document.add(new Paragraph(astTxt));
+                    document.add(new Paragraph(" "));
+                    document.add(new Paragraph(ai1Text));
+                    document.add(new Paragraph(" "));
+                    document.add(new Paragraph(ai2Text));
+                    document.add(new Paragraph(" "));
+                    document.add(new Paragraph(bbText));
+                    document.add(new Paragraph(" "));
+                    document.add(new Paragraph(inText));
+                    document.close();
+                }
+            } catch (DocumentException de) {
+                System.err.println(de.getMessage());
+            } catch (IOException de) {
+                System.err.println(de.getMessage());
+            }
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+       Scanner ler = new Scanner(System.in);
+            JFileChooser save = new JFileChooser();
+            String caminho = null;
+            if (save.showSaveDialog(null) == 0) {
+                File arquivo = save.getSelectedFile();
+                caminho = arquivo.getPath();
+                FileWriter arq;
+                try {
+                    arq = new FileWriter(caminho + ".txt");
+                    PrintWriter gravarArq = new PrintWriter(arq);
+                    gravarArq.printf(astTxt + "\r\n \r\n" + ai1Text + "\r\n \r\n" + ai2Text + "\r\n \r\n" + bbText+ "\r\n \r\n" + inText);
+                    arq.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(ArvoreIntermediaria1.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,8 +418,13 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

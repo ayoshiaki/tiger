@@ -70,6 +70,7 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("TigerIDE");
+        setVisible(true);
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setToolTipText("");
@@ -136,7 +137,7 @@ public class ArvoreIntermediaria1 extends javax.swing.JInternalFrame {
                         .addComponent(jButton2)
                         .addGap(52, 52, 52)
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
